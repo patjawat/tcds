@@ -436,10 +436,14 @@ class PatientHelper extends Component
     $Client = new JsonRpc\Client($url);
     $success = false;
     $success = $Client->call('getByHn', [$hn]);
-    $data =  $Client->result;
+    // $data =  $Client->result;
     //นีับจำนวนการแพร้ยา
+    if($Client->result){
+    $data = $Client->result;
     \Yii::$app->session->set('CountDrugAllergy', count($data));
-    return $data;
+    }else{
+        return '';
+    }
   }
 
   public static function getCurrentCountDrugAllergy()

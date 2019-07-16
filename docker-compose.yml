@@ -19,7 +19,7 @@ services:
       - ./docker/mariadb/data/:/var/lib/mysql
 
     ports:
-      - 3306:3306
+      - 3366:3306
     environment:
       - TZ=Asia/Bangkok
       - MYSQL_ROOT_PASSWORD=docker

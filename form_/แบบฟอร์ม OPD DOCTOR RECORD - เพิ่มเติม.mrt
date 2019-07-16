@@ -1,0 +1,1701 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="0" />
+    <DataSources isList="true" count="0" />
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Resources isList="true" count="0" />
+    <Variables isList="true" count="0" />
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <Key>c02a1b52c8c845a6b40e2845fe5d8005</Key>
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="2" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="91">
+        <Text84 Ref="3" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0.8,1,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>b9a95809111d4cd894603d7fe0ce5a02</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text84</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>NAME</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text84>
+        <Text99 Ref="4" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>6,0.8,0.6,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>ed50d669638249bb8db97b070bd79f1c</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text99</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>HN</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text99>
+        <Text100 Ref="5" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>9.4,0.8,0.6,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>0ca091602ef34c50a39a36a0d27b3162</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text100</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>SEX</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text100>
+        <Text101 Ref="6" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>10.8,0.8,0.6,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>8376c7b2739c429ea7dfcb14a39d9589</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text101</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>AGE</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text101>
+        <Text102 Ref="7" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>12.8,0.8,1.6,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>baa0e9c3d1064fffb0e223fbe3000668</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text102</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>BIRTH DATE</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text102>
+        <Text103 Ref="8" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>15.8,0.8,0.6,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>381ab4c110964729ba58ce2b9a408d57</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text103</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>VN</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text103>
+        <Text104 Ref="9" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,1.4,1,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>03d4251fc27c49cca88cc97a6613b221</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text104</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>DATE</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text104>
+        <Text105 Ref="10" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>2.8,1.4,1,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>625e0c1c30ea4506a5a60ab3c9726ce7</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text105</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>ROOM</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text105>
+        <Text106 Ref="11" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>4.8,1.4,1.6,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>da1acb5b83d747ffb120fa1941d545b6</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text106</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>PHYSICIAN</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text106>
+        <Text107 Ref="12" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>10.4,1.4,3.2,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>2623c4184fab4ff8bb5156b7085f24f2</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text107</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>ATTENDING PHYSICIAN</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text107>
+        <Text108 Ref="13" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>6.6,0,3.2,0.6</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,16,Bold</Font>
+          <Guid>e978e53a291f426692fe2946e059f324</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text108</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>DOCTOR RECORD</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text108>
+        <Image3 Ref="14" type="Image" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,0,3.6,0.9</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Guid>a40dbfcefe7b4c3389711fea1d6588c2</Guid>
+          <ImageBytes>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
+XywwOgAAAABJRU5ErkJggg==</ImageBytes>
+          <Margins>0,0,0,0</Margins>
+          <Name>Image3</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Stretch>True</Stretch>
+        </Image3>
+        <Text109 Ref="15" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>6.6,23.8,4.6,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>73edabba37204214bedd468c8810eb70</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text109</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>Diagnosis / Impression / ICD Code</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text109>
+        <Text110 Ref="16" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,24.4,0.4,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>8158c5079eae48df833d20bddc6eba4a</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text110</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>1.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text110>
+        <Text111 Ref="17" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>8.6,24.4,0.4,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>0c6ffe4102464cca9301f55971faab89</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text111</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>5.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text111>
+        <Text112 Ref="18" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,25,0.4,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>8d1340c81c48424ea018cc65bb33e275</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text112</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>2.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text112>
+        <Text113 Ref="19" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,25.6,0.4,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>d94d6fbac6cc414c8f2b9653fa21759a</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text113</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>3.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text113>
+        <Text114 Ref="20" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,26.2,0.4,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>a647ebeba4474019ae7c170879be89a2</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text114</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>4.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text114>
+        <Text115 Ref="21" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>8.6,25,0.4,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>0062623cc7684d08881e447bd6b44ec0</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text115</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>6.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text115>
+        <Text116 Ref="22" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>8.6,25.6,0.4,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>8fd12fdf58ad4e4c9180600ff8443097</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text116</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>7.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text116>
+        <Text117 Ref="23" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>8.6,26.2,0.4,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>8fffd30ecf394f18b1e9253abf5b196e</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text117</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>8.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text117>
+        <Text118 Ref="24" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,26.2,0.4,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>e2579373cd4546948db0732152d1dba9</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text118</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>4.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text118>
+        <Text119 Ref="25" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>0,27,3,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>e228cd455eea4a67b32b00c9af87c0bb</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text119</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>Physician's Signature</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text119>
+        <Text120 Ref="26" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>8.4,27,5.6,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,12,Bold</Font>
+          <Guid>ae87f344103d45c6909ae1d01f3f8411</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text120</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>MD.(                                                 )</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text120>
+        <Text121 Ref="27" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>16.2,27.6,0.8,0.4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>TH Sarabun New,8</Font>
+          <Guid>57b9369680f64e238be91521c810df08</Guid>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text121</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Text>PAGE  </Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text121>
+        <BarCode3 Ref="28" type="Stimulsoft.Report.BarCodes.StiBarCode" isKey="true">
+          <AutoScale>True</AutoScale>
+          <BackColor>White</BackColor>
+          <BarCodeType Ref="29" type="Stimulsoft.Report.BarCodes.StiQRCodeBarCodeType" isKey="true" />
+          <ClientRectangle>15.2,2.2,1.8,1.8</ClientRectangle>
+          <Code>12345678901</Code>
+          <Conditions isList="true" count="0" />
+          <Font>Arial,8,Bold,Pixel</Font>
+          <ForeColor>Black</ForeColor>
+          <Guid>c8d502ec5acd407b9958e22e99172c5a</Guid>
+          <Name>BarCode3</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+        </BarCode3>
+        <HorizontalLinePrimitive134 Ref="30" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0.8,1.2,5.2,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="31" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>2ca5b321730840c98718b209f1c227e2</Guid>
+          <Name>HorizontalLinePrimitive134</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="32" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive134>
+        <HorizontalLinePrimitive135 Ref="33" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>6.4,1.2,3,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="34" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>7e1a802d489245c7b94324c2bdb46e71</Guid>
+          <Name>HorizontalLinePrimitive135</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="35" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive135>
+        <HorizontalLinePrimitive136 Ref="36" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>10,1.2,0.8,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="37" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>e66c63e60a6c46aaa2d163128d3d12f1</Guid>
+          <Name>HorizontalLinePrimitive136</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="38" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive136>
+        <HorizontalLinePrimitive137 Ref="39" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>11.4,1.2,1.4,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="40" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>480fdaaa0921489895f17d88ba8e2c59</Guid>
+          <Name>HorizontalLinePrimitive137</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="41" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive137>
+        <HorizontalLinePrimitive138 Ref="42" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>14.4,1.2,1.4,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="43" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>b35c5cc5dcc44ecd8b00f2b9af36ae8c</Guid>
+          <Name>HorizontalLinePrimitive138</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="44" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive138>
+        <HorizontalLinePrimitive139 Ref="45" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>16.2,1.2,0.8,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="46" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>ef3bf887ed84485d945da5efc7cfd495</Guid>
+          <Name>HorizontalLinePrimitive139</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="47" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive139>
+        <HorizontalLinePrimitive140 Ref="48" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0.8,1.8,2,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="49" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>189f01e669ab4729b1e1fa319d385bdf</Guid>
+          <Name>HorizontalLinePrimitive140</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="50" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive140>
+        <HorizontalLinePrimitive141 Ref="51" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>3.8,1.8,1,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="52" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>a2c1f00efa464bd29093721801c6bb41</Guid>
+          <Name>HorizontalLinePrimitive141</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="53" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive141>
+        <HorizontalLinePrimitive142 Ref="54" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>6.4,1.8,4,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="55" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>e310f5773bab480a8e0e6c5a90ecf2eb</Guid>
+          <Name>HorizontalLinePrimitive142</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="56" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive142>
+        <HorizontalLinePrimitive143 Ref="57" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>13.6,1.8,3.4,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="58" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>ac8dbfbfcc7d492384afed1328fb9d9e</Guid>
+          <Name>HorizontalLinePrimitive143</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="59" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive143>
+        <HorizontalLinePrimitive144 Ref="60" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,3.2,15.2,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="61" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>30c82b22263045659ccaf87b0e30ad77</Guid>
+          <Name>HorizontalLinePrimitive144</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="62" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive144>
+        <HorizontalLinePrimitive145 Ref="63" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,3.8,15.2,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="64" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>686f2eb78c63442cb19fe6a21142561c</Guid>
+          <Name>HorizontalLinePrimitive145</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="65" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive145>
+        <HorizontalLinePrimitive146 Ref="66" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,4.4,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="67" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>47cbc711a20947cc88590f919818eca6</Guid>
+          <Name>HorizontalLinePrimitive146</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="68" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive146>
+        <HorizontalLinePrimitive147 Ref="69" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,5,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="70" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>2d82be89fa3e4cacb31752dd431c271e</Guid>
+          <Name>HorizontalLinePrimitive147</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="71" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive147>
+        <HorizontalLinePrimitive148 Ref="72" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,5.6,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="73" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>f9c2e8b41df544729c2d9fd4f3032214</Guid>
+          <Name>HorizontalLinePrimitive148</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="74" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive148>
+        <HorizontalLinePrimitive149 Ref="75" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,6.2,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="76" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>c6a685456406408cbee8766b5af74366</Guid>
+          <Name>HorizontalLinePrimitive149</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="77" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive149>
+        <HorizontalLinePrimitive150 Ref="78" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,6.8,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="79" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>03059b958ac24b3aa415a8faae880d61</Guid>
+          <Name>HorizontalLinePrimitive150</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="80" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive150>
+        <HorizontalLinePrimitive151 Ref="81" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,7.4,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="82" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>f43f7370c0fc4837ad4f6051d9fa067c</Guid>
+          <Name>HorizontalLinePrimitive151</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="83" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive151>
+        <HorizontalLinePrimitive152 Ref="84" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,8,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="85" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>9a04e978e3c54216b7fa23dec48d3160</Guid>
+          <Name>HorizontalLinePrimitive152</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="86" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive152>
+        <HorizontalLinePrimitive153 Ref="87" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,8.6,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="88" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>136b2b49c0d04188a95eeb6ca88ca936</Guid>
+          <Name>HorizontalLinePrimitive153</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="89" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive153>
+        <HorizontalLinePrimitive154 Ref="90" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,9.2,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="91" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>846d8595dbdf4d479bc290ea41b605d0</Guid>
+          <Name>HorizontalLinePrimitive154</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="92" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive154>
+        <HorizontalLinePrimitive155 Ref="93" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,9.8,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="94" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>1a9632363f3445cdaf2dd95c82c4cebb</Guid>
+          <Name>HorizontalLinePrimitive155</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="95" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive155>
+        <HorizontalLinePrimitive156 Ref="96" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,10.4,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="97" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>173d6474bfc8409fb9a733486a54e55c</Guid>
+          <Name>HorizontalLinePrimitive156</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="98" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive156>
+        <HorizontalLinePrimitive157 Ref="99" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,11,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="100" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>d3925b60d7754fc18f870ae9c7045cb2</Guid>
+          <Name>HorizontalLinePrimitive157</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="101" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive157>
+        <HorizontalLinePrimitive158 Ref="102" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,11.6,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="103" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>b69820573355414e96d795efb140e9a9</Guid>
+          <Name>HorizontalLinePrimitive158</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="104" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive158>
+        <HorizontalLinePrimitive159 Ref="105" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,12.2,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="106" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>f6957dcdcdf747dab60bf972df4d9a3a</Guid>
+          <Name>HorizontalLinePrimitive159</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="107" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive159>
+        <HorizontalLinePrimitive160 Ref="108" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,12.8,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="109" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>71f65c3570ed4266b842a1ed17539e2e</Guid>
+          <Name>HorizontalLinePrimitive160</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="110" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive160>
+        <HorizontalLinePrimitive161 Ref="111" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,13.4,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="112" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>f4e4405426894a05b76c40cc760fa01c</Guid>
+          <Name>HorizontalLinePrimitive161</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="113" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive161>
+        <HorizontalLinePrimitive162 Ref="114" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,14,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="115" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>7f961cc45bff4954a292943f76834d57</Guid>
+          <Name>HorizontalLinePrimitive162</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="116" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive162>
+        <HorizontalLinePrimitive163 Ref="117" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,14.6,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="118" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>a5ddc75420a44ee586b5aa75cf8455a4</Guid>
+          <Name>HorizontalLinePrimitive163</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="119" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive163>
+        <HorizontalLinePrimitive164 Ref="120" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,15.2,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="121" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>d2532f50a97f403d8a459f001041849e</Guid>
+          <Name>HorizontalLinePrimitive164</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="122" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive164>
+        <HorizontalLinePrimitive165 Ref="123" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,15.8,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="124" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>7d10093441b74f49a35d531a38d67e4f</Guid>
+          <Name>HorizontalLinePrimitive165</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="125" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive165>
+        <HorizontalLinePrimitive166 Ref="126" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,2.6,15.2,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="127" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>6d462206d6fe48a7ab114376cf41fde7</Guid>
+          <Name>HorizontalLinePrimitive166</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="128" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive166>
+        <HorizontalLinePrimitive167 Ref="129" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>3,27.4,5.4,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="130" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>81d829759fdb4f2a9ead0a8b5d2fa34f</Guid>
+          <Name>HorizontalLinePrimitive167</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="131" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive167>
+        <HorizontalLinePrimitive168 Ref="132" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0.4,24.8,8.2,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="133" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>52ddbfdbff9f4683a72ac028d59e9221</Guid>
+          <Name>HorizontalLinePrimitive168</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="134" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive168>
+        <HorizontalLinePrimitive169 Ref="135" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>9,24.8,8,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="136" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>37d3a65cb1e0481a9f6993d0acb793d2</Guid>
+          <Name>HorizontalLinePrimitive169</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="137" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive169>
+        <HorizontalLinePrimitive170 Ref="138" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0.4,25.4,8.2,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="139" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>344360a657da485e81998b43a6f30cb0</Guid>
+          <Name>HorizontalLinePrimitive170</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="140" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive170>
+        <HorizontalLinePrimitive171 Ref="141" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0.4,26,8.2,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="142" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>e634ff5b7e7d4e47b157304a703940de</Guid>
+          <Name>HorizontalLinePrimitive171</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="143" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive171>
+        <HorizontalLinePrimitive172 Ref="144" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0.4,26.6,8.2,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="145" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>211c5e33d6464defbed04b3d4897329a</Guid>
+          <Name>HorizontalLinePrimitive172</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="146" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive172>
+        <HorizontalLinePrimitive173 Ref="147" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>9,25.4,8,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="148" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>a7a39b512a6a435383ed51eb1489063b</Guid>
+          <Name>HorizontalLinePrimitive173</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="149" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive173>
+        <HorizontalLinePrimitive174 Ref="150" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>9,26,8,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="151" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>4972111055f74fcb8b37ac7292ecffe7</Guid>
+          <Name>HorizontalLinePrimitive174</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="152" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive174>
+        <HorizontalLinePrimitive175 Ref="153" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>9,26.6,8,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="154" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>e3cf160ac92c448697548428378b2a8c</Guid>
+          <Name>HorizontalLinePrimitive175</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="155" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive175>
+        <HorizontalLinePrimitive176 Ref="156" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,24.2,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="157" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>53687d3612c14b5883d3d81db9acca27</Guid>
+          <Name>HorizontalLinePrimitive176</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="158" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </HorizontalLinePrimitive176>
+        <HorizontalLinePrimitive177 Ref="159" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,23.8,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="160" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>29e0bc962b4141af9bf24722fcfc166d</Guid>
+          <Name>HorizontalLinePrimitive177</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="161" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </HorizontalLinePrimitive177>
+        <VerticalLinePrimitive5 Ref="162" type="VerticalLinePrimitive" isKey="true">
+          <ClientRectangle>14.2,26.8,0.0254,0.8</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="163" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>45054ed747fc4c6da998155587c6f141</Guid>
+          <Name>VerticalLinePrimitive5</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="164" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </VerticalLinePrimitive5>
+        <HorizontalLinePrimitive178 Ref="165" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,26.8,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="166" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>2467179fa3f3463da6089e70d9832226</Guid>
+          <Name>HorizontalLinePrimitive178</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="167" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </HorizontalLinePrimitive178>
+        <HorizontalLinePrimitive179 Ref="168" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,16.4,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="169" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>a163c9c0711644d0847cb5781c7aecd5</Guid>
+          <Name>HorizontalLinePrimitive179</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="170" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive179>
+        <HorizontalLinePrimitive180 Ref="171" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,17,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="172" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>5bfb70a4086a43058fb409729a715892</Guid>
+          <Name>HorizontalLinePrimitive180</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="173" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive180>
+        <HorizontalLinePrimitive181 Ref="174" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,17.6,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="175" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>0cf8059f23a54ddc8e31f524b9bfd603</Guid>
+          <Name>HorizontalLinePrimitive181</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="176" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive181>
+        <HorizontalLinePrimitive182 Ref="177" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,18.2,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="178" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>63b54c176deb4e458536c5f9a7709ad3</Guid>
+          <Name>HorizontalLinePrimitive182</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="179" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive182>
+        <HorizontalLinePrimitive183 Ref="180" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,18.8,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="181" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>3da97cfb72ae4d818888ed7b0e360179</Guid>
+          <Name>HorizontalLinePrimitive183</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="182" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive183>
+        <HorizontalLinePrimitive184 Ref="183" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,19.4,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="184" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>33defb93a3e341018e6ad44989c95598</Guid>
+          <Name>HorizontalLinePrimitive184</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="185" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive184>
+        <HorizontalLinePrimitive185 Ref="186" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,20,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="187" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>a9f171a7843f494bb9381b0b0742d41f</Guid>
+          <Name>HorizontalLinePrimitive185</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="188" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive185>
+        <HorizontalLinePrimitive186 Ref="189" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,20.6,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="190" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>0c618b8fcbb4469187e8a5b01e6bb963</Guid>
+          <Name>HorizontalLinePrimitive186</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="191" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive186>
+        <HorizontalLinePrimitive187 Ref="192" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,21.2,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="193" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>05e29f37576b45fdbcf818422544ba92</Guid>
+          <Name>HorizontalLinePrimitive187</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="194" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive187>
+        <HorizontalLinePrimitive188 Ref="195" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,21.8,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="196" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>d2dbc3bc8ee6462da26a771e00a38900</Guid>
+          <Name>HorizontalLinePrimitive188</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="197" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive188>
+        <HorizontalLinePrimitive189 Ref="198" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,22.4,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="199" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>984e1b9fc9364cbb927e0706599184d2</Guid>
+          <Name>HorizontalLinePrimitive189</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="200" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive189>
+        <HorizontalLinePrimitive190 Ref="201" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,23,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="202" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>476369db10b3497ca052a1d19d705c0f</Guid>
+          <Name>HorizontalLinePrimitive190</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="203" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive190>
+        <HorizontalLinePrimitive191 Ref="204" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,23.6,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="205" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>f4814686e1414dc7a2be87f18b3a7325</Guid>
+          <Name>HorizontalLinePrimitive191</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="206" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+          <Style>Dot</Style>
+        </HorizontalLinePrimitive191>
+        <HorizontalLinePrimitive192 Ref="207" type="HorizontalLinePrimitive" isKey="true">
+          <ClientRectangle>0,2,17,0.0254</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <EndCap Ref="208" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </EndCap>
+          <Guid>1e71547625fe4065843d7a039bba7f0d</Guid>
+          <Name>HorizontalLinePrimitive192</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+          <StartCap Ref="209" type="Cap" isKey="true">
+            <Color>Black</Color>
+          </StartCap>
+        </HorizontalLinePrimitive192>
+        <RectanglePrimitive4 Ref="210" type="RectanglePrimitive" isKey="true">
+          <ClientRectangle>0,0,17,27.6</ClientRectangle>
+          <Color>Black</Color>
+          <Conditions isList="true" count="0" />
+          <Guid>715b95cf74d841ccbff3ceabb3ded8cd</Guid>
+          <Name>RectanglePrimitive4</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <Size>0.5</Size>
+        </RectanglePrimitive4>
+        <StartPointPrimitive16 Ref="211" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+          <ClientRectangle>14.2,26.8,0,0</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Name>StartPointPrimitive16</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <ReferenceToGuid>45054ed747fc4c6da998155587c6f141</ReferenceToGuid>
+        </StartPointPrimitive16>
+        <EndPointPrimitive16 Ref="212" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+          <ClientRectangle>14.2,27.6,0,0</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Name>EndPointPrimitive16</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <ReferenceToGuid>45054ed747fc4c6da998155587c6f141</ReferenceToGuid>
+        </EndPointPrimitive16>
+        <StartPointPrimitive17 Ref="213" type="Stimulsoft.Report.Components.StiStartPointPrimitive" isKey="true">
+          <ClientRectangle>0,0,0,0</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Name>StartPointPrimitive17</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <ReferenceToGuid>715b95cf74d841ccbff3ceabb3ded8cd</ReferenceToGuid>
+        </StartPointPrimitive17>
+        <EndPointPrimitive17 Ref="214" type="Stimulsoft.Report.Components.StiEndPointPrimitive" isKey="true">
+          <ClientRectangle>17,27.6,0,0</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Name>EndPointPrimitive17</Name>
+          <Page isRef="2" />
+          <Parent isRef="2" />
+          <ReferenceToGuid>715b95cf74d841ccbff3ceabb3ded8cd</ReferenceToGuid>
+        </EndPointPrimitive17>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>91b2e8782bbe4938ad00f4394bea10c0</Guid>
+      <Margins>3,1,1,1</Margins>
+      <Name>Page1</Name>
+      <PageHeight>29.7</PageHeight>
+      <PageWidth>21</PageWidth>
+      <Report isRef="0" />
+    </Page1>
+  </Pages>
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>4/25/2019 5:51:48 PM</ReportChanged>
+  <ReportCreated>4/3/2019 9:40:17 AM</ReportCreated>
+  <ReportFile>\\samba\administrator\it's Documents\clinical record\แบบฟอร์ม OPD DOCTOR RECORD - เพิ่มเติม.mrt</ReportFile>
+  <ReportGuid>f09e1e601ebb45b7a135df4bbe1323c2</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Centimeters</ReportUnit>
+  <ReportVersion>2019.2.3.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

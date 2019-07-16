@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "waitress_server.py", line 3, in <module>
+    serve(predict.app, host='0.0.0.0', port=8080)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/waitress/__init__.py", line 11, in serve
+    server = _server(app, **kw)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/waitress/server.py", line 84, in create_server
+    sockinfo=sockinfo)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/waitress/server.py", line 213, in __init__
+    self.bind_server_socket()
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/waitress/server.py", line 344, in bind_server_socket
+    self.bind(sockaddr)
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/waitress/wasyncore.py", line 369, in bind
+    return self.socket.bind(addr)
+OSError: [Errno 48] Address already in use

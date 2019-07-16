@@ -1,0 +1,27 @@
+/* body {
+    padding-top: 50px;
+} */
+li {cursor: pointer}
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
+.navbar {
+    color: #777777;
+    background-color: #039285;
+    box-shadow: 0px 2px 35px 0 rgba(154, 161, 171, 0.28)!important;
+    border-color: #08080800!important;
+}
+.navbar-inverse .navbar-brand {
+    color: #fefeff;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #50686f!important;
+    
+}
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover {
+    color: #FFFFFF;
+    background-color: #304FFE;
+    
+}
+

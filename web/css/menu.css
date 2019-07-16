@@ -1,0 +1,20 @@
+.on-active{
+    /* background-color:#858d94;
+    color: black; */
+    font-weight: bold;
+    background-color: #eeeeee;
+    color: #515f6f;
+}
+
+
+.navbar-default .navbar-nav > li > a:active {
+    color:#000;
+}
+.non-active{
+    
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #333;
+    background-color: #cacaca;
+}

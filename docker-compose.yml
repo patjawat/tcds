@@ -1,0 +1,62 @@
+version: '2'
+services:
+  php:
+    image: yiisoftware/yii2-php:7.1-apache
+    volumes:
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      - ./:/app:delegated
+    ports:
+      - '81:80'
+
+  mariaDB:
+    image: mariadb
+    hostname: mariadb
+    container_name: mariadb
+    restart: always
+    volumes:
+      - ./docker/mariadb/initdb/:/docker-entrypoint-initdb.d
+      - ./docker/mariadb/conf.d:/etc/mysql/conf.d
+      - ./docker/mariadb/data/:/var/lib/mysql
+
+    ports:
+      - 3306:3306
+    environment:
+      - TZ=Asia/Bangkok
+      - MYSQL_ROOT_PASSWORD=docker
+      - MYSQL_USER=sa
+      - MYSQL_PASSWORD=sa
+       ## Use % to allow remote access to all addresses. 
+      ## Generally not recommended by some people to allow for root.
+      - MYSQL_ROOT_HOST=% 
+
+  mysql8.0:
+    image: mysql:8.0
+    container_name: mysql8.0
+    ports:
+      - 3380:3306
+    environment:
+      - MYSQL_DATABASE=work
+      - MYSQL_USER=worker
+      - MYSQL_PASSWORD=worker
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=UTC
+    volumes:
+      - ./docker/mysql/mysql8.0/conf.d:/etc/mysql/conf.d:ro
+      - ./docker/mysql/mysql8.0/logs:/var/log/mysql:rw
+      # - ./docker/mysql/mysql8.0/initdb.d:/docker-entrypoint-initdb.d:ro
+      - ./docker/mysql/common:/app:ro
+      - ./docker/mysql/mysql8.0/data/:/var/lib/mysql
+  
+  phpmyadmin_mariadb:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mariaDB:db
+    ports:
+      - 8200:80
+
+  phpmyadmin_mysql:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql8.0:db
+    ports:
+      - 8300:80

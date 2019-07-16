@@ -1,0 +1,113 @@
+{
+    "name": "yiisoft/yii2-app-basic",
+    "description": "Yii 2 Basic Project Template",
+    "keywords": ["yii2", "framework", "basic", "project template"],
+    "homepage": "http://www.yiiframework.com/",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
+        "forum": "http://www.yiiframework.com/forum/",
+        "wiki": "http://www.yiiframework.com/wiki/",
+        "irc": "irc://irc.freenode.net/yii",
+        "source": "https://github.com/yiisoft/yii2"
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "~2.0.14",
+        "yiisoft/yii2-bootstrap": "~2.0.0",
+        "yiisoft/yii2-swiftmailer": "~2.0.0",
+        "tigrov/yii2-pgsql": "^1.3",
+        "yii2mod/yii2-bootstrap-notify": "*",
+        "yii2mod/yii2-editable": "*",
+        "2amigos/yii2-gallery-widget": "~1.0",
+        "phpnt/yii2-icheck": "^0.0.2",
+        "kartik-v/yii2-widgets": "*",
+        "kartik-v/yii2-detail-view": "*",
+        "kartik-v/yii2-checkbox-x": "*",
+        "kartik-v/yii2-tabs-x": "dev-master",
+        "kartik-v/yii2-datecontrol": "dev-master",
+        "dektrium/yii2-user": "^0.9.14",
+        "dektrium/yii2-rbac": "1.0.0-alpha@dev",
+        "mdmsoft/yii2-admin": "~2.0",
+        "philippfrenzel/yii2fullcalendar": "*",
+        "kartik-v/yii2-widget-activeform": "dev-master",
+        "kartik-v/yii2-krajee-base": "dev-master",
+        "kartik-v/yii2-grid": "dev-master",
+        "kartik-v/yii2-widget-select2": "dev-master",
+        "kartik-v/yii2-widget-datepicker": "dev-master",
+        "kartik-v/yii2-editable": "*",
+        "kartik-v/yii2-report": "@dev",
+        "jsonrpc/jsonrpc": "v1.0.3",
+        "karatae99/yii2-date-picker-thai-widget": "~1.0",
+        "lesha724/yii2-document-viewer": "*",
+        "johnitvn/yii2-ajaxcrud": "*",
+        "defyma/yii2-datatable-manual-serverside": "v1.*.*",
+        "fedemotta/yii2-widget-datatables": "*",
+        "nullref/yii2-datatables": "~1.0",
+        "loveorigami/yii2-modal-ajax": "@dev",
+        "cenotia/yii2-remote-modal":"*",
+        "mihaildev/yii2-ckeditor": "*",
+        "2amigos/yii2-ckeditor-widget" : "~2.1",
+        "emidia/yii2-jsonify": "*",
+        "liyunfang/yii2-widget-linkpager": "*",
+        "lavrentiev/yii2-toastr": "^2.0",
+        "phpoffice/phpword": "^0.16.0",
+        "kartik-v/yii2-mpdf": "^1.0",
+        "softark/yii2-dual-listbox": "dev-master",
+        "miloschuman/yii2-highcharts-widget": "^7.0",
+        "2amigos/yii2-chartjs-widget": "~2.0",
+        "yiisoft/yii2-bootstrap4": "@dev",
+        "kartik-v/yii2-bootstrap4-dropdown": "@dev"
+
+
+
+    },
+    "require-dev": {
+        "yiisoft/yii2-debug": "~2.0.0",
+        "yiisoft/yii2-gii": "~2.0.0",
+        "yiisoft/yii2-faker": "~2.0.0",
+
+        "codeception/base": "^2.2.3",
+        "codeception/verify": "~0.3.1",
+        "codeception/specify": "~0.4.3"
+    },
+    "config": {
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enabled": false
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "yii\\composer\\Installer::postInstall"
+        ],
+        "post-create-project-cmd": [
+            "yii\\composer\\Installer::postCreateProject",
+            "yii\\composer\\Installer::postInstall"
+        ]
+    },
+    "extra": {
+        "yii\\composer\\Installer::postCreateProject": {
+            "setPermission": [
+                {
+                    "runtime": "0777",
+                    "web/assets": "0777",
+                    "yii": "0755"
+                }
+            ]
+        },
+        "yii\\composer\\Installer::postInstall": {
+            "generateCookieValidationKey": [
+                "config/web.php"
+            ]
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}

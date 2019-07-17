@@ -10,10 +10,6 @@ import argparse
 import cv2
 import datetime
 from PIL import Image
-# import psycopg2
-import mysql.connector
-from mysql.connector import Error
-from mysql.connector import errorcode
 import simplejson as json
 import requests
 app = Flask(__name__)

@@ -1,5 +1,5 @@
 #apt-get update 
-apt-get  install  apache2  php7.2 phpmyadmin mariadb-server \
+apt-get  install  apache2  php7.2 phpmyadmin mariadb-server cur \
 docker.io  docker-compose -y 
 apt install composer -y
 apt install php7.2-xml php7.2-mbstring -y

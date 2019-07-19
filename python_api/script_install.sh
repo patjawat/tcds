@@ -1,6 +1,5 @@
-#apt-get update 
-apt-get  install  apache2  php7.2 phpmyadmin mariadb-server libapache2-mod-wsgi-py3 python-dev  \
-docker.io  docker-compose -y 
+apt-get update 
+apt-get  install  apache2  php7.2 phpmyadmin mariadb-server libapache2-mod-wsgi-py3 python-dev docker.io  docker-compose -y 
 apt install composer -y
 apt install php7.2-xml php7.2-mbstring -y
 apt-get install libzbar0 libapache2-mod-wsgi-py3 -y 

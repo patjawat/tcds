@@ -30,7 +30,7 @@ services:
       - MYSQL_ROOT_HOST=% 
 
 
-  mysql8.0:
+  mysql80:
     image: mysql:8.0
     container_name: mysql8.0
     ports:
@@ -62,6 +62,6 @@ services:
   phpmyadmin_mysql:
     image: phpmyadmin/phpmyadmin
     links:
-      - mysql8.0:db
+      - mysql80:db
     ports:
       - 8300:80

@@ -59,13 +59,13 @@ def Home():
     return "<h1 style='text-align:center'>Python App API</h1>"
 
 
-@app.route("/barcode-him", methods=["GET"])
+@app.route("/barcode-him", methods=["POST"])
 def predict():
-	#result = 0
-	#if request.method == "POST":    		
-	#	hn = request.form["hn"]
-	#	ConvertFile(hn)
-	#	# return hn
+	result = 0
+	if request.method == "POST":    		
+		hn = request.form["hn"]
+		ConvertFile(hn)
+		# return hn
 	return jsonify(
 		prediction=hn
 	),201
@@ -73,14 +73,14 @@ def predict():
 			# return input_value
 
 
-# @app.route("/document-qr", methods=["GET"])
-# def documentQR():
-# 	DATASET_PATH = "../web/REG_JPG/460028/01"
-# 	root_dir = Path(DATASET_PATH)
-# 	items = root_dir.iterdir()
-# 	for item in items:
-# 		if item.is_dir():
-# 			''
+@app.route("/document-qr", methods=["GET"])
+def documentQR():
+	DATASET_PATH = "../web/REG_JPG/460028/01"
+	root_dir = Path(DATASET_PATH)
+	items = root_dir.iterdir()
+	for item in items:
+		if item.is_dir():
+			''
 			# print(items)
 
 	# return jsonify(
@@ -108,44 +108,78 @@ def ConvertFile(hn):
 
 			for sub_dir in item.iterdir():
 				# sub_dir =  REG/1000053/01/6103150045-2.TIF
-                            file = sub_dir.name
-                            file_name = file.split('.')[0] #แยกชื่อไฟล์
-                            file_type = file.split('.')[1] #แยกนามสกุล
+				file = sub_dir.name
+				file_name = file.split('.')[0] #แยกชื่อไฟล์
+				file_type = file.split('.')[1] #แยกนามสกุล
 
-                            source = str(his_directory)+'/'+str(file_name)+".TIF"
-                            disination = str(medico_directory)+'/'+str(file_name)+".TIF"
-                            if(file_type == 'tif'):
-                                    # print(disination)
-                                    # print('tif')
-                                    # image = Image.open(file)
-                                    # print(str(sub_dir)+' => '+ str(medico_directory)+'/'+str(file_name)+'.TIF')
-                                    shutil.copyfile(sub_dir,str(medico_directory)+'/'+str(file_name)+'.TIF')   #คัดลอกจากต้นฉบับมาที่ปลายทาง
-                                    
-                                    image = Image.open(disination)   
-                                    image.convert('L').save(str(medico_directory)+'/'+str(file_name)+'.jpg') #แปลง จาก TIF เป็น jpg
-                                    os.remove(disination)
-                                    # barcode = ReadBarcode(str(medico_directory)+'/'+str(file_name)+'.jpg')
-                                    # InsertDB(hn,item.name,file_name,barcode,file_type)
+				source = str(his_directory)+'/'+str(file_name)+".TIF"
+				disination = str(medico_directory)+'/'+str(file_name)+".TIF"
+				if(file_type == 'tif'):
+					# print(sub_dir)
+						# image = Image.open(file)
+						# print(str(sub_dir)+' => '+ str(medico_directory)+'/'+str(file_name)+'.TIF')
+						shutil.copyfile(sub_dir,str(medico_directory)+'/'+str(file_name)+'.TIF')   #คัดลอกจากต้นฉบับมาที่ปลายทาง
+						
+						image = Image.open(source)   
+						image.convert('L').save(str(medico_directory)+'/'+str(file_name)+'.jpg') #แปลง จาก TIF เป็น jpg
+						os.remove(disination)
+						barcode = ReadBarcode(str(medico_directory)+'/'+str(file_name)+'.jpg')
+						InsertDB(hn,item.name,file_name,barcode,file_type)
 
-                                    
+						
 
-                            elif(file_type == 'db'):
-                                            # ถ้าเป็นนามสกุล .db ไม่ต้องทำอะไร
-                                            print('Thumbs.db ===> Not Convert')
-                            elif(file_type == 'TIF'): # ถ้าเป็น .TIF ให้ convert ได้เลย
-                                    image = Image.open(source)   
-                                    image.convert('L').save(str(medico_directory)+'/'+str(file_name)+'.jpg') #แปลง จาก TIF เป็น jpg
-                            
-                            barcode = ReadBarcode(str(medico_directory)+'/'+str(file_name)+'.jpg')
-                            InsertDB(hn,item.name,file_name,barcode,file_type)
-                                    # print(sub_dir.name)
+				elif(file_type == 'db'):
+								# ถ้าเป็นนามสกุล .db ไม่ต้องทำอะไร
+								print('Thumbs.db ===> Not Convert')
+				elif(file_type == 'TIF'): # ถ้าเป็น .TIF ให้ convert ได้เลย
+						image = Image.open(source)   
+						image.convert('L').save(str(medico_directory)+'/'+str(file_name)+'.jpg') #แปลง จาก TIF เป็น jpg
+				
+				barcode = ReadBarcode(str(medico_directory)+'/'+str(file_name)+'.jpg')
+				InsertDB(hn,item.name,file_name,barcode,file_type)
+						# print(sub_dir.name)
 
 
 
 def InsertDB(hn,sub_dir,filename,barcode,type):
 			payload = {'hn':hn,'sub_dir':sub_dir,'filename':filename,'barcode':barcode,'type':type}
-			r = requests.post("http://192.168.1.101:81/index.php?r=api/add-barcode",json=payload)
+			r = requests.post("http://192.168.1.3:81/index.php?r=api/add-barcode",json=payload)
 			print(r.text)
+		# payload = {'hn':hn,'sub_dir':sub_dir,'filename':filename,'barcode':barcode}
+       			
+
+		# try:
+		# 	connection = mysql.connector.connect(host='localhost',
+		# 								database='medicong-dev',
+		# 								user='root',
+		# 								password='docker')
+		# 	cursor = connection.cursor()			
+		# 	sql_select_query = """select * from document where hn = %s AND filename = %s"""
+		# 	cursor.execute(sql_select_query, (hn,filename, ))
+		# 	data = cursor.fetchall()
+		# 	if len(data)==0:
+		# 		print('There is no component named %s'%hn)
+		# 		sql_insert_query = """ INSERT INTO `document`(`hn`, `filename`, `barcode`,`type`,`sub_dir`) VALUES (%s,%s,%s,%s,%s)"""
+		# 		cursor = connection.cursor()
+		# 		value = (str(hn),str(filename),str(barcode),str(type),str(sub_dir))
+		# 		result  = cursor.execute(sql_insert_query,value)
+		# 		connection.commit()
+		# 		print ("Record inserted successfully into python_users table")
+		# 	else:
+		# 		print('Component %s found with rowids %s'%(hn,','.join(map(str, next(zip(*data))))))
+		# 	# print(len(data))
+		# except mysql.connector.Error as error :
+		# 	connection.rollback() #rollback if any exception occured
+		# 	print("Failed inserting record into python_users table {}".format(error))
+		# finally:
+		# 	#closing database connection.
+		# 	if(connection.is_connected()):
+		# 		cursor.close()
+		# 		connection.close()
+		# 		print("MySQL connection is closed")
+
+
+
 
 
 def ReadBarcode(file):

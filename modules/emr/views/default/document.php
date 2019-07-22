@@ -187,6 +187,7 @@ ActiveForm::end();
 $js = <<< JS
 var document_him = localStorage.getItem("document_him");
 var hn  = $('#hn').text()
+var url_convert_him = 'http://192.168.56.101:5000/barcode-him'
 $('.container_loadding').hide();
 
 // ตรวจสอบการโอเอกสารจาก him
@@ -201,7 +202,8 @@ $('.container_loadding').hide();
 // จบ
 $('#api').click(function (e) { 
     e.preventDefault();
-    convertFile($hn);
+    convertFile($hn,url_convert_him);
+    // alert();
     
 });
 
@@ -256,30 +258,6 @@ function loadEmrDocumentQR(){
     });
 }
 
-// function convertFile(hn){
-//     $.ajax({
-//         type: "post",
-//         beforeSend: function () {
-//             // $('#view-document').hide();
-//             $('.container_loadding').show();    
-//         },
-//         url: "http://127.0.0.1:8080/barcode-him",
-//         data: {hn:hn},
-//         // dataType: "่json",
-//         success: function (response) {
-//             if(response.prediction !==""){
-//                 $("#loader").hide();
-//                 // $('#emr-content').show()
-//                 localStorage.setItem("document_him",hn)
-//                loadEmrDocument();
-//                $('.container_loadding').hide();
-//                $('#view-document').show();
-//             }
-//             console.log(response)
-        
-//         }
-//     });
-// }
 
 JS;
 $this->registerJS($js);

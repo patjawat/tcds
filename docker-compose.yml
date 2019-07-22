@@ -15,7 +15,7 @@ services:
     restart: always
     volumes:
       - ./docker/mariadb/initdb/:/docker-entrypoint-initdb.d
-      - ./docker/mariadb/conf.d:/etc/mysql/conf.d
+      # - ./docker/mariadb/conf.d:/etc/mysql/conf.d
       - ./docker/mariadb/data/:/var/lib/mysql
 
     ports:
@@ -28,6 +28,7 @@ services:
        ## Use % to allow remote access to all addresses. 
       ## Generally not recommended by some people to allow for root.
       - MYSQL_ROOT_HOST=% 
+
 
   mysql8.0:
     image: mysql:8.0
@@ -53,6 +54,10 @@ services:
       - mariaDB:db
     ports:
       - 8200:80
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: root
+      PMA_HOST: mariaDB
 
   phpmyadmin_mysql:
     image: phpmyadmin/phpmyadmin

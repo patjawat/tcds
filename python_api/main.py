@@ -59,13 +59,13 @@ def Home():
     return "<h1 style='text-align:center'>Python App API</h1>"
 
 
-@app.route("/barcode-him", methods=["POST"])
+@app.route("/barcode-him", methods=["GET"])
 def predict():
-	result = 0
-	if request.method == "POST":    		
-		hn = request.form["hn"]
-		ConvertFile(hn)
-		# return hn
+	#result = 0
+	#if request.method == "POST":    		
+	#	hn = request.form["hn"]
+	#	ConvertFile(hn)
+	#	# return hn
 	return jsonify(
 		prediction=hn
 	),201
@@ -144,7 +144,7 @@ def ConvertFile(hn):
 
 def InsertDB(hn,sub_dir,filename,barcode,type):
 			payload = {'hn':hn,'sub_dir':sub_dir,'filename':filename,'barcode':barcode,'type':type}
-			r = requests.post("http://192.168.1.113/medicong-dev/web/index.php?r=api/add-barcode",json=payload)
+			r = requests.post("http://192.168.1.101:81/index.php?r=api/add-barcode",json=payload)
 			print(r.text)
 
 

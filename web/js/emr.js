@@ -32,16 +32,16 @@ function loadEmrDocumentQR(){
     });
 }
 
-function convertFile(hn){
+function convertFile(hn,url){
     $.ajax({
         type: "post",
         beforeSend: function () {
             // $('#view-document').hide();
             $('.container_loadding').show();    
         },
-        url: "http://127.0.0.1:8080/barcode-him",
+        url:url,
         data: {hn:hn},
-        // dataType: "่json",
+        dataType: "่json",
         success: function (response) {
             if(response.prediction !==""){
                 $("#loader").hide();

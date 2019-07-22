@@ -1,18 +1,22 @@
+#!/bin/bash
+#!/usr/bin/env python3
 import os
 import sys
 import time
 from pathlib import Path
 import shutil
-from pyzbar import pyzbar
-from pyzbar.pyzbar import decode
-import argparse
-import cv2
-from PIL import Image
-import psycopg2
+# import pyzbar.pyzbar as pyzbar
+# from pyzbar import pyzbar
+# from pyzbar.pyzbar import decode
+# import argparse
+# import cv2
+# from PIL import Image
+# import psycopg2
 hn  = str(sys.argv[1])
-SOURCE_PATH = '/Users/patjawat/dev/scriptsoft/tcds/web/REG_TIF/'+hn
-DISINATION_PATH = '/Users/patjawat/dev/scriptsoft/tcds/web/REG_JPG/' 
+# SOURCE_PATH = '/Users/patjawat/dev/scriptsoft/tcds/web/REG_TIF/'+hn
+# DISINATION_PATH = '/Users/patjawat/dev/scriptsoft/tcds/web/REG_JPG/' 
 
+# print(hn)
 
 # root_dir = Path(SOURCE_PATH)
 # items = root_dir.iterdir()
@@ -70,4 +74,5 @@ DISINATION_PATH = '/Users/patjawat/dev/scriptsoft/tcds/web/REG_JPG/'
 #                         # InsertDB(item.name,file_name,barcode,sub_dir.name)
 #                         # print(str(file)+'  ------> '+ str(disination_dir))
 #                         # nums.append(22)
-# os.makedirs(hn)
+os.makedirs(str(hn))
+

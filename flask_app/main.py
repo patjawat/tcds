@@ -10,11 +10,29 @@ import argparse
 import cv2
 import datetime
 from PIL import Image
+# import psycopg2
+import mysql.connector
+from mysql.connector import Error
+from mysql.connector import errorcode
 import simplejson as json
 import requests
+import json
+
+
+
+
+# #กำหนดที่เก็บรูปภาพ
+# DATASET_PATH = '/mnt/medico/REG'
+# root_dir = Path(DATASET_PATH)
+# items = root_dir.iterdir()
+
 app = Flask(__name__)
+# Enable CORS
 CORS(app)
 
+
+
+# function
 
 def ReadQR(data):
     image = cv2.imread(str(data))
@@ -145,6 +163,3 @@ def ReadBarcode(file):
             text = "{}".format(barcodeData)
             return text
             # print(text)
-
-if __name__ == "__main__":
-    app.run(host='192.168.1.101')

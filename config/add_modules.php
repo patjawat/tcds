@@ -14,22 +14,14 @@ $modules['patiententry'] = ['class' => 'app\modules_nurse\patiententry\PatientEn
 $modules['servicedummy'] = ['class' => 'app\modules_nurse\servicedummy\ServiceDummy']; //test
 // $modules['opdvisit'] = ['class' => 'app\modules_share\opdvisit\OpdVisit'];
 $modules['opdvisit'] = ['class' => 'app\modules\opdvisit\Opdvisit'];
-// $modules['foot'] = ['class' => 'app\modules_share\foot\Foot']; //oh
-$modules['foot'] = ['class' => 'app\modules\foot\Foot']; //oh
+$modules['foot'] = ['class' => 'app\modules_share\foot\Foot']; //oh
 $modules['nursescreen'] = ['class' => 'app\modules_nurse\nurse_screen\Nursescreen']; //pond
 $modules['emr'] = ['class' => 'app\modules\emr\Emr']; //jub
-$modules['hbot'] = ['class' => 'app\modules\hbot\Hbot']; //jub
-$modules['hd'] = ['class' => 'app\modules\hd\Hd']; //jub
-$modules['med'] = ['class' => 'app\modules\med\Med']; //jub
-// $modules['dietitian'] = ['class' => 'app\modules_nurse\dietitian\Dietitian']; //jub
-$modules['dietitian'] = ['class' => 'app\modules\dietitian\Dietitian']; //jub
+$modules['dietitian'] = ['class' => 'app\modules_nurse\dietitian\Dietitian']; //jub
 $modules['printout'] = ['class' => 'app\modules_share\printout\PrintOut']; //tehnn
 $modules['settings'] = ['class' => 'app\modules\settings\Settings']; //Oh
 $modules['listorder'] = ['class' => 'app\modules\listorder\Listorder']; //Oh
 $modules['listresults'] = ['class' => 'app\modules\listreu\Listorder']; //Oh
-$modules['dm'] = ['class' => 'app\modules\dm\Dm']; //Oh
-$modules['dmindicator'] = ['class' => 'app\modules\dmindicators\Dmindicators']; //Oh
-$modules['pharmacist'] = ['class' => 'app\modules\pharmacist\Pharmacist']; //Oh
 
 
 $modules['datecontrol'] = [
@@ -58,17 +50,7 @@ $modules['user'] = [
     'enableUnconfirmedLogin' => true,
     'confirmWithin' => 21600,
     'cost' => 12,
-    'admins' => ['admin'],
-    'controllerMap' => [
-        'login' => [
-            'class' => \dektrium\user\controllers\SecurityController::className(),
-            'on ' . \dektrium\user\controllers\SecurityController::EVENT_AFTER_LOGIN => function ($e) {
-                Yii::$app->response->redirect(array('/user/security/login'))->send();
-                Yii::$app->end();
-            },
-        ],
-    ],
-];
+    'admins' => ['admin']];
 $modules['admin'] = ['class' => 'mdm\admin\Module'];// oh
 $modules['rbac'] = ['class' => 'dektrium\rbac\RbacWebModule']; //inam
 $modules['qmanage'] = ['class' => 'app\modules_share\qmanage\Qmanage'];//tehnn
@@ -91,5 +73,4 @@ $modules['questionare'] = ['class' => 'app\modules\questionare\Questionare'];//i
 /* PCC EMR*/
 $modules['dmassessment'] = ['class' => 'app\modules_nurse\dmassessment\Dmassessment']; //pond
 $modules['usermanager'] = ['class' => 'app\modules\usermanager\Usermanager']; //pond
-$modules['document'] = ['class' => 'app\modules\document\Document']; //pond
 return $modules;

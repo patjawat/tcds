@@ -19,7 +19,7 @@ class PatientHelper extends Component
 {
     public static function getUrl()
     {
-        return 'http://133f2fdb.ngrok.io/HIS/index.php/';
+        return 'http://10.1.88.8/HIS/index.php/';
     }
 
     public static function getPatientTitleByHn($hn)

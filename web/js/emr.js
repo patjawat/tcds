@@ -36,26 +36,20 @@ function convertFile(hn,url){
     $.ajax({
         type: "post",
         beforeSend: function () {
-            // $('#view-document').hide();
             $('.container_loadding').show();    
         },
         url:url,
         data: {hn:hn},
-        dataType: "่json",
+        dataType:"json",
         success: function (response) {
             if(response.prediction !==""){
                 $("#loader").hide();
-                // $('#emr-content').show()
                 localStorage.setItem("document_him",hn)
                loadEmrDocument();
                $('.container_loadding').hide();
                $('#view-document').show();
             }
-            console.log(response)
         
-        },
-        fail: function(xhr, textStatus, errorThrown){
-       alert('request failed');
-    }
+        }
     });
 }

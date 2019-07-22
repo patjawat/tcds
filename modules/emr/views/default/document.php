@@ -73,7 +73,7 @@ $model = new Documentqr;
 }
 </style>
 
-<button id="api">Click</button>
+<!-- <button id="api">Click</button> -->
 <?php
 // $salida = shell_exec('mkdir 88888888');
 // echo "<pre>$salida</pre>";
@@ -187,24 +187,25 @@ ActiveForm::end();
 $js = <<< JS
 var document_him = localStorage.getItem("document_him");
 var hn  = $('#hn').text()
-var url_convert_him = 'http://127.0.0.1:8080/barcode-him'
-$('.container_loadding').hide();
+var url_convert_him = 'http://192.168.1.3:8080/barcode-him'
+// $('.container_loadding').hide();
 
 // ตรวจสอบการโอเอกสารจาก him
-// if(hn == document_him ){
-//     // ไม่ต้องทำไร
-//     loadEmrDocument()
-// }else if(hn == ""){
-//     localStorage.setItem("document_him","")
-// }else{
-//     convertFile($hn);
-// }
+if(hn == document_him ){
+    // ไม่ต้องทำไร
+    $('.container_loadding').hide();
+    loadEmrDocument()
+}else if(hn == ""){
+    localStorage.setItem("document_him","")
+}else{
+    convertFile($hn,url_convert_him);
+}
 // จบ
+
 $('#api').click(function (e) { 
     e.preventDefault();
     convertFile($hn,url_convert_him);
-    // alert();
-    
+  
 });
 
 
@@ -223,7 +224,7 @@ $('#python-load').click(function (e) {
 });
 
 
-loadEmrDocumentQR();
+// loadEmrDocumentQR();
 
 $('#upload-form').hide();
 

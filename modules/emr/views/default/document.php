@@ -73,7 +73,7 @@ $model = new Documentqr;
 }
 </style>
 
-<!-- <button id="api">Click</button> -->
+<button id="api">Click</button>
 <?php
 // $salida = shell_exec('mkdir 88888888');
 // echo "<pre>$salida</pre>";

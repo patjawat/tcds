@@ -10,11 +10,10 @@ import argparse
 import cv2
 import datetime
 from PIL import Image
+# import psycopg2
 import simplejson as json
 import requests
 import json
-
-
 
 
 # #กำหนดที่เก็บรูปภาพ
@@ -25,7 +24,6 @@ import json
 app = Flask(__name__)
 # Enable CORS
 CORS(app)
-
 
 
 # function
@@ -49,7 +47,32 @@ def ReadQR(data):
 
 
 
-# End Function 
+
+def InsertDB(hn,sub_dir,filename,barcode,type):
+			payload = {'hn':hn,'sub_dir':sub_dir,'filename':filename,'barcode':barcode,'type':type}
+			r = requests.post("http://192.168.1.23/tcds/web/index.php?r=api/add-barcode",json=payload)
+			print(r.text)
+
+
+def ReadBarcode(file):
+        image = Image.open(file)
+
+    # อ่าน barcode 
+        image = cv2.imread(str(file))
+        barcodes = pyzbar.decode(image)
+        for barcode in barcodes:
+            (x, y, w, h) = barcode.rect
+            cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            barcodeData = barcode.data.decode("utf-8")
+            barcodeType = barcode.type
+                        # text = "{} ({})".format(barcodeData, barcodeType)
+            text = "{}".format(barcodeData)
+            return text
+            # print(text)
+
+
+
+# End Function
 @app.route('/')
 def Home():
     return "<h1 style='text-align:center'>Python App API</h1>"
@@ -58,13 +81,13 @@ def Home():
 @app.route("/barcode-him", methods=["POST"])
 def predict():
 	result = 0
-	if request.method == "POST":    		
+	if request.method == "POST":
 		hn = request.form["hn"]
 		ConvertFile(hn)
 		# return hn
 	return jsonify(
 		prediction=hn
-	),201
+	), 201
 		# for item in items:
 			# return input_value
 
@@ -84,112 +107,50 @@ def documentQR():
 	# ),201
 	# return ReadQR(88)
 
+
 def ConvertFile(hn):
 	# print(hn)
-	#กำหนดที่เก็บรูปภาพ
-	DATASET_PATH = 'REG/'+hn
+	# กำหนดที่เก็บรูปภาพ
+
+	DATASET_PATH = '../web/REG/'+hn
 	root_dir = Path(DATASET_PATH)
 	items = root_dir.iterdir()
 	for item in items:
 		# print(item)
 		if item.is_dir():
 			# 1 ภาพอาจมีหลายหน้า loop แยกในหน้าอีก 1 ชั้น
-			his_directory = item # ที่อยู่ของ File ต้นฉบับ
-			# medico_directory = 'REG2/'+hn+'/'+str(item.name)
-			medico_directory = 'REG2/'+hn+'/'+str(item.name)
+			his_directory = item  # ที่อยู่ของ File ต้นฉบับ
+			# dis_dir = 'REG2/'+hn+'/'+str(item.name)
+			dis_dir = '../web/REG2/'+hn+'/'+str(item.name)
 
-			#ตรวจสอบ directory ถ้าไม่มีให้สร้าง
-			if not os.path.exists(medico_directory):
-				os.makedirs(medico_directory)
+			# ตรวจสอบ directory ถ้าไม่มีให้สร้าง
+			if not os.path.exists(dis_dir):
+				os.makedirs(dis_dir)
 
 			for sub_dir in item.iterdir():
-				# sub_dir =  REG/1000053/01/6103150045-2.TIF
-				file = sub_dir.name
-				file_name = file.split('.')[0] #แยกชื่อไฟล์
-				file_type = file.split('.')[1] #แยกนามสกุล
+                        # sub_dir =  REG/1000053/01/6103150045-2.TIF
+                            file = sub_dir.name
+                            file_name = file.split('.')[0]  # แยกชื่อไฟล์
+                            file_type = file.split('.')[1]  # แยกนามสกุล
 
-				source = str(his_directory)+'/'+str(file_name)+".TIF"
-				disination = str(medico_directory)+'/'+str(file_name)+".TIF"
-				if(file_type == 'tif'):
-					# print(sub_dir)
-						# image = Image.open(file)
-						# print(str(sub_dir)+' => '+ str(medico_directory)+'/'+str(file_name)+'.TIF')
-						shutil.copyfile(sub_dir,str(medico_directory)+'/'+str(file_name)+'.TIF')   #คัดลอกจากต้นฉบับมาที่ปลายทาง
-						
-						image = Image.open(source)   
-						image.convert('L').save(str(medico_directory)+'/'+str(file_name)+'.jpg') #แปลง จาก TIF เป็น jpg
-						os.remove(disination)
-						barcode = ReadBarcode(str(medico_directory)+'/'+str(file_name)+'.jpg')
-						InsertDB(hn,item.name,file_name,barcode,file_type)
+                            source = str(his_directory)+'/'+str(file_name)+".TIF"
+                            disination = str(dis_dir)+'/'+str(file_name)+".TIF"
 
-						
+                            if file_type == 'tif':
+                                        shutil.copyfile(sub_dir, str(dis_dir)+'/'+str(file_name)+'.TIF')
+                                        print('tif')
+                            elif file_type == 'db':
+                                        # print('Thumbs.db ===> Not Convert')
+                                        ''
+                            elif file_type == 'TIF':
+                                        image = Image.open(source)
+                                        image.convert('L').save(str(dis_dir)+'/' + str(file_name)+'.jpg')
+                                        barcode = ReadBarcode(str(dis_dir)+'/'+str(file_name)+'.jpg')
+                                        InsertDB(hn,item.name,file_name,barcode,file_type)
+                                        # print(barcode)
+                            elif file_type == 'jpg':
+                                        ''
+                            else:   
+                                # print(dis_dir+'/'+str(file_name)+'.jpg')
+                                print('else')
 
-				elif(file_type == 'db'):
-								# ถ้าเป็นนามสกุล .db ไม่ต้องทำอะไร
-								print('Thumbs.db ===> Not Convert')
-				elif(file_type == 'TIF'): # ถ้าเป็น .TIF ให้ convert ได้เลย
-						image = Image.open(source)   
-						image.convert('L').save(str(medico_directory)+'/'+str(file_name)+'.jpg') #แปลง จาก TIF เป็น jpg
-				
-				barcode = ReadBarcode(str(medico_directory)+'/'+str(file_name)+'.jpg')
-				InsertDB(hn,item.name,file_name,barcode,file_type)
-						# print(sub_dir.name)
-
-
-
-def InsertDB(hn,sub_dir,filename,barcode,type):
-			payload = {'hn':hn,'sub_dir':sub_dir,'filename':filename,'barcode':barcode,'type':type}
-			r = requests.post("http://10.1.88.8/tcds/web/index.php?r=api/add-barcode",json=payload)
-			print(r.text)
-		# payload = {'hn':hn,'sub_dir':sub_dir,'filename':filename,'barcode':barcode}
-       			
-
-		# try:
-		# 	connection = mysql.connector.connect(host='localhost',
-		# 								database='medicong-dev',
-		# 								user='root',
-		# 								password='docker')
-		# 	cursor = connection.cursor()			
-		# 	sql_select_query = """select * from document where hn = %s AND filename = %s"""
-		# 	cursor.execute(sql_select_query, (hn,filename, ))
-		# 	data = cursor.fetchall()
-		# 	if len(data)==0:
-		# 		print('There is no component named %s'%hn)
-		# 		sql_insert_query = """ INSERT INTO `document`(`hn`, `filename`, `barcode`,`type`,`sub_dir`) VALUES (%s,%s,%s,%s,%s)"""
-		# 		cursor = connection.cursor()
-		# 		value = (str(hn),str(filename),str(barcode),str(type),str(sub_dir))
-		# 		result  = cursor.execute(sql_insert_query,value)
-		# 		connection.commit()
-		# 		print ("Record inserted successfully into python_users table")
-		# 	else:
-		# 		print('Component %s found with rowids %s'%(hn,','.join(map(str, next(zip(*data))))))
-		# 	# print(len(data))
-		# except mysql.connector.Error as error :
-		# 	connection.rollback() #rollback if any exception occured
-		# 	print("Failed inserting record into python_users table {}".format(error))
-		# finally:
-		# 	#closing database connection.
-		# 	if(connection.is_connected()):
-		# 		cursor.close()
-		# 		connection.close()
-		# 		print("MySQL connection is closed")
-
-
-
-
-
-def ReadBarcode(file):
-        image = Image.open(file)
-
-    # อ่าน barcode 
-        image = cv2.imread(str(file))
-        barcodes = pyzbar.decode(image)
-        for barcode in barcodes:
-            (x, y, w, h) = barcode.rect
-            cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
-            barcodeData = barcode.data.decode("utf-8")
-            barcodeType = barcode.type
-                        # text = "{} ({})".format(barcodeData, barcodeType)
-            text = "{}".format(barcodeData)
-            return text
-            # print(text)

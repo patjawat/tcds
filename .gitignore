@@ -22,7 +22,6 @@ tests/_output/*
 tests/_support/_generated
 
 /.vagrant
-/API
 
 /docker/mysql/mysql8.0/data
 /docker/mysql/mysql8.0/logs
@@ -35,6 +34,3 @@ tests/_support/_generated
 /config/ttr_him.php.php
 
 DB/mysql/
-
-/node-api/node_modules
-/node-api/package-lock.json

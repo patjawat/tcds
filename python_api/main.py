@@ -48,28 +48,6 @@ def ReadQR(data):
 
 
 
-def InsertDB(hn,sub_dir,filename,barcode,type):
-			payload = {'hn':hn,'sub_dir':sub_dir,'filename':filename,'barcode':barcode,'type':type}
-			r = requests.post("http://10.1.88.8/tcds/web/index.php?r=api/add-barcode",json=payload)
-			print(r.text)
-
-
-def ReadBarcode(file):
-        image = Image.open(file)
-
-    # อ่าน barcode 
-        image = cv2.imread(str(file))
-        barcodes = pyzbar.decode(image)
-        for barcode in barcodes:
-            (x, y, w, h) = barcode.rect
-            cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
-            barcodeData = barcode.data.decode("utf-8")
-            barcodeType = barcode.type
-                        # text = "{} ({})".format(barcodeData, barcodeType)
-            text = "{}".format(barcodeData)
-            return text
-            # print(text)
-
 
 
 # End Function
@@ -153,4 +131,28 @@ def ConvertFile(hn):
                             else:   
                                 # print(dis_dir+'/'+str(file_name)+'.jpg')
                                 print('else')
+
+
+
+def InsertDB(hn,sub_dir,filename,barcode,type):
+			payload = {'hn':hn,'sub_dir':sub_dir,'filename':filename,'barcode':barcode,'type':type}
+			r = requests.post("http://10.1.88.8/tcds/web/index.php?r=api/add-barcode",json=payload)
+			print(r.text)
+
+
+def ReadBarcode(file):
+        image = Image.open(file)
+
+    # อ่าน barcode 
+        image = cv2.imread(str(file))
+        barcodes = pyzbar.decode(image)
+        for barcode in barcodes:
+            (x, y, w, h) = barcode.rect
+            cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+            barcodeData = barcode.data.decode("utf-8")
+            barcodeType = barcode.type
+                        # text = "{} ({})".format(barcodeData, barcodeType)
+            text = "{}".format(barcodeData)
+            return text
+            # print(text)
 

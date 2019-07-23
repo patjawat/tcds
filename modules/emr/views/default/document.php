@@ -187,7 +187,7 @@ ActiveForm::end();
 $js = <<< JS
 var document_him = localStorage.getItem("document_him");
 var hn  = $('#hn').text()
-var url_convert_him = 'http://192.168.1.3:5000/barcode-him'
+var url_convert_him = 'http://10.1.88.8:5000/barcode-him'
 // $('.container_loadding').hide();
 
 // ตรวจสอบการโอเอกสารจาก him

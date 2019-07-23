@@ -50,7 +50,7 @@ def ReadQR(data):
 
 def InsertDB(hn,sub_dir,filename,barcode,type):
 			payload = {'hn':hn,'sub_dir':sub_dir,'filename':filename,'barcode':barcode,'type':type}
-			r = requests.post("http://192.168.1.23/tcds/web/index.php?r=api/add-barcode",json=payload)
+			r = requests.post("http://10.1.88.8/tcds/web/index.php?r=api/add-barcode",json=payload)
 			print(r.text)
 
 

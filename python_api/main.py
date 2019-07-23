@@ -46,10 +46,9 @@ def ReadQR(data):
 
 
 def InsertDB(hn,sub_dir,filename,barcode,type):
-			# payload = {'hn':hn,'sub_dir':sub_dir,'filename':filename,'barcode':barcode,'type':type}
-			# r = requests.post("http://192.168.1.23/tcds/web/index.php?r=api/add-barcode",json=payload)
-			# print(r.text)
-            print('insert')
+			payload = {'hn':hn,'sub_dir':sub_dir,'filename':filename,'barcode':barcode,'type':type}
+			r = requests.post("http://192.168.1.23/tcds/web/index.php?r=api/add-barcode",json=payload)
+			print(r.text)
 
 
 def ReadBarcode(file):
@@ -134,7 +133,6 @@ def ConvertFile(hn):
                             file = sub_dir.name
                             file_name = file.split('.')[0]  # แยกชื่อไฟล์
                             file_type = file.split('.')[1]  # แยกนามสกุล
-                            print(file)
                             source = str(his_directory)+'/'+str(file_name)+".TIF"
                             disination = str(dis_dir)+'/'+str(file_name)+".TIF"
 

@@ -98,12 +98,15 @@ def ConvertFile(hn):
 		if item.is_dir():
 			# 1 ภาพอาจมีหลายหน้า loop แยกในหน้าอีก 1 ชั้น
 			his_directory = item  # ที่อยู่ของ File ต้นฉบับ
+
+            			# ตรวจสอบ directory ถ้าไม่มีให้สร้าง
+			if not os.path.exists(dis_dir):
+				os.makedirs(dis_dir)
+                
 			# dis_dir = 'REG2/'+hn+'/'+str(item.name)
 			dis_dir = '../web/REG2/'+hn+'/'+str(item.name)
 
-			# ตรวจสอบ directory ถ้าไม่มีให้สร้าง
-			if not os.path.exists(dis_dir):
-				os.makedirs(dis_dir)
+
 
 			for sub_dir in item.iterdir():
                         # sub_dir =  REG/1000053/01/6103150045-2.TIF

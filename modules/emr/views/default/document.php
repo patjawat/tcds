@@ -2,10 +2,13 @@
 use app\components\PatientHelper;
 use app\modules\document\models\Documentqr;
 use app\modules\document\models\DocumentQrType;
+use app\modules\systems\models\SystemData;
 use kartik\select2\Select2;
 use kartik\widgets\ActiveForm;
 use yii\bootstrap\Modal;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
+use yii\helpers\Url;
 
 $this->title = 'Documents';
 $hn = PatientHelper::getCurrentHn();
@@ -15,6 +18,9 @@ $this->registerCssFile('@web/viewer/viewer.min.css');
 $this->registerJsFile('@web/viewer/viewer.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $model = new Documentqr;
+$data= Json::decode(SystemData::findOne(['id' => 'system'])->data);
+$barcode_api = $data['barcode_api'];
+
 
 ?>
 
@@ -74,9 +80,15 @@ $model = new Documentqr;
 </style>
 
 <button id="api">Click</button>
+
 <?php
 // $salida = shell_exec('mkdir 88888888');
 // echo "<pre>$salida</pre>";
+Url::base();         // /myapp
+echo  Url::base(true);     // http(s)://example.com/myapp - depending on current schema
+Url::base('https');  // https://example.com/myapp
+Url::base('http');   // http://example.com/myapp
+Url::base('');       // //example.com/myapp
 ?>
 <ul class="nav nav-tabs" style="width:100%;height: 44px;">
     <li class="active"><a data-toggle="tab" href="#home-document"><i class="fas fa-barcode"></i> Document BarCode</a>
@@ -187,7 +199,8 @@ ActiveForm::end();
 $js = <<< JS
 var document_him = localStorage.getItem("document_him");
 var hn  = $('#hn').text()
-var url_convert_him = 'http://10.1.88.8:5000/barcode-him'
+// var url_convert_him = 'http://127.0.0.1:5000/barcode-him'
+var url_convert_him = '$barcode_api';
 // $('.container_loadding').hide();
 
 // ตรวจสอบการโอเอกสารจาก him
@@ -258,7 +271,6 @@ function loadEmrDocumentQR(){
         }
     });
 }
-
 
 JS;
 $this->registerJS($js);

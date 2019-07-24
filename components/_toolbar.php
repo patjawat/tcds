@@ -75,6 +75,7 @@ $module = \Yii::$app->controller->module->id;
             <li><?=Html::a('การกำหนดการใช้งาน', ['/admin/assignment'])?></li>
             <li><?=Html::a('ค่าบริการทางการแพทย์', ['/doctorworkbench/df-items'])?></li>
             <li><?=Html::a('ตั้งค่าเอกสาร QR-Code', ['/document/document-qr-type'])?></li>
+            <li><?=Html::a('ตั้งค่าระบบ', ['/systems'])?></li>
            
         </ul>
     </li>

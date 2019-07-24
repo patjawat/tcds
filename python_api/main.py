@@ -47,7 +47,7 @@ def ReadQR(data):
 
 def InsertDB(hn,sub_dir,filename,barcode,type):
 			payload = {'hn':hn,'sub_dir':sub_dir,'filename':filename,'barcode':barcode,'type':type}
-			r = requests.post("http://192.168.1.23/tcds/web/index.php?r=api/add-barcode",json=payload)
+			r = requests.post("http://10.1.88.8/tcds/web/index.php?r=api/add-barcode",json=payload)
 			print(r.text)
 
 
@@ -113,7 +113,7 @@ def ConvertFile(hn):
 	# print(hn)
 	# กำหนดที่เก็บรูปภาพ
 
-	DATASET_PATH = '../web/REG/'+hn
+	DATASET_PATH = '/var/www/mount/hims-app/reg/'+hn
 	root_dir = Path(DATASET_PATH)
 	items = root_dir.iterdir()
 	for item in items:
@@ -123,7 +123,7 @@ def ConvertFile(hn):
 			his_directory = item  # ที่อยู่ของ File ต้นฉบับ
 
 			# dis_dir = 'REG2/'+hn+'/'+str(item.name)
-			dis_dir = '../web/REG2/'+hn+'/'+str(item.name)
+			dis_dir = '/var/www/html/tcds/web/reg/'+hn+'/'+str(item.name)
             			# ตรวจสอบ directory ถ้าไม่มีให้สร้าง
 			if not os.path.exists(dis_dir):
 				os.makedirs(dis_dir)

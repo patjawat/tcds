@@ -117,7 +117,7 @@ endforeach;
 
             <?php foreach ($dataProvider->getModels() as $model):?>
             <?php  
-            $img = 'REG/'.$model->hn.'/'.$model->sub_dir.'/'.$model->filename.'.jpg';
+            $img = 'reg/'.$model->hn.'/'.$model->sub_dir.'/'.$model->filename.'.jpg';
              echo Html::img($img,['width' => '100%','class'=>"img-responsive filter $model->sub_dir"]);
             ?>
             <?php endforeach;?>

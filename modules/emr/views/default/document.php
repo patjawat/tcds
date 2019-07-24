@@ -85,7 +85,7 @@ $barcode_api = $data['barcode_api'];
 // $salida = shell_exec('mkdir 88888888');
 // echo "<pre>$salida</pre>";
 Url::base();         // /myapp
-echo  Url::base(true);     // http(s)://example.com/myapp - depending on current schema
+echo  Url::base(true).'/index.php?r=api/add-barcode';     // http(s)://example.com/myapp - depending on current schema
 Url::base('https');  // https://example.com/myapp
 Url::base('http');   // http://example.com/myapp
 Url::base('');       // //example.com/myapp
@@ -195,12 +195,14 @@ ActiveForm::end();
 <?php Modal::end();?>
 <div id="hn" hidden><?=$hn;?></div>
 <?php
+$get_url_insert = Url::base(true).'/index.php?r=api/add-barcode'; 
 
 $js = <<< JS
 var document_him = localStorage.getItem("document_him");
 var hn  = $('#hn').text()
 // var url_convert_him = 'http://127.0.0.1:5000/barcode-him'
 var url_convert_him = '$barcode_api';
+var url_insert = '$get_url_insert';
 // $('.container_loadding').hide();
 
 // ตรวจสอบการโอเอกสารจาก him
@@ -211,13 +213,13 @@ if(hn == document_him ){
 }else if(hn == ""){
     localStorage.setItem("document_him","")
 }else{
-    convertFile($hn,url_convert_him);
+    convertFile($hn,url_convert_him,url_insert);
 }
 // จบ
 
 $('#api').click(function (e) { 
     e.preventDefault();
-    convertFile($hn,url_convert_him);
+    convertFile($hn,url_convert_him,url_insert);
   
 });
 

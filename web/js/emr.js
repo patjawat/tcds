@@ -32,14 +32,14 @@ function loadEmrDocumentQR(){
     });
 }
 
-function convertFile(hn,url){
+function convertFile(hn,url,url_insert){
     $.ajax({
         type: "post",
         beforeSend: function () {
             $('.container_loadding').show();    
         },
         url:url,
-        data: {hn:hn},
+        data: {hn:hn,url_insert},
         dataType:"json",
         success: function (response) {
             if(response.prediction !==""){

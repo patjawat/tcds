@@ -45,11 +45,11 @@ def ReadQR(data):
         # print(dataType+'/'+dataText)
 
 
-def InsertDB(hn,sub_dir,filename,barcode,type):
+def InsertDB(hn,sub_dir,filename,barcode,type,url_insert):
 			payload = {'hn':hn,'sub_dir':sub_dir,'filename':filename,'barcode':barcode,'type':type}
-			r = requests.post("http://10.1.88.8/tcds/web/index.php?r=api/add-barcode",json=payload)
+			r = requests.post(url_insert,json=payload)
 			print(r.text)
-
+            # print(url_insert)
 
 def ReadBarcode(file):
         image = Image.open(file)
@@ -83,8 +83,9 @@ def predict():
 	result = 0
 	if request.method == "POST":
             hn = request.form["hn"]
+            url_insert = request.form["url_insert"]
             # print(hn)
-            ConvertFile(hn)
+            ConvertFile(hn,url_insert)
             # return hn
             return jsonify(
                 prediction=hn
@@ -109,11 +110,11 @@ def documentQR():
 	# return ReadQR(88)
 
 
-def ConvertFile(hn):
+def ConvertFile(hn,url_insert):
 	# print(hn)
 	# กำหนดที่เก็บรูปภาพ
 
-	DATASET_PATH = '/var/www/mount/hims-app/reg/'+hn
+	DATASET_PATH = '../web/reg/'+hn
 	root_dir = Path(DATASET_PATH)
 	items = root_dir.iterdir()
 	for item in items:
@@ -123,7 +124,7 @@ def ConvertFile(hn):
 			his_directory = item  # ที่อยู่ของ File ต้นฉบับ
 
 			# dis_dir = 'REG2/'+hn+'/'+str(item.name)
-			dis_dir = '/var/www/html/tcds/web/reg/'+hn+'/'+str(item.name)
+			dis_dir = '../web/reg2/'+hn+'/'+str(item.name)
             			# ตรวจสอบ directory ถ้าไม่มีให้สร้าง
 			if not os.path.exists(dis_dir):
 				os.makedirs(dis_dir)
@@ -146,13 +147,11 @@ def ConvertFile(hn):
                                         image = Image.open(source)
                                         image.convert('L').save(str(dis_dir)+'/' + str(file_name)+'.jpg')
                                         barcode = ReadBarcode(str(dis_dir)+'/'+str(file_name)+'.jpg')
-                                        InsertDB(hn,item.name,file_name,barcode,file_type)
+                                        InsertDB(hn,item.name,file_name,barcode,file_type,url_insert)
                                         # print(barcode)
                             elif file_type == 'jpg':
                                         ''
                             else:   
                                 # print(dis_dir+'/'+str(file_name)+'.jpg')
                                 print('else')
-
-
 

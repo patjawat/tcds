@@ -15,28 +15,36 @@ use yii\bootstrap\ActiveForm;
         margin-bottom: 5px;
     }
 </style>
-<div class="opd-visit-form">
+
 
 <?php $form = ActiveForm::begin([
     'id' => 'system-form',
     'fieldConfig' => [
         'horizontalCssClasses' => [
-            'label' => 'col-lg-4 col-md-4 col-sm-4',
-            'wrapper' => 'col-lg-8 col-md-8 col-sm-8',
+            'label' => 'col-lg-1 col-md-1 col-sm-1',
+            'wrapper' => 'col-lg-4 col-md-4 col-sm-4',
         ],
     ],
     'layout' => 'horizontal',
 ]);?>
 
-    <?= $form->field($model, 'id')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'data[his_api]')->textInput()->label(' HIS API') ?>
     <?= $form->field($model, 'data[barcode_api]')->textInput()->label('Barcode API') ?>
+
+
     <div class="form-group">
-        <?= Html::submitButton('บันทึก', ['class' => 'btn btn-success']) ?>
-    </div>
-    <?php ActiveForm::end(); ?>
+<label class="control-label col-lg-1 col-md-1 col-sm-1"></label>
+<div class="col-lg-4 col-md-4 col-sm-4">
+<?= Html::submitButton('บันทึก', ['class' => 'btn btn-success']) ?>
+<p class="help-block help-block-error "></p>
+</div>
 
 </div>
+ 
+    
+
+    <?php ActiveForm::end(); ?>
+
 
 <?php
 $js = <<< JS

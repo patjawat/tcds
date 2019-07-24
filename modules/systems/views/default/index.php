@@ -5,21 +5,21 @@ use app\modules\systems\models\SystemData;
 // echo $data['his_api'];
 ?>
 <div class="systems-default-index">
-    <h1><span class="glyphicon glyphicon-tasks"></span> ตั้งค่าพื้นฐานของระบบ</h1>
-    <p>
-        This is the view content for action "<?= $this->context->action->id ?>".
-        The action belongs to the controller "<?= get_class($this->context) ?>"
-        in the "<?= $this->context->module->id ?>" module.
-    </p>
-    <p>
-        You may customize this page by editing the following file:<br>
-        <code><?= __FILE__ ?></code>
-    </p>
+   
 </div>
 
-<h1><?php
-// print_r($data['api_his']);
-?></h1>
+
+<div class="form-group">
+<label class="control-label col-lg-1 col-md-1 col-sm-1"></label>
+<div class="col-lg-4 col-md-4 col-sm-4">
+<h1><span class="glyphicon glyphicon-tasks"></span> ตั้งค่าพื้นฐานของระบบ</h1>
+    <p>
+        การตั้งค่าพื้นฐานและการเชื่อมต่อระบบ API ติดต่อข้อมูลต่างๆ
+    </p>
+<p class="help-block help-block-error "></p>
+</div>
+<br><br>
+<br><br><br><br>
 <div id="view-form"></div>
 <?php
 $js = <<< JS
@@ -29,11 +29,13 @@ loadForm()
 function loadForm(){
     $.ajax({
         type: "get",
+        beforeSend:function(){
+            $('#view-form').html('<img src="img/loading.gif" style="margin-left: 600px;margin-top: 50px;padding-bottom: 18px;" />');
+        },
         url: "index.php?r=systems/default/form",
         dataType: "json",
         success: function (response) {
             $('#view-form').html(response)
-            console.log('xx')
         }
     });
 }

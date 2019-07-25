@@ -39,7 +39,7 @@ function convertFile(hn,url,url_insert){
             $('.container_loadding').show();    
         },
         url:url,
-        data: {hn:hn,url_insert},
+        data: {hn:hn,url_insert:url_insert},
         dataType:"json",
         success: function (response) {
             if(response.prediction !==""){

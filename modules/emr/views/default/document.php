@@ -1,6 +1,8 @@
 <?php
 use app\components\PatientHelper;
+use app\components\DateTimeHelper;
 use app\modules\document\models\Documentqr;
+use app\modules\document\models\Document;
 use app\modules\document\models\DocumentQrType;
 use app\modules\systems\models\SystemData;
 use kartik\select2\Select2;
@@ -20,7 +22,8 @@ $this->registerJsFile('@web/viewer/viewer.min.js', ['depends' => [\yii\web\Jquer
 $model = new Documentqr;
 $data= Json::decode(SystemData::findOne(['id' => 'system'])->data);
 $barcode_api = $data['barcode_api'];
-
+// ตรวจสอบการ Updaet Document Him
+$checkUpdate = Document::find(['hn' => $hn,'updated_at' => DateTimeHelper::getDbDate()])->count();
 
 ?>
 
@@ -35,10 +38,6 @@ $barcode_api = $data['barcode_api'];
 .modal.in>.modal-dialog {
     width: 70%;
 }
-
-
-
-/** code by webdevtrick ( https://webdevtrick.com) **/
 
 .container_loadding {
     /* position: absolute; */
@@ -81,22 +80,11 @@ $barcode_api = $data['barcode_api'];
 
 <button id="api">Click</button>
 
-<?php
-// $salida = shell_exec('mkdir 88888888');
-// echo "<pre>$salida</pre>";
-Url::base();         // /myapp
-echo  Url::base(true).'/index.php?r=api/add-barcode';     // http(s)://example.com/myapp - depending on current schema
-Url::base('https');  // https://example.com/myapp
-Url::base('http');   // http://example.com/myapp
-Url::base('');       // //example.com/myapp
-?>
 <ul class="nav nav-tabs" style="width:100%;height: 44px;">
     <li class="active"><a data-toggle="tab" href="#home-document"><i class="fas fa-barcode"></i> Document BarCode</a>
     </li>
     <li><a data-toggle="tab" href="#menu1"><i class="fas fa-qrcode"></i> Document QRCode</a></li>
-
 </ul>
-
 
 <div class="tab-content" style="margin-left:0px;padding-top: 0px;">
     <!-- Home Content -->
@@ -203,23 +191,34 @@ var hn  = $('#hn').text()
 // var url_convert_him = 'http://127.0.0.1:5000/barcode-him'
 var url_convert_him = '$barcode_api';
 var url_insert = '$get_url_insert';
+var checkUpdate = '$checkUpdate';
 // $('.container_loadding').hide();
 
 // ตรวจสอบการโอเอกสารจาก him
-if(hn == document_him ){
-    // ไม่ต้องทำไร
+// if(hn == document_him ){
+//     // ไม่ต้องทำไร
+//     $('.container_loadding').hide();
+//     loadEmrDocument()
+// }else if(hn == ""){
+//     localStorage.setItem("document_him","")
+// }else{
+//     convertFile($hn,url_convert_him,url_insert);
+// }
+// จบ
+
+// ตรวจสอบการ แปลง file
+// ถ้าวันนี้ยังไม่มีการแปลงไฟล์ให้ cpnvert
+if(checkUpdate < 1){ 
+    convertFile($hn,url_convert_him,url_insert);
+}else{ 
     $('.container_loadding').hide();
     loadEmrDocument()
-}else if(hn == ""){
-    localStorage.setItem("document_him","")
-}else{
-    convertFile($hn,url_convert_him,url_insert);
 }
-// จบ
 
 $('#api').click(function (e) { 
     e.preventDefault();
     convertFile($hn,url_convert_him,url_insert);
+
   
 });
 

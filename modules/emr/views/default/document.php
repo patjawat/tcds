@@ -255,6 +255,9 @@ $('#test').click(function (e) {
 function loadEmrDocument(){
     $.ajax({
         type: "get",
+        beforeSend:function(){
+            $('#view-document').html('<img src="img/loading.gif" style="margin-left: 600px;margin-top: 50px;padding-bottom: 18px;" />');
+        },
         url: "index.php?r=document/default/index",
         dataType: "json",
         success: function (response) {

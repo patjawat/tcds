@@ -30,13 +30,6 @@ class OpdVisitSearch extends OpdVisit
         return Model::scenarios();
     }
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
     public function search($params)
     {
         $query = OpdVisit::find();
@@ -59,10 +52,10 @@ class OpdVisitSearch extends OpdVisit
         $query->andFilterWhere([
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'service_start_date' => $this->service_start_date,
-            'service_start_time' => $this->service_start_time,
-            'service_end_date' => $this->service_end_date,
-            'service_end_time' => $this->service_end_time,
+            // 'service_start_date' => $this->service_start_date,
+            // 'service_start_time' => $this->service_start_time,
+            // 'service_end_date' => $this->service_end_date,
+            // 'service_end_time' => $this->service_end_time,
             'visit_date' => $this->visit_date,
         ]);
 
@@ -75,9 +68,18 @@ class OpdVisitSearch extends OpdVisit
             ->andFilterWhere(['like', 'service_type', $this->service_type])
             ->andFilterWhere(['like', 'service_department', $this->service_department])
             ->andFilterWhere(['like', 'pcc_vn', $this->pcc_vn])
-            ->andFilterWhere(['like', 'department', $this->department])
+            // ->andFilterWhere(['like', 'department', $this->department])
             ->andFilterWhere(['like', 'doctor_id', $this->doctor_id])
             ->andFilterWhere(['like', 'data_json', $this->data_json]);
+
+            if(isset ($this->service_start_date)&&$this->service_start_date!=''){ //you dont need the if function if yourse sure you have a not null date
+                $date_explode=explode(" - ",$this->service_start_date);
+                $date1=trim($date_explode[0]);
+                $date2=trim($date_explode[1]);
+                $query->andFilterWhere(['between','service_start_date',$date1,$date2]);
+              }else{
+                $query->andFilterWhere(['between','service_start_date',Date('Y-m-d'),Date('Y-m-d')]);
+              }
 
         return $dataProvider;
     }

@@ -57,8 +57,8 @@ class ReportController extends \yii\web\Controller
         $vs_data ? $vs = $vs_data : $vs = new Chiefcomplaint();
         $type_id = 'A01';
         // กำหนดรูปแบบ QR Code
-        $qr1 = $model->hn.'-'.$model->vn.'-'.$type_id.'-1';
-        $qr2 = $model->hn.'-'.$model->vn.'-'.$type_id.'-2';
+        $qr1 = 'tcds-'.$model->hn.'-'.$model->vn.'-'.$type_id.'-1';
+        $qr2 = 'tcds-'.$model->hn.'-'.$model->vn.'-'.$type_id.'-2';
         //  จบ
 
         // บันทึกสถานะการปริ้นเอกสาร

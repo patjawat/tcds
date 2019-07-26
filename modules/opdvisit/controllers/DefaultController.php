@@ -53,7 +53,6 @@ class DefaultController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         
         return $this->renderAjax('patient_alert');
-        
       
     }
     public function actionCheckDrugAllergy(){

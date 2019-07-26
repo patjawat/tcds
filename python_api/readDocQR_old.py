@@ -26,18 +26,18 @@ root_dir = Path(SOURCE_PATH)
 
 
 
-def moveFile(hn,data,dataText):
-        filename = dataText+'.'+data.name.split('.')[1]
-        # print(filename)
+# def moveFile(hn,data,dataText):
+#         filename = dataText+'.'+data.name.split('.')[1]
+#         # print(filename)
   
-        # check directory
-        dir_path = DIST_PATH+'/'+hn
-        if not os.path.exists(dir_path):
-                os.makedirs(dir_path)
-        # End Check directory
-        shutil.copyfile(data,dir_path+'/'+filename)   #คัดลอกจากต้นฉบับมาที่ปลายทาง
-        os.remove(data)
-        return filename
+#         # check directory
+#         dir_path = DIST_PATH+'/'+hn
+#         if not os.path.exists(dir_path):
+#                 os.makedirs(dir_path)
+#         # End Check directory
+#         shutil.copyfile(data,dir_path+'/'+filename)   #คัดลอกจากต้นฉบับมาที่ปลายทาง
+#         os.remove(data)
+#         return filename
         
 
 def ReadQR(data):

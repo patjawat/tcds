@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "a62b693c6d04731bb2410c36c98ba8a1",
@@ -4722,12 +4722,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap4.git",
+<<<<<<< HEAD
                 "reference": "1da24844b1f04bb48ba96c490fe51dffbe28d2a8"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/1da24844b1f04bb48ba96c490fe51dffbe28d2a8",
                 "reference": "1da24844b1f04bb48ba96c490fe51dffbe28d2a8",
+=======
+                "reference": "703b8ee240a8c553b351bf967e4d389a93df8ff3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/703b8ee240a8c553b351bf967e4d389a93df8ff3",
+                "reference": "703b8ee240a8c553b351bf967e4d389a93df8ff3",
+>>>>>>> or-dev
                 "shasum": ""
             },
             "require": {
@@ -4769,8 +4778,14 @@
                     "email": "amigo.cobos@gmail.com"
                 },
                 {
+<<<<<<< HEAD
                     "name": "Paul Klimov",
                     "email": "klimov.paul@gmail.com"
+=======
+                    "name": "Qiang Xue",
+                    "email": "qiang.xue@gmail.com",
+                    "homepage": "http://www.yiiframework.com/"
+>>>>>>> or-dev
                 },
                 {
                     "name": "Simon Karlen",
@@ -4783,7 +4798,11 @@
                 "bootstrap4",
                 "yii2"
             ],
+<<<<<<< HEAD
             "time": "2019-07-23T16:25:26+00:00"
+=======
+            "time": "2019-07-19T13:32:22+00:00"
+>>>>>>> or-dev
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -6079,6 +6098,7 @@
         },
         {
             "name": "phpunit/php-token-stream",
+<<<<<<< HEAD
             "version": "3.1.0",
             "source": {
                 "type": "git",
@@ -6089,6 +6109,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/e899757bb3df5ff6e95089132f32cd59aac2220a",
                 "reference": "e899757bb3df5ff6e95089132f32cd59aac2220a",
+=======
+            "version": "3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/php-token-stream.git",
+                "reference": "c4a66b97f040e3e20b3aa2a243230a1c3a9f7c8c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/c4a66b97f040e3e20b3aa2a243230a1c3a9f7c8c",
+                "reference": "c4a66b97f040e3e20b3aa2a243230a1c3a9f7c8c",
+>>>>>>> or-dev
                 "shasum": ""
             },
             "require": {
@@ -6124,7 +6156,11 @@
             "keywords": [
                 "tokenizer"
             ],
+<<<<<<< HEAD
             "time": "2019-07-25T05:29:42+00:00"
+=======
+            "time": "2019-07-08T05:24:54+00:00"
+>>>>>>> or-dev
         },
         {
             "name": "phpunit/phpunit",

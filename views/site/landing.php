@@ -1,10 +1,13 @@
 <?php
 use app\components\loading\ShowLoading;
 use app\components\UserHelper;
+use app\components\PatientHelper;
 use yii\helpers\ArrayHelper;
 // echo ShowLoading::widget();
 // use jsonrpc\JsonRpc;
 // use JsonRpc;
+use JsonRpc as Rpc;
+use yii\helpers\Json;
 ?>
 
 <div class="jumbotron">
@@ -35,24 +38,4 @@ use yii\helpers\ArrayHelper;
         // $success = $Client->call('getByHn', ['365656']);
         // //$success = $Client->call('getByHn', [$hn]);
         // echo $success
-?>
-<?php
-// $output = shell_exec('ls -lart');
-// echo "<pre>$output</pre>";
-
-// $command = escapeshellcmd('python.py');
-$output = shell_exec('sh script/script.sh');
-// $output = shell_exec('pwd');
-// system('/Users/patjawat/dev/scriptsoft/medicong-dev/views/site/test.sh');
-
-echo "<pre>$output</pre>";
-
-
-?>
-<?php 
-
-// $command = '/Users/patjawat/dev/scriptsoft/tcds/python_api/testphp.py';
-// $output = shell_exec($command);
-// print_r($output);
-
 ?>

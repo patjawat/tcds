@@ -5,10 +5,18 @@ use app\components\DateTimeHelper;
 
 ?>
 
-<barcode code="<?=$qr1?>" type="QR" size="0.7" error="M" disableborder = "1" style="margin-left:2%"/>
-<div class="" style="position: absolute;left:2px;border: 1px solid #000;height:95%;width:73%;margin-left:90px;">
+<table width="100%">
+<tr>
+<td width="10%">
+<br><br><barcode code="<?=$qr1?>" type="QR" size="0.7" error="M" disableborder = "1" style="margin-left:1%"/>
+</td>
 
-<table width="100%" height="100%" border="0" style="width: 100%;margin: auto;margin-left: 1px;">
+<td width="90%">
+<div class="" style="position: absolute;left:2px;border: 1px solid #000;height:95%;width:73%;margin-left:90px;">
+<!-- ------------------------------------------------------------------------------------ -->
+
+<table width="100%">
+<!-- 1.หัวเอกสาร -->
 <tr>
 <td>
 <table width="100%">
@@ -19,23 +27,23 @@ use app\components\DateTimeHelper;
 </table>
 </td>
 </tr>
-
+<!-- 2.ข้อมูลผู้ป่วย -->
 <tr>
 <td>
 <table style="margin-left: 2px;">
 	<tr>
 		<td>NAME</td>
-		<td><?=$model->patient->prefix.$model->patient->fname.' '.$model->patient->lname;?></td>
+		<td>...</td>
 		<td>HN</td>
-		<td><?=$model->hn;?></td>
+		<td>...</td>
 		<td>SEX</td>
-		<td><?=$model->patient->sex = 'M'? 'ชาย' : 'หญิง';?></td>
+		<td>...</td>
 		<td>AGE</td>
-		<td><?=$model->patient->PatientAge($model->patient->birthday_date);?></td>
+		<td>...</td>
 		<td>BIRTH DATE</td>
-		<td><?=PatientHelper::masterDateToThaiDate($model->patient->birthday_date);?></td>
+		<td>...</td>
 		<td>VN</td>
-		<td><?=$model->vn;?></td>
+		<td>...</td>
 	</tr>
 </table>
 <table style="margin-left: 2px;">
@@ -71,7 +79,7 @@ use app\components\DateTimeHelper;
 </table>
 </td>
 </tr>
-
+<!-- 3.VITAL SIGNS AND CONTOUR OF PATIENT - NURSING ASSESSMENT AND CHIEF COMPLAINT -->
 <tr>
 <td>
 <table width="100%"  border="0">
@@ -151,7 +159,7 @@ use app\components\DateTimeHelper;
 </table>	
 </td>
 </tr>
-
+<!-- 4.SELECTED LAB RESULTS : PREVIOUS AND UPDATE -->
 <tr>
 <td>
 <table class="table table-bordered" width="100%" border="1">
@@ -207,7 +215,7 @@ use app\components\DateTimeHelper;
 </table>
 </td>
 </tr>
-
+<!-- 5.NOTE -->
 <tr>
 <td>
 <table width="100%" border="0">
@@ -223,15 +231,19 @@ use app\components\DateTimeHelper;
 </table>
 </td>
 </tr>
-
+<!-- 6.Physician's Signature -->
 <tr>
-<td align="center"><br>Physician's Signature ___________________________ MD.( _____________________________ )</td>
+<td align="center">
+<br>Physician's Signature ___________________________ MD.( _____________________________ )</td>
+</td>
 </tr>
-
+<!-- 7.CHECK-OUT STATUS -->
+<tr>
+<td>
+<table>
 <tr>
 <td align="center">CHECK-OUT STATUS</td>
 </tr>
-
 <tr>
 <td>
 <table border="1">
@@ -301,18 +313,28 @@ use app\components\DateTimeHelper;
 </table>
 </td>
 </tr>
-
+</table>
 </td>
 </tr>
-
-</table>
+<!-- 8.หมายเหตุ -->
+<tr>
+<td>
 <table width="100%">
 <tr>
 <td width="90%">หมายเหตุ : แพทย์บันทึกต่อหน้า 2 หรือบันทึกแยกใน DOCTOR RECORD ได้</td>
 <td align="right">PAGE</td>
 </tr>
 </table>
+</td>
+</tr>
+
+</table>
+
+<!-- ------------------------------------------------------------------------------------ -->
 </div>
+</td>
+</tr>
+</table>
 
 <!-- ขึ้นหน้าใหม่ -->
 <?php  $x = 1; while($x <= 50):?>
@@ -320,5 +342,117 @@ use app\components\DateTimeHelper;
 <br/>
 <?php endwhile;?> 
 <!-- จบ loop -->
+<table width="100%">
+<tr>
+<td width="90%">
+<div class="" style="position: absolute;left:2px;border: 1px solid #000;height:95%;width:79%;margin-left:35px;">
+<!-- ------------------------------------------------------------------------------------ -->
 
-<h1>หน้าใหม่</h1>
+<table width="100%">
+<!-- 1.หัวเรื่อง -->
+<tr>
+<td width="88%">
+<table width="100%">
+<tr>
+<td width="20%"><?=Html::img(Yii::getAlias('@app/web/img/').'logo-01.png', ['width' => 130])?></td>
+<td align="center" width="80%"><b>OPD RECORD DOCTOR</b></td>
+</tr>
+</table>
+</td>
+</tr>
+<!-- 2.ข้อมูลผู้ป่วย -->
+<tr>
+<td>
+<table style="margin-left: 2px;">
+	<tr>
+		<td>NAME</td>
+		<td><?=$model->patient->prefix.$model->patient->fname.' '.$model->patient->lname;?></td>
+		<td>HN</td>
+		<td><?=$model->hn;?></td>
+		<td>SEX</td>
+		<td><?=$model->patient->sex = 'M'? 'ชาย' : 'หญิง';?></td>
+		<td>AGE</td>
+		<td><?=$model->patient->PatientAge($model->patient->birthday_date);?></td>
+		<td>BIRTH DATE</td>
+		<td><?=PatientHelper::masterDateToThaiDate($model->patient->birthday_date);?></td>
+		<td>VN</td>
+		<td><?=$model->vn;?></td>
+	</tr>
+</table>
+<table style="margin-left: 2px;">
+	<tr>
+		<td>DATE</td>
+		<td></td>
+		<td>CLINIC</td>
+		<td></td>
+		<td>PHYSICIAN</td>
+		<td></td>
+		<td>ATTENDING PHYSICIAN</td>
+		<td></td>
+	</tr>
+</table>
+</td>
+</tr>
+<!-- 3.NOTE -->
+<tr>
+<td>
+<table width="100%" border="0">
+
+<?php  $x = 1; while($x <= 25):?>
+
+  <?php $x++?>;
+  <tr >
+    <td style="border-bottom-style:dotted;border-bottom-width: 1.5px;"> &nbsp;</td>
+</tr>
+<?php endwhile;?> 
+
+</table>
+</td>
+</tr>
+<!-- 4.Diagnosis / Impression / ICD Code -->
+<tr>
+<td>
+<table width="100%">
+<tr>
+<td>Diagnosis / Impression / ICD Code</td>
+<td></td>
+</tr>
+<tr>
+<td width="50%">1. ..........................................................................................</td>
+<td width="50%">5. ..........................................................................................</td>
+</tr>
+<tr>
+<td>2. ..........................................................................................</td>
+<td>6. ..........................................................................................</td>
+</tr>
+<tr>
+<td>3. ..........................................................................................</td>
+<td>7. ..........................................................................................</td>
+</tr>
+<tr>
+<td>4. ..........................................................................................</td>
+<td>8. ..........................................................................................</td>
+</tr>
+</table>
+</td>
+</tr>
+<!-- 5.Physician's Signature -->
+<tr>
+<td align="center"><br>Physician's Signature ___________________________ MD.( _____________________________ )</td>
+</tr>
+<!-- 6.PAGE -->
+<tr>
+<td align="right"><br>PAGE </td>
+</tr>
+</table>
+
+<!-- ------------------------------------------------------------------------------------ -->
+</div>
+</td>
+
+<td width="10%">
+<br><br><barcode code="<?=$qr2?>" type="QR" size="0.7" error="M" disableborder = "1">
+</td>
+</tr>
+
+</table>

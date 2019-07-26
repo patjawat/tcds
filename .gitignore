@@ -35,4 +35,3 @@ tests/_support/_generated
 
 DB/mysql/
 python_api_local
-/backup_db/theptarin.sql

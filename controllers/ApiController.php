@@ -30,10 +30,12 @@ class ApiController extends ActiveController
             $hn = $request->post('hn');
             $vn = $request->post('hn');
             $type_id = $request->post('type_id');
+            $scan_from = $request->post('dep');
 
             $model = Documentqr::find()->where(['real_filename' => $file_name,'print' => '1'])->one();
             if($model){
                 $model->print = '0';
+                $model->scan_from = $scan_from;
                 if($model->save()){
                     return ['msg' => true,'data' => $model];
                 }else{

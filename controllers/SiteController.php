@@ -124,7 +124,7 @@ class SiteController extends Controller {
         if (Yii::$app->user->can('doctor')) {
             return $this->redirect(['/doctorworkbench']);
         }else{
-            return $this->redirect(['/chiefcomplaint']);
+            return $this->redirect(['/chiefcomplaint/chiefcomplaint/show-form']);
 
         }
 
@@ -205,7 +205,8 @@ class SiteController extends Controller {
             'content' =>  $data[0]->name,
             'loadding' => '<img src="img/loading.gif" style="margin-left: 600px;margin-top: 50px;padding-bottom: 18px;" />',
             'status' => true,
-            'footer' => Html::a('ตกลง','#',['class' => 'btn btn-success save','id' => 'chiptest','onclick' => 'return saveChiefcomplaint()'])
+            // 'footer' => Html::a('ตกลง','#',['class' => 'btn btn-success xsave','id' => 'xchiptest','onclick' => 'return saveChiefcomplaint()']),
+            'footer' => 'Enter เพื่อยืนยัน'
          ];
      }else{
         return [

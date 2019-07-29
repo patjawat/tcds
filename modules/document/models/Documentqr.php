@@ -53,7 +53,7 @@ class Documentqr extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'hn','type_id'], 'required'],
-            [['ref', 'file_name','real_filename','print','updated_at','created_at'], 'safe'],
+            [['ref', 'file_name','real_filename','print','updated_at','created_at','scan_from','created_by','updated_by'], 'safe'],
             [['hn'], 'integer'],
             [['id', 'type_id'], 'string', 'max' => 100],
             [['id'], 'unique'],
@@ -87,11 +87,11 @@ class Documentqr extends \yii\db\ActiveRecord
             'value' => DateTimeHelper::getDbNow()           
             
         ],
-        // [
-        //     'class' => BlameableBehavior::className(),
-        //     'createdByAttribute'=>'created_by',
-        //     'updatedByAttribute' => 'updated_by',
-        // ]
+        [
+            'class' => BlameableBehavior::className(),
+            'createdByAttribute'=>'created_by',
+            'updatedByAttribute' => 'updated_by',
+        ]
 
     ];
 }

@@ -16,7 +16,7 @@ import simplejson as json
 import requests
 import json
 
-# SOURCE_PATH = "../web/document-qr-him"
+# SOURCE_PATH = "../mount/ttr-scan-files"
 # DIST_PATH = "../web/document-qr"
 
 SOURCE_PATH = "/var/www/mount/ttr-scan-files"
@@ -54,10 +54,12 @@ def ReadQR(item):
                     "http://10.1.88.8/tcds/web/index.php?r=api/add-qr", data=payload)
                 if(r.text != 'null'):
                     print('Scan '+fileName+' To database Success')
+                    os.remove(item)
                 #     moveFile(hn, data, dataText)
+                 
                 else:
                     print('skip => '+fileName)
-
+                    print(item)
                 dir_path = DIST_PATH+'/'+hn+'/'
                 if not os.path.exists(dir_path):
                     os.makedirs(dir_path)

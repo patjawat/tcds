@@ -62,7 +62,7 @@ class FootAssessmentController extends \yii\web\Controller
                     'prosthesis_for_right' => $model->record_complete['prosthesis_for_right'],
                     'prosthesis_for_left' => $model->record_complete['prosthesis_for_left'],
                     'revascularization_right' => $model->record_complete['revascularization_right'],
-                    'revascularization_left' => $model->record_complete['revascularization_left'],
+                    'revascularization_left' => $model->record_complete['revascularization_left']
                 ];
                 $model->record_complete = Json::encode($record_complete);
                 $model->save(false);

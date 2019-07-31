@@ -4,7 +4,7 @@ GRANT All PRIVILEGES ON *.*  to 'root'@'::1' IDENTIFIED BY 'docker'  WITH GRANT 
 GRANT All PRIVILEGES ON *.*  to 'root'@'%' IDENTIFIED BY 'docker'  WITH GRANT OPTION;
 flush privileges;
 
-'record_complete_right_evt',
+                'record_complete_right_evt',
               'record_complete_right_evt_note',
               'record_complete_right_evt_date',
               'record_complete_right_bypass',

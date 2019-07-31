@@ -12,6 +12,8 @@ Thumbs.db
 
 composer.phar
 
+composer.lock
+
 .DS_Store
 
 phpunit.phar

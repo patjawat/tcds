@@ -3,13 +3,17 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 // use kartik\form\ActiveForm;
 use yii\helpers\ArrayHelper;
+use karatae99\datepicker\DatePicker;
 use app\modules\foot\models\ItemsOccupation;
 use app\modules\foot\models\ItemsSmokingFoot;
 use app\modules\foot\models\ItemsSmokingHowLongAgo;
 use app\modules\foot\models\ItemsActivity;
 use app\modules\foot\models\ItemsSpecify;
 use app\modules\foot\models\ItemsSpecifySiteDigit;
+use app\modules\foot\models\ItemsSpecifyTypeSite;
 use app\modules\foot\models\ItemsSpecifySite;
+use app\modules\foot\models\ItemsProsthesisFor;
+use app\modules\foot\models\ItemsSpecifyProcedureDate;
 ?>
 <style>
 .radio,
@@ -29,7 +33,7 @@ use app\modules\foot\models\ItemsSpecifySite;
 }
 
 .field-footassessment-record_complete-smoking_how_long_ago>.control-label {
-    background-color: #039285;
+    background-color: #999;
     color: #fff;
     height: 33px;
     padding: 6px;
@@ -52,7 +56,7 @@ use app\modules\foot\models\ItemsSpecifySite;
 
 .box-card {
     background-color: #FFF;
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 10px;
     margin-top: 15px;
 }
@@ -73,9 +77,13 @@ use app\modules\foot\models\ItemsSpecifySite;
     color: #999;
     margin-top: -32px;
     background-color: #fff;
-    /* width: 17%; */
+    width: 35%;
     text-align: -webkit-center;
     padding: 2px;
+}
+
+.item-text-center {
+    text-align: -webkit-center;
 }
 
 .control {
@@ -104,23 +112,40 @@ use app\modules\foot\models\ItemsSpecifySite;
     border-radius: 5px;
 }
 </style>
-<?php $form = ActiveForm::begin(); ?>
 
-<div class="box-card">
+<?php $form = ActiveForm::begin([
+    'id' => 'formFootComplate',
+    'fieldConfig' => [
+        'horizontalCssClasses' => [
+            'label' => 'col-lg-4 col-md-4 col-sm-4',
+            'wrapper' => 'col-lg-8 col-md-8 col-sm-8',
+        ],
+    ],
+    // 'layout' => 'horizontal',
+]);?>
 
-
-    <!-- Start Row -->
-    <div class="row">
-        <!-- start col -->
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+<!-- Start Row -->
+<div class="row">
+    <!-- start col -->
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <div class="box-card">
             <div class="box-border">
                 <div class="box-title">1. Occupation</div>
                 <?= $form->field($model, 'record_complete[occupation]')->checkboxList(ArrayHelper::map(ItemsOccupation::find()->all(),'id','name'))->label(false); ?>
+                <?= $form->field($model, 'record_complete[occupation_other]')->textArea()->label(false);?>
             </div>
         </div>
         <!-- End Col -->
-        <!-- start col -->
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+    </div>
+</div>
+<!-- End Row -->
+
+
+<!-- Start Row -->
+<div class="row">
+    <!-- start col -->
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <div class="box-card">
             <div class="box-border">
                 <div class="box-title">2. Smoking</div>
                 <?= $form->field($model, 'record_complete[smoking]')->radioList(ArrayHelper::map(ItemsSmokingFoot::find()->all(),'id','name'))->label(false); ?>
@@ -128,87 +153,299 @@ use app\modules\foot\models\ItemsSpecifySite;
             </div>
         </div>
         <!-- End Col -->
-        <!-- start col -->
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+    </div>
+</div>
+<!-- End Row -->
+
+
+
+<!-- Start Row -->
+<div class="row">
+    <!-- start col -->
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <div class="box-card">
             <div class="box-border">
                 <div class="box-title">3. Activity</div>
                 <?= $form->field($model, 'record_complete[activity]')->radioList(ArrayHelper::map(ItemsActivity::find()->all(),'id','name'))->label(false); ?>
             </div>
-            <!-- end 3. Activity -->
+        </div>
+        <!-- End Col -->
+    </div>
+</div>
+<!-- End Row -->
 
+
+
+<!-- Start Row -->
+<div class="row">
+    <!-- start col -->
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <div class="box-card">
             <div class="box-border">
                 <div class="box-title">4. Using ambulation aid</div>
                 <?= $form->field($model, 'record_complete[using_ambulation_aid]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
                 <?= $form->field($model, 'record_complete[specify]')->radioList(ArrayHelper::map(ItemsSpecify::find()->all(),'id','name'))->label('Specify'); ?>
-
             </div>
-            <!-- End 4. Using ambulation aid -->
-
         </div>
         <!-- End Col -->
-
-       
     </div>
-    <!-- End Row -->
+</div>
+<!-- End Row -->
 
-    <!-- start Row 2 -->
-    
-    <div class="row">
-          <!-- start col -->
-          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+
+<!-- Start Row -->
+<div class="row">
+    <!-- start col -->
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <div class="box-card">
             <div class="box-border">
-                <div class="box-title">5. Specify type and site</div>
 
-                
+                <div class="box-title">5. Previous foot ulcer</div>
+                <h4 class="text-center">Specify site</h4>
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    Right
-                    <?= $form->field($model, 'record_complete[specify_site_right]')->radioList(ArrayHelper::map(ItemsSpecifySite::find()->all(),'id','name'))->label(false); ?>
-        <?= $form->field($model, 'record_complete[specify_site_digit_right]')->inline()->radioList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(),'id','name'))->label(false); ?>
+                        <p class="text-center">Right</p>
+                        <div class="item-text-center">
+                            <?= $form->field($model, 'record_complete[ulcer_check_right]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                        </div>
+                        <?= $form->field($model, 'record_complete[ulcer_right]')->radioList(ArrayHelper::map(ItemsSpecifyTypeSite::find()->all(),'id','name'))->label(false); ?>
+                        <?= $form->field($model, 'record_complete[ulcer_digit_right]')->inline()->radioList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(),'id','name'))->label(false); ?>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                    Left
-                    <?= $form->field($model, 'record_complete[specify_site_right]')->radioList(ArrayHelper::map(ItemsSpecifySite::find()->all(),'id','name'))->label(false); ?>
-        <?= $form->field($model, 'record_complete[specify_site_digit_right]')->inline()->radioList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(),'id','name'))->label(false); ?>
+                        <p class="text-center">Left</p>
+                        <div class="item-text-center">
+                            <?= $form->field($model, 'record_complete[ulcer_check_left]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
                         </div>
+                        <?= $form->field($model, 'record_complete[ulcer_left]')->radioList(ArrayHelper::map(ItemsSpecifyTypeSite::find()->all(),'id','name'))->label(false); ?>
+                        <?= $form->field($model, 'record_complete[ulcer_digit_left]')->inline()->radioList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(),'id','name'))->label(false); ?>
+                    </div>
                 </div>
-                
-               
+
             </div>
         </div>
         <!-- End Col -->
-
     </div>
-    <!-- End Row2 -->
-    
-
 </div>
-<!-- End box-borderbox-border -->
+<!-- End Row -->
 
-<br><br>
-<!-- ============ step 1. Occupation =========== -->
-<div class="process-box" data-aos="fade-right" data-aos-duration="1000">
-    <div class="row">
-        <div class="col-md-5">
-            <div class="process-step">
-                <p class="m-0 p-0">1. Occupation</p>
-                <h2 class="m-0 p-0"><i class="fas fa-user-graduate" style="color:#fff;"></i></h2>
+
+
+
+<!-- Start Row -->
+<div class="row">
+    <!-- start col -->
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <div class="box-card">
+            <div class="box-border">
+
+                <div class="box-title">6. Previous amputation</div>
+                <h4 class="text-center">Specify type and site</h4>
+                <!-- Start Row -->
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                        <p class="text-center">Right</p>
+                        <div class="item-text-center">
+                            <?= $form->field($model, 'record_complete[amputation_check_right]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                        </div>
+                        <?= $form->field($model, 'record_complete[amputation_right]')->radioList(ArrayHelper::map(ItemsSpecifySite::find()->all(),'id','name'))->label(false); ?>
+                        <?= $form->field($model, 'record_complete[amputation_digit_right]')->inline()->radioList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(),'id','name'))->label(false); ?>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <p class="text-center">Left</p>
+                        <div class="item-text-center">
+                            <?= $form->field($model, 'record_complete[amputation_check_left]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                        </div>
+                        <?= $form->field($model, 'record_complete[amputation_left]')->radioList(ArrayHelper::map(ItemsSpecifySite::find()->all(),'id','name'))->label(false); ?>
+                        <?= $form->field($model, 'record_complete[amputation_digit_left]')->inline()->radioList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(),'id','name'))->label(false); ?>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <h4 class="text-center">Prosthesis</h4>
+                <!-- Start Row -->
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <p class="text-center">Right</p>
+                        <div class="item-text-center">
+                            <?= $form->field($model, 'record_complete[prosthesis_right]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                        </div>
+                        <?= $form->field($model, 'record_complete[prosthesis_for_right]')->radioList(ArrayHelper::map(ItemsProsthesisFor::find()->all(),'id','name'))->label(false); ?>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <p class="text-center">Left</p>
+                        <div class="item-text-center">
+                            <?= $form->field($model, 'record_complete[prosthesis_left]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                        </div>
+                        <?= $form->field($model, 'record_complete[prosthesis_for_left]')->radioList(ArrayHelper::map(ItemsProsthesisFor::find()->all(),'id','name'))->label(false); ?>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+
+
             </div>
         </div>
-        <div class="col-md-7">
-            <h5>ข้อมูลการประกอบอาชีพ</h5>
-        </div>
+        <!-- End Col -->
     </div>
-
-
 </div>
+<!-- End Row -->
+
+
+<!-- Start Row -->
+<div class="row">
+    <!-- start col -->
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <div class="box-card">
+            <div class="box-border">
+
+                <div class="box-title">7. Previous revascularization</div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <p class="text-center">Right</p>
+                        <div class="item-text-center">
+                            <?php echo  $form->field($model, 'record_complete[revascularization_right]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                        </div>
+                        <?php //$form->field($model, 'record_complete[specify_site_right]')->checkboxList(ArrayHelper::map(ItemsSpecifyProcedureDate::find()->all(),'id','name'))->label(false); ?>
+                   
+                        <?=$form->field($model, 'record_complete_right_evt')->checkbox()->label('EVT'); ?>
+                        <?= DatePicker::widget(['model' => $model,
+                                                'attribute' => 'record_complete_left_evt_date',
+                                                'template' => '{addon}{input}',
+                                                'language' => 'th', // Thai B.E.
+                                                    'clientOptions' => [
+                                                        'autoclose' => true,
+                                                        'format' => 'dd/mm/yyyy'
+                                                    ]
+                                            ]);?>
+                                            <br>
+                        <?=$form->field($model, 'record_complete_right_evt_note')->textArea()->label(false); ?>
+
+                        <?=$form->field($model, 'record_complete_right_evt')->checkbox()->label('ฺBypass'); ?>
+                        <?= DatePicker::widget(['model' => $model,
+                                                'attribute' => 'record_complete_right_bypass_date',
+                                                'template' => '{addon}{input}',
+                                                'language' => 'th', // Thai B.E.
+                                                    'clientOptions' => [
+                                                        'autoclose' => true,
+                                                        'format' => 'dd/mm/yyyy'
+                                                    ]
+                                            ]);?>
+                                            <br>
+                        <?=$form->field($model, 'record_complete_right_bypass_note')->textArea()->label(false); ?>
+
+
+
+
+                        <?=$form->field($model, 'record_complete_right_hybrid')->checkbox()->label('ฺHybrid'); ?>
+                        <?= DatePicker::widget(['model' => $model,
+                                                'attribute' => 'record_complete_right_hybrid_date',
+                                                'template' => '{addon}{input}',
+                                                'language' => 'th', // Thai B.E.
+                                                    'clientOptions' => [
+                                                        'autoclose' => true,
+                                                        'format' => 'dd/mm/yyyy'
+                                                    ]
+                                            ]);?>
+                                            <br>
+                        <?=$form->field($model, 'record_complete_right_hybrid_note')->textArea()->label(false); ?>
+
+
+
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <p class="text-center">Left</p>
+                        <div class="item-text-center">
+                            <?php echo $form->field($model, 'record_complete[revascularization_left]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                        </div>
+                        <?=$form->field($model, 'record_complete_left_evt')->checkbox()->label('EVT'); ?>
+                        <?= DatePicker::widget(['model' => $model,
+                                                'attribute' => 'record_complete_left_evt_date',
+                                                'template' => '{addon}{input}',
+                                                'language' => 'th', // Thai B.E.
+                                                    'clientOptions' => [
+                                                        'autoclose' => true,
+                                                        'format' => 'dd/mm/yyyy'
+                                                    ]
+                                            ]);?>
+                                            <br>
+                        <?=$form->field($model, 'record_complete_left_evt_note')->textArea()->label(false); ?>
+
+                        <?=$form->field($model, 'record_complete_left_evt')->checkbox()->label('ฺBypass'); ?>
+                        <?= DatePicker::widget(['model' => $model,
+                                                'attribute' => 'record_complete_left_bypass_date',
+                                                'template' => '{addon}{input}',
+                                                'language' => 'th', // Thai B.E.
+                                                    'clientOptions' => [
+                                                        'autoclose' => true,
+                                                        'format' => 'dd/mm/yyyy'
+                                                    ]
+                                            ]);?>
+                                            <br>
+                        <?=$form->field($model, 'record_complete_left_bypass_note')->textArea()->label(false); ?>
+
+
+
+
+                        <?=$form->field($model, 'record_complete_left_hybrid')->checkbox()->label('ฺHybrid'); ?>
+                        <?= DatePicker::widget(['model' => $model,
+                                                'attribute' => 'record_complete_left_hybrid_date',
+                                                'template' => '{addon}{input}',
+                                                'language' => 'th', // Thai B.E.
+                                                    'clientOptions' => [
+                                                        'autoclose' => true,
+                                                        'format' => 'dd/mm/yyyy'
+                                                    ]
+                                            ]);?>
+                                            <br>
+                        <?=$form->field($model, 'record_complete_left_hybrid_note')->textArea()->label(false); ?>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- End Col -->
+    </div>
+</div>
+<!-- End Row -->
+<br>
+<!-- Start Row -->
+<div class="row">
+    <!-- start col -->
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <?=Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => "btn btn-success"]); ?>
+    </div>
+</div>
+<!-- End Col -->
 
 <?php ActiveForm::end(); ?>
 
 
 <?php
 $js = <<< JS
-AOS.init();
+
+$("#formFootComplate").on('beforeSubmit', function (e) {
+  e.preventDefault(); // stopping submitting
+  var form = $(this);
+  if (form.find('.has-error').length) {
+    return false;
+    console.log(form.find('.has-error').length)
+  } else {
+   $.ajax({
+       type: form.attr('method'),
+       url: form.attr('action'),
+       data: form.serialize(),
+       dataType: "json",
+       success: function (response) {
+           console.log(response)
+       }
+   });
+   return false;
+  }
+  return false;
+});
+
 JS;
 $this->registerJS($js);
 ?>

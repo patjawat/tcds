@@ -212,7 +212,7 @@ class ChiefcomplaintController extends Controller
             $model->nursing_assessment = Json::encode($nursing_assessment);
 
             if ($model->requester) {
-                $model->save();
+                $model->save(false);
                 return $this->redirect(['/']);
                 // return $model->requester;
 

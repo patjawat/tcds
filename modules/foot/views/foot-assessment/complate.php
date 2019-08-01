@@ -320,9 +320,9 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
                                                     ]
                                             ]);?>
                         <br>
-                        <?=$form->field($model, 'record_complete_right_evt_note')->textArea()->label(false); ?>
+                        <?=$form->field($model, 'record_complete[right_evt_note]')->textArea()->label(false); ?>
 
-                        <?=$form->field($model, 'record_complete_right_bypass')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('ฺBypass'); ?>
+                        <?=$form->field($model, 'record_complete[right_bypass]')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('ฺBypass'); ?>
                         <?= DatePicker::widget(['model' => $model,
                                                 'attribute' => 'record_complete_right_bypass_date',
                                                 'template' => '{addon}{input}',
@@ -333,12 +333,12 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
                                                     ]
                                             ]);?>
                         <br>
-                        <?=$form->field($model, 'record_complete_right_bypass_note')->textArea()->label(false); ?>
+                        <?=$form->field($model, 'record_complete[right_bypass_note]')->textArea()->label(false); ?>
 
 
 
 
-                        <?=$form->field($model, 'record_complete_right_hybrid')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('ฺHybrid'); ?>
+                        <?=$form->field($model, 'record_complete[right_hybrid]')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('ฺHybrid'); ?>
                         <?= DatePicker::widget(['model' => $model,
                                                 'attribute' => 'record_complete_right_hybrid_date',
                                                 'template' => '{addon}{input}',
@@ -349,7 +349,7 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
                                                     ]
                                             ]);?>
                         <br>
-                        <?=$form->field($model, 'record_complete_right_hybrid_note')->textArea()->label(false); ?>
+                        <?=$form->field($model, 'record_complete[right_hybrid_note]')->textArea()->label(false); ?>
 
 
 
@@ -359,9 +359,9 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
                         <div class="item-text-center">
                             <?php echo $form->field($model, 'record_complete[revascularization_left]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
                         </div>
-                        <?=$form->field($model, 'record_complete_left_evt')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('EVT'); ?>
+                        <?=$form->field($model, 'record_complete[left_evt]')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('EVT'); ?>
                         <?= DatePicker::widget(['model' => $model,
-                                                'attribute' => 'record_complete_left_evt_date',
+                                                'attribute' => 'record_complete[left_evt_date]',
                                                 'template' => '{addon}{input}',
                                                 'language' => 'th', // Thai B.E.
                                                     'clientOptions' => [
@@ -370,9 +370,9 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
                                                     ]
                                             ]);?>
                         <br>
-                        <?=$form->field($model, 'record_complete_left_evt_note')->textArea()->label(false); ?>
+                        <?=$form->field($model, 'record_complete[left_evt_note]')->textArea()->label(false); ?>
 
-                        <?=$form->field($model, 'record_complete_left_bypass')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('ฺBypass'); ?>
+                        <?=$form->field($model, 'record_complete[left_bypass]')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('ฺBypass'); ?>
                         <?= DatePicker::widget(['model' => $model,
                                                 'attribute' => 'record_complete_left_bypass_date',
                                                 'template' => '{addon}{input}',
@@ -383,14 +383,14 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
                                                     ]
                                             ]);?>
                         <br>
-                        <?=$form->field($model, 'record_complete_left_bypass_note')->textArea()->label(false); ?>
+                        <?=$form->field($model, 'record_complete[left_bypass_note]')->textArea()->label(false); ?>
 
 
 
 
-                        <?=$form->field($model, 'record_complete_left_hybrid')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('ฺHybrid'); ?>
+                        <?=$form->field($model, 'record_complete[left_hybrid]')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('ฺHybrid'); ?>
                         <?= DatePicker::widget(['model' => $model,
-                                                'attribute' => 'record_complete_left_hybrid_date',
+                                                'attribute' => 'record_complete[left_hybrid_date]',
                                                 'template' => '{addon}{input}',
                                                 'language' => 'th', // Thai B.E.
                                                     'clientOptions' => [
@@ -399,7 +399,7 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
                                                     ]
                                             ]);?>
                         <br>
-                        <?=$form->field($model, 'record_complete_left_hybrid_note')->textArea()->label(false); ?>
+                        <?=$form->field($model, 'record_complete[left_hybrid_note]')->textArea()->label(false); ?>
 
                     </div>
                 </div>

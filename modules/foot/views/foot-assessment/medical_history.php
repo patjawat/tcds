@@ -113,16 +113,6 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
 }
 </style>
 
-<?php $form = ActiveForm::begin([
-    'id' => 'formFootComplate',
-    'fieldConfig' => [
-        'horizontalCssClasses' => [
-            'label' => 'col-lg-4 col-md-4 col-sm-4',
-            'wrapper' => 'col-lg-8 col-md-8 col-sm-8',
-        ],
-    ],
-    // 'layout' => 'horizontal',
-]);?>
 
 
 <!-- Start Row -->
@@ -301,17 +291,19 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
             <div class="box-border">
 
                 <div class="box-title">7. Previous revascularization</div>
+                <?php
+                //print_r($model->record_complete['right_evt'])
+                ?>
+                xx
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <p class="text-center">Right</p>
                         <div class="item-text-center">
                             <?php echo  $form->field($model, 'record_complete[revascularization_right]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
                         </div>
-                        <?php //$form->field($model, 'record_complete[specify_site_right]')->checkboxList(ArrayHelper::map(ItemsSpecifyProcedureDate::find()->all(),'id','name'))->label(false); ?>
-
-                        <?=$form->field($model, 'record_complete_right_evt')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('EVT'); ?>
+                        <?=$form->field($model, 'record_complete[right_evt]')->checkbox()->label('EVT'); ?>
                         <?= DatePicker::widget(['model' => $model,
-                                                'attribute' => 'record_complete_right_evt_date',
+                                                'attribute' => 'record_complete[right_evt_date]',
                                                 'template' => '{addon}{input}',
                                                 'language' => 'th', // Thai B.E.
                                                     'clientOptions' => [
@@ -322,9 +314,9 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
                         <br>
                         <?=$form->field($model, 'record_complete[right_evt_note]')->textArea()->label(false); ?>
 
-                        <?=$form->field($model, 'record_complete[right_bypass]')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('ฺBypass'); ?>
+                        <?=$form->field($model, 'record_complete[right_bypass]')->checkbox()->label('ฺBypass'); ?>
                         <?= DatePicker::widget(['model' => $model,
-                                                'attribute' => 'record_complete_right_bypass_date',
+                                                'attribute' => 'record_complete[right_bypass_date]',
                                                 'template' => '{addon}{input}',
                                                 'language' => 'th', // Thai B.E.
                                                     'clientOptions' => [
@@ -338,9 +330,9 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
 
 
 
-                        <?=$form->field($model, 'record_complete[right_hybrid]')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('ฺHybrid'); ?>
+                        <?=$form->field($model, 'record_complete[right_hybrid]')->checkbox()->label('ฺHybrid'); ?>
                         <?= DatePicker::widget(['model' => $model,
-                                                'attribute' => 'record_complete_right_hybrid_date',
+                                                'attribute' => 'record_complete[right_hybrid_date]',
                                                 'template' => '{addon}{input}',
                                                 'language' => 'th', // Thai B.E.
                                                     'clientOptions' => [
@@ -359,7 +351,7 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
                         <div class="item-text-center">
                             <?php echo $form->field($model, 'record_complete[revascularization_left]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
                         </div>
-                        <?=$form->field($model, 'record_complete[left_evt]')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('EVT'); ?>
+                        <?=$form->field($model, 'record_complete[left_evt]')->checkbox()->label('EVT'); ?>
                         <?= DatePicker::widget(['model' => $model,
                                                 'attribute' => 'record_complete[left_evt_date]',
                                                 'template' => '{addon}{input}',
@@ -372,9 +364,9 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
                         <br>
                         <?=$form->field($model, 'record_complete[left_evt_note]')->textArea()->label(false); ?>
 
-                        <?=$form->field($model, 'record_complete[left_bypass]')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('ฺBypass'); ?>
+                        <?=$form->field($model, 'record_complete[left_bypass]')->checkbox()->label('ฺBypass'); ?>
                         <?= DatePicker::widget(['model' => $model,
-                                                'attribute' => 'record_complete_left_bypass_date',
+                                                'attribute' => 'record_complete[left_bypass_date]',
                                                 'template' => '{addon}{input}',
                                                 'language' => 'th', // Thai B.E.
                                                     'clientOptions' => [
@@ -388,7 +380,7 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
 
 
 
-                        <?=$form->field($model, 'record_complete[left_hybrid]')->checkbox(['uncheck' => '0', 'checked' => '1'])->label('ฺHybrid'); ?>
+                        <?=$form->field($model, 'record_complete[left_hybrid]')->checkbox(['uncheck' =>null, 'checked' => '1'])->label('ฺHybrid'); ?>
                         <?= DatePicker::widget(['model' => $model,
                                                 'attribute' => 'record_complete[left_hybrid_date]',
                                                 'template' => '{addon}{input}',
@@ -410,43 +402,3 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
     </div>
 </div>
 <!-- End Row -->
-<br>
-<!-- Start Row -->
-<div class="row">
-    <!-- start col -->
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
-        <?=Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => "btn btn-success"]); ?>
-    </div>
-</div>
-<!-- End Col -->
-
-<?php ActiveForm::end(); ?>
-
-
-<?php
-$js = <<< JS
-
-$("#formFootComplate").on('beforeSubmit', function (e) {
-  e.preventDefault(); // stopping submitting
-  var form = $(this);
-  if (form.find('.has-error').length) {
-    return false;
-    console.log(form.find('.has-error').length)
-  } else {
-   $.ajax({
-       type: form.attr('method'),
-       url: form.attr('action'),
-       data: form.serialize(),
-       dataType: "json",
-       success: function (response) {
-           console.log(response)
-       }
-   });
-   return false;
-  }
-  return false;
-});
-
-JS;
-$this->registerJS($js);
-?>

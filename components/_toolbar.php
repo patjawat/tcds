@@ -27,7 +27,7 @@ $module = \Yii::$app->controller->module->id;
     <?php endif;?>
 
     <?php if (\Yii::$app->user->can('foot')):?>
-    <li><a class="<?=$module == 'foot' ? 'on-active' : 'non-active' ?>" href="<?= Url::to(['/foot/default/index']) ?>"><i class="fa fa-wheelchair"></i> FOOT</a></li>
+    <li><a class="<?=$module == 'foot' ? 'on-active' : 'non-active' ?>" href="<?= Url::to(['/foot/foot-assessment']) ?>"><i class="fa fa-wheelchair"></i> FOOT</a></li>
     <?php endif;?>
 
     <?php if (\Yii::$app->user->can('hbot')):?>

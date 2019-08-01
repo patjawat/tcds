@@ -118,7 +118,7 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
 <!-- Start Row -->
 <div class="row">
     <!-- start col -->
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
         <div class="box-card">
             <div class="box-border">
                 <div class="box-title">1. Occupation</div>
@@ -135,7 +135,7 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
 <!-- Start Row -->
 <div class="row">
     <!-- start col -->
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
         <div class="box-card">
             <div class="box-border">
                 <div class="box-title">2. Smoking</div>
@@ -153,7 +153,7 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
 <!-- Start Row -->
 <div class="row">
     <!-- start col -->
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
         <div class="box-card">
             <div class="box-border">
                 <div class="box-title">3. Activity</div>
@@ -170,7 +170,7 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
 <!-- Start Row -->
 <div class="row">
     <!-- start col -->
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
         <div class="box-card">
             <div class="box-border">
                 <div class="box-title">4. Using ambulation aid</div>
@@ -187,7 +187,7 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
 <!-- Start Row -->
 <div class="row">
     <!-- start col -->
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
         <div class="box-card">
             <div class="box-border">
 
@@ -225,7 +225,7 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
 <!-- Start Row -->
 <div class="row">
     <!-- start col -->
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
         <div class="box-card">
             <div class="box-border">
 
@@ -286,7 +286,7 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
 <!-- Start Row -->
 <div class="row">
     <!-- start col -->
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
         <div class="box-card">
             <div class="box-border">
 

@@ -32,30 +32,24 @@ function loadEmrDocumentQR(){
     });
 }
 
-function convertFile(hn){
+function convertFile(hn,url,url_insert){
     $.ajax({
         type: "post",
         beforeSend: function () {
-            // $('#view-document').hide();
             $('.container_loadding').show();    
         },
-        url: "http://127.0.0.1:8080/barcode-him",
-        data: {hn:hn},
-        // dataType: "่json",
+        url:url,
+        data: {hn:hn,url_insert:url_insert},
+        dataType:"json",
         success: function (response) {
             if(response.prediction !==""){
                 $("#loader").hide();
-                // $('#emr-content').show()
                 localStorage.setItem("document_him",hn)
                loadEmrDocument();
                $('.container_loadding').hide();
                $('#view-document').show();
             }
-            console.log(response)
         
-        },
-        fail: function(xhr, textStatus, errorThrown){
-       alert('request failed');
-    }
+        }
     });
 }

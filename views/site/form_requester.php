@@ -59,6 +59,7 @@ $('#master-requester').keyup(function(e){
                     $('.modal-footer').html(response.footer);
                     if(response.status == true){
                         $('.save').show();
+                        // $("#form-chiefcomplaint").submit();
                         
                     }
                     

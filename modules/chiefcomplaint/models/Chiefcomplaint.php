@@ -26,7 +26,7 @@ class Chiefcomplaint extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'created_by','bp1','bp2','pr','o2sat','wc','ic','ec','hc','rr','bt'], 'required'],
+            [['bp1','bp2','pr','o2sat','wc','ic','ec','hc','rr','bt'], 'required'],
             [['data_json','nursing_assessment', 'cc_text', 'date_service', 'time_service', 'updated_at','doctor_id'], 'safe'],
             [['pi_text'], 'string'],
             [['sbp', 'dbp', 'temp', 'pp', 'pr', 'o2sat', 'height', 'weight', 'bt', 'rr', 'bw', 'ht', 'ibw', 'bmi'], 'number'],

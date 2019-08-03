@@ -1,11 +1,16 @@
 <?php
 use app\components\PatientHelper;
+use app\components\DateTimeHelper;
 use app\modules\document\models\Documentqr;
+use app\modules\document\models\Document;
 use app\modules\document\models\DocumentQrType;
+use app\modules\systems\models\SystemData;
 use kartik\select2\Select2;
 use kartik\widgets\ActiveForm;
 use yii\bootstrap\Modal;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
+use yii\helpers\Url;
 
 $this->title = 'Documents';
 $hn = PatientHelper::getCurrentHn();
@@ -15,6 +20,10 @@ $this->registerCssFile('@web/viewer/viewer.min.css');
 $this->registerJsFile('@web/viewer/viewer.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 $model = new Documentqr;
+$data= Json::decode(SystemData::findOne(['id' => 'system'])->data);
+$barcode_api = $data['barcode_api'];
+// ตรวจสอบการ Updaet Document Him
+$checkUpdate = Document::find(['hn' => $hn,'updated_at' => DateTimeHelper::getDbDate()])->count();
 
 ?>
 
@@ -29,10 +38,6 @@ $model = new Documentqr;
 .modal.in>.modal-dialog {
     width: 70%;
 }
-
-
-
-/** code by webdevtrick ( https://webdevtrick.com) **/
 
 .container_loadding {
     /* position: absolute; */
@@ -74,17 +79,12 @@ $model = new Documentqr;
 </style>
 
 <button id="api">Click</button>
-<?php
-// $salida = shell_exec('mkdir 88888888');
-// echo "<pre>$salida</pre>";
-?>
+
 <ul class="nav nav-tabs" style="width:100%;height: 44px;">
     <li class="active"><a data-toggle="tab" href="#home-document"><i class="fas fa-barcode"></i> Document BarCode</a>
     </li>
     <li><a data-toggle="tab" href="#menu1"><i class="fas fa-qrcode"></i> Document QRCode</a></li>
-
 </ul>
-
 
 <div class="tab-content" style="margin-left:0px;padding-top: 0px;">
     <!-- Home Content -->
@@ -183,26 +183,43 @@ ActiveForm::end();
 <?php Modal::end();?>
 <div id="hn" hidden><?=$hn;?></div>
 <?php
+$get_url_insert = Url::base(true).'/index.php?r=api/add-barcode'; 
 
 $js = <<< JS
 var document_him = localStorage.getItem("document_him");
 var hn  = $('#hn').text()
-$('.container_loadding').hide();
+// var url_convert_him = 'http://127.0.0.1:5000/barcode-him'
+var url_convert_him = '$barcode_api';
+var url_insert = '$get_url_insert';
+var checkUpdate = '$checkUpdate';
+// $('.container_loadding').hide();
 
 // ตรวจสอบการโอเอกสารจาก him
 // if(hn == document_him ){
 //     // ไม่ต้องทำไร
+//     $('.container_loadding').hide();
 //     loadEmrDocument()
 // }else if(hn == ""){
 //     localStorage.setItem("document_him","")
 // }else{
-//     convertFile($hn);
+//     convertFile($hn,url_convert_him,url_insert);
 // }
 // จบ
+
+// ตรวจสอบการ แปลง file
+// ถ้าวันนี้ยังไม่มีการแปลงไฟล์ให้ cpnvert
+if(checkUpdate < 1){ 
+    convertFile($hn,url_convert_him,url_insert);
+}else{ 
+    $('.container_loadding').hide();
+    loadEmrDocument()
+}
+
 $('#api').click(function (e) { 
     e.preventDefault();
-    convertFile($hn);
-    
+    convertFile($hn,url_convert_him,url_insert);
+
+  
 });
 
 
@@ -221,7 +238,7 @@ $('#python-load').click(function (e) {
 });
 
 
-loadEmrDocumentQR();
+// loadEmrDocumentQR();
 
 $('#upload-form').hide();
 
@@ -238,6 +255,9 @@ $('#test').click(function (e) {
 function loadEmrDocument(){
     $.ajax({
         type: "get",
+        beforeSend:function(){
+            $('#view-document').html('<img src="img/loading.gif" style="margin-left: 400px;margin-top: 50px;padding-bottom: 18px;" />');
+        },
         url: "index.php?r=document/default/index",
         dataType: "json",
         success: function (response) {
@@ -255,31 +275,6 @@ function loadEmrDocumentQR(){
         }
     });
 }
-
-// function convertFile(hn){
-//     $.ajax({
-//         type: "post",
-//         beforeSend: function () {
-//             // $('#view-document').hide();
-//             $('.container_loadding').show();    
-//         },
-//         url: "http://127.0.0.1:8080/barcode-him",
-//         data: {hn:hn},
-//         // dataType: "่json",
-//         success: function (response) {
-//             if(response.prediction !==""){
-//                 $("#loader").hide();
-//                 // $('#emr-content').show()
-//                 localStorage.setItem("document_him",hn)
-//                loadEmrDocument();
-//                $('.container_loadding').hide();
-//                $('#view-document').show();
-//             }
-//             console.log(response)
-        
-//         }
-//     });
-// }
 
 JS;
 $this->registerJS($js);

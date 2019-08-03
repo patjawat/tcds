@@ -11,7 +11,7 @@ $module = \Yii::$app->controller->module->id;
 <ul class="nav navbar-nav na">
 <?php //if($hn):?>
     <?php if (\Yii::$app->user->can('chiefcomplaint')):?>
-    <li><a class="<?=$module == 'chiefcomplaint' ? 'on-active' : 'non-active' ?>" href="<?= Url::to(['/chiefcomplaint']) ?>" ><i class="fas fa-user-friends"></i> Patient Data</a></li>
+    <li><a class="<?=$module == 'chiefcomplaint' ? 'on-active' : 'non-active' ?>" href="<?= Url::to(['/chiefcomplaint/chiefcomplaint/show-form']) ?>" ><i class="fas fa-user-friends"></i> Patient Data</a></li>
     <?php endif;?>
 
     <?php if (\Yii::$app->user->can('dm-nurse')):?>
@@ -75,6 +75,7 @@ $module = \Yii::$app->controller->module->id;
             <li><?=Html::a('การกำหนดการใช้งาน', ['/admin/assignment'])?></li>
             <li><?=Html::a('ค่าบริการทางการแพทย์', ['/doctorworkbench/df-items'])?></li>
             <li><?=Html::a('ตั้งค่าเอกสาร QR-Code', ['/document/document-qr-type'])?></li>
+            <li><?=Html::a('ตั้งค่าระบบ', ['/systems'])?></li>
            
         </ul>
     </li>

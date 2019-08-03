@@ -31,7 +31,8 @@ class DevAsset extends AssetBundle {
         // 'css/btn-plus.css',
         'css/menu.css',
         'jquery-loadding/jquery.loading.min.css',
-         'jquery-confirm/jquery-confirm.min.css'
+         'jquery-confirm/jquery-confirm.min.css',
+         'css/aos.css'
     ];
     public $js = [
         'js/main.js',
@@ -40,7 +41,8 @@ class DevAsset extends AssetBundle {
         'js/chiefcomplaint.js',
         'js/doctorworkbench.js',
         'js/emr.js',
-        'jquery-confirm/jquery-confirm.min.js'
+        'jquery-confirm/jquery-confirm.min.js',
+        'js/aos.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

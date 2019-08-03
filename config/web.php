@@ -1,5 +1,5 @@
 <?php
-use kartik\report\Report;
+
 $dev_theme = require __DIR__ . '/dev-theme.php';
 $modules = require __DIR__ . '/add_modules.php';
 $params = require __DIR__ . '/params.php';
@@ -19,16 +19,9 @@ $config = [
     ],
     'modules' => $modules,
     'components' => [
-        'formatter' => [
-            'class' => 'yii\i18n\Formatter',
-            'nullDisplay' => '',
-        ],
         'view' => $dev_theme,
         'request' => [
             'cookieValidationKey' => '3fScFxrisEbShcESxVtkxGeDLNwvCpx8',
-            'parsers' => [
-                'application/json' => 'yii\web\JsonParser',
-            ]
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -62,35 +55,21 @@ $config = [
         'db' => $db,
         'ttr_him' => $ttr_him,
       'theptarin' => $theptarin,
-      'report' => [
-        'class' => Report::classname(),
-        'apiKey' => 'jvt47ctejsmfhn43i7vt2bva',
-        // the following variables can be set to globally default your settings
-        'templateId' => 1, // optional: the numeric identifier for your default global template 
-        'outputAction' => Report::ACTION_FORCE_DOWNLOAD, // or Report::ACTION_GET_DOWNLOAD_URL 
-        'outputFileType' => Report::OUTPUT_PDF, // or Report::OUTPUT_DOCX
-        'outputFileName' => 'KrajeeReport.pdf', // a default file name if 
-        'defaultTemplateVariables' => [ // any default data you desire to always default
-            'companyName' => 'Krajee.com'
-        ]
-        ],
-    
+    /*
       'urlManager' => [
-      'enablePrettyUrl' => false,
+      'enablePrettyUrl' => true,
       'showScriptName' => false,
       'rules' => [
-        ['class' => 'yii\rest\UrlRule', 'controller' => 'location',  'pluralize'=>false],
       ],
       ],
-     
+     */
     ],
     // 'as access' => [
     //     'class' => 'mdm\admin\components\AccessControl',
     //     'allowActions' => [
-    //         // 'site/*',
-    //         'site/about',
-    //         'site/logout',
+    //         'site/*',
     //         'admin/*',
+    //         'some-controller/some-action',
     //     ]
     // ],
     'params' => $params,
@@ -104,7 +83,7 @@ if (YII_ENV_DEV) {
         'class' => 'yii\debug\Module',
             // uncomment the following to add your IP if you are not connecting from localhost.
             //'allowedIPs' => ['127.0.0.1', '::1'],
-            'allowedIPs' => ['*'],
+            // 'allowedIPs' => ['*'],
     ];
 
     $config['bootstrap'][] = 'gii';

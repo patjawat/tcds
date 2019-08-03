@@ -3,41 +3,35 @@
 namespace app\modules\document\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\AttributeBehavior;
+use yii\db\Expression;
+use yii\db\ActiveRecord;
+use app\components\DateTimeHelper;
+use app\components\PatientHelper;
+use yii\helpers\Json;
+use yii\helpers\Url;
 
-/**
- * This is the model class for table "document".
- *
- * @property string $id
- * @property string $hn
- * @property string $filename
- * @property string $barcode
- * @property string $type
- */
 class Document extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public static function tableName()
     {
         return 'document';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
             // [['id'], 'required'],
             [['id', 'hn', 'filename', 'barcode', 'type','sub_dir'], 'string', 'max' => 255],
+            [['updated_at','created_at'], 'safe'],
             [['id'], 'unique'],
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function attributeLabels()
     {
         return [
@@ -46,6 +40,8 @@ class Document extends \yii\db\ActiveRecord
             'filename' => 'Filename',
             'barcode' => 'barcode',
             'type' => 'Type',
+            'updated_at' => 'แก้ไขล่าสุด',
+            'created_at' => 'วันที่สร้าง'
         ];
     }
 
@@ -57,5 +53,21 @@ class Document extends \yii\db\ActiveRecord
         }else{
             return '-';
         }
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['created_at','updated_at']],
+                'value' => DateTimeHelper::getDbNow()  
+            ],
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at'],
+                'value' => DateTimeHelper::getDbNow()           
+            ],
+        ];
     }
 }

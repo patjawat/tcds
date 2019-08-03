@@ -5,13 +5,14 @@ namespace app\modules\chiefcomplaint\controllers;
 use app\components\PatientHelper;
 use app\modules\chiefcomplaint\models\Chiefcomplaint;
 use app\modules\chiefcomplaint\models\ChiefcomplaintSearch;
-// use app\components\VisitController as Controller;
+use app\components\VisitController as Controller;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
-use yii\web\Controller;
+// use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use \yii\web\Response;
+use yii\widgets\ActiveForm;
 use app\components\UnitHelper;
 
 
@@ -91,6 +92,72 @@ class ChiefcomplaintController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+// original
+    // public function actionShowForm()
+    // {
+    //     $pcc_vn = PatientHelper::getCurrentPccVn();
+    //     $vn = PatientHelper::getCurrentVn();
+    //     $hn = PatientHelper::getCurrentHn();
+    //     $checkvn = Chiefcomplaint::findOne(['pcc_vn' => $pcc_vn, 'vn' => $vn]);
+    //     if ($checkvn) {
+    //         $last = Chiefcomplaint::find()->orderby(['date_service' => SORT_DESC])->where(['hn' => $hn])->one();
+    //         $model = $checkvn;
+    //         $model->ht = $last->ht;
+    //         $model->nursing_assessment = Json::decode($model->nursing_assessment);
+
+    //     } else {
+    //         $model = new Chiefcomplaint();
+    //         // $model->id = substr(Yii::$app->getSecurity()->generateRandomString(),10);
+    //         $model->hn = $hn;
+    //         $model->vn = $vn;
+    //         $model->pcc_vn = $pcc_vn;
+    //         $model->date_service = Date('Y-m-d');
+    //         $model->time_service = Date('H:i:s');
+    //         // $model->doctor_id  =  PatientHelper::getCurrentDoctorID();
+
+    //     }
+    //     if ($model->load(Yii::$app->request->post())) {
+    //         Yii::$app->response->format = Response::FORMAT_JSON;
+
+    //         //    return $this->redirect(['view', 'id' => $model->id]);
+    //         $model->pcc_vn = $pcc_vn;
+    //         $nursing_assessment = [
+    //             'type_of_patient' => $model->nursing_assessment['type_of_patient'],
+    //             'triage' => $model->nursing_assessment['triage'],
+    //             'access' => $model->nursing_assessment['access'],
+    //             'loc' => $model->nursing_assessment['loc'],
+    //             'pain_score_adult' => $model->nursing_assessment['pain_score_adult'] == '' ? '' : number_format($model->nursing_assessment['pain_score_adult'], 2, '.', ''),
+    //             'pain_score_child' => $model->nursing_assessment['pain_score_child'] == '' ? '' : number_format($model->nursing_assessment['pain_score_child'], 2, '.', ''),
+    //             'pain_score_child_items' => $model->nursing_assessment['pain_score_child_items'],
+    //             'fall_risk' => $model->nursing_assessment['fall_risk'],
+    //             'risk_precaution' => $model->nursing_assessment['risk_precaution'],
+    //             'dm_type' => $model->nursing_assessment['dm_type'],
+    //             'thyroid_type' => $model->nursing_assessment['thyroid_type'],
+    //             'fall_risk_yes' => $model->nursing_assessment['fall_risk_yes'],
+
+    //         ];
+    //         $model->nursing_assessment = Json::encode($nursing_assessment);
+
+    //         if ($model->save(false)) {
+    //             return $this->redirect(['/']);
+
+    //         }
+    //     } else {
+    //         if (Yii::$app->request->isAjax) {
+    //             Yii::$app->response->format = Response::FORMAT_JSON;
+    //             return $this->renderAjax('create', [
+    //                 'model' => $model,
+    //             ]);
+    //         } else {
+    //             return $this->render('create', [
+    //                 'model' => $model,
+    //             ]);
+    //         }
+    //     }
+
+    // }
+
+
 
     public function actionShowForm()
     {
@@ -102,6 +169,7 @@ class ChiefcomplaintController extends Controller
             $last = Chiefcomplaint::find()->orderby(['date_service' => SORT_DESC])->where(['hn' => $hn])->one();
             $model = $checkvn;
             $model->ht = $last->ht;
+            $model->requester = "";
             $model->nursing_assessment = Json::decode($model->nursing_assessment);
 
         } else {
@@ -115,11 +183,17 @@ class ChiefcomplaintController extends Controller
             // $model->doctor_id  =  PatientHelper::getCurrentDoctorID();
 
         }
-        if ($model->load(Yii::$app->request->post())) {
+        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
             Yii::$app->response->format = Response::FORMAT_JSON;
-
+            // return ActiveForm::validate($model);
             //    return $this->redirect(['view', 'id' => $model->id]);
-            $model->pcc_vn = $pcc_vn;
+      
+
+            if(ActiveForm::validate($model)){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            }else{
+                $model->pcc_vn = $pcc_vn;
             $nursing_assessment = [
                 'type_of_patient' => $model->nursing_assessment['type_of_patient'],
                 'triage' => $model->nursing_assessment['triage'],
@@ -137,9 +211,12 @@ class ChiefcomplaintController extends Controller
             ];
             $model->nursing_assessment = Json::encode($nursing_assessment);
 
-            if ($model->save(false)) {
+            if ($model->requester) {
+                $model->save();
                 return $this->redirect(['/']);
+                // return $model->requester;
 
+            }
             }
         } else {
             if (Yii::$app->request->isAjax) {
@@ -155,6 +232,34 @@ class ChiefcomplaintController extends Controller
         }
 
     }
+
+    public function actionAjaxValidation(){
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $pcc_vn = PatientHelper::getCurrentPccVn();
+        $vn = PatientHelper::getCurrentVn();
+        $hn = PatientHelper::getCurrentHn();
+        $checkvn = Chiefcomplaint::findOne(['pcc_vn' => $pcc_vn, 'vn' => $vn]);
+        if ($checkvn) {
+            $last = Chiefcomplaint::find()->orderby(['date_service' => SORT_DESC])->where(['hn' => $hn])->one();
+            $model = $checkvn;
+            $model->ht = $last->ht;
+            $model->nursing_assessment = Json::decode($model->nursing_assessment);
+
+        } else {
+            $model = new Chiefcomplaint();
+            // $model->id = substr(Yii::$app->getSecurity()->generateRandomString(),10);
+            $model->hn = $hn;
+            $model->vn = $vn;
+            $model->pcc_vn = $pcc_vn;
+            // $model->doctor_id  =  PatientHelper::getCurrentDoctorID();
+
+        }
+        if(ActiveForm::validate($model)){
+            return ActiveForm::validate($model);
+        }
+    }
+
+
 
     public function actionDoctorView()
     {
@@ -225,4 +330,19 @@ class ChiefcomplaintController extends Controller
             
         ];
     }
+
+    public function actionRequester(){
+        if(Yii::$app->request->isAjax){
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        return [
+            'title' => 'ระบุ Requester',
+            'content' =>  $this->renderAjax('confirm_requester'),
+        ];
+    }else{
+        return $this->render('confirm_requester');
+    }
+}
+
+
 }

@@ -32,11 +32,7 @@ class DefaultController extends Controller
         $searchModel = new OpdVisitSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $date_start =  Date('Y-m-d');
-        $date_end =   Date('Y-m-d');
-
-
-        $dataProvider->query->where(['department' => $department]);
+        $dataProvider->query->andWhere(['department' => $department]);
         // $dataProvider->query->andFilterWhere(['>=', 'service_start_date', $date_start]);
         // $dataProvider->query->andFilterWhere(['<=', 'service_start_date', $date_end]);
         if (Yii::$app->request->isAjax) {
@@ -57,7 +53,6 @@ class DefaultController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         
         return $this->renderAjax('patient_alert');
-        
       
     }
     public function actionCheckDrugAllergy(){

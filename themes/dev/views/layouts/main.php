@@ -32,6 +32,7 @@ $hn = PatientHelper::getCurrentHn();
     <link rel="shortcut icon" href="./img/medico.ico" type="image/x-icon" />
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
     <style>
+
     #main-remote>.modal-dialog {
         width: 65%;
     }

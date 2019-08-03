@@ -92,4 +92,6 @@ $modules['questionare'] = ['class' => 'app\modules\questionare\Questionare'];//i
 $modules['dmassessment'] = ['class' => 'app\modules_nurse\dmassessment\Dmassessment']; //pond
 $modules['usermanager'] = ['class' => 'app\modules\usermanager\Usermanager']; //pond
 $modules['document'] = ['class' => 'app\modules\document\Document']; //pond
+$modules['systems'] = ['class' => 'app\modules\systems\Systensettings']; //pond
+
 return $modules;

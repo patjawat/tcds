@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $model app\modules\chiefcomplaint\models\Chiefcomplaint */
 
 $this->title = 'Create Chiefcomplaint';
-$this->params['breadcrumbs'][] = ['label' => 'Chiefcomplaints', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => 'Chiefcomplaints', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="chiefcomplaint-create">
     <?= $this->render('_form', [

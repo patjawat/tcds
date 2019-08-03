@@ -13,13 +13,16 @@ use app\components\DbHelper;
 use app\components\UserHelper;
 use app\modules\opdvisit\models\OpdVisit;
 use app\modules\opdvisit\models\HisPatient;
+use app\modules\systems\models\SystemData;
 
 
 class PatientHelper extends Component
 {
     public static function getUrl()
     {
-        return 'http://133f2fdb.ngrok.io/HIS/index.php/';
+        $data= Json::decode(SystemData::findOne(['id' => 'system'])->data);
+        // return 'http://133f2fdb.ngrok.io/HIS/index.php/';
+        return  $data['his_api'];
     }
 
     public static function getPatientTitleByHn($hn)

@@ -55,7 +55,7 @@ class OpdVisit extends \yii\db\ActiveRecord
             'created_by' => 'Created By',
             'updated_at' => 'Updated At',
             'updated_by' => 'Updated By',
-            'service_start_date' => 'Service Start Date',
+            'service_start_date' => 'วันที่รับบริการ',
             'service_start_time' => 'Service Start Time',
             'service_end_date' => 'Service End Date',
             'service_end_time' => 'Service End Time',

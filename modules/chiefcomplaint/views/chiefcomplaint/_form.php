@@ -10,6 +10,7 @@ use yii\helpers\Url;
 
 $hn = PatientHelper::getCurrentHn();
 $vn = PatientHelper::getCurrentVn();
+$this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 
 ?>
 <style>
@@ -129,6 +130,12 @@ li.dropdown:hover>.dropdown-menu {
 ?>
 <?php $form = ActiveForm::begin([
     'id' => 'form-chiefcomplaint',
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => true,
+    'validateOnBlur' => true,
+    'validateOnChange' => true,
+    'validateOnSubmit' => true,
+    // 'validationUrl' => ['/chiefcomplaint/chiefcomplaint/ajax-validation'],
     'fieldConfig' => [
         'horizontalCssClasses' => [
             'label' => 'col-lg-4 col-md-4 col-sm-4',
@@ -191,41 +198,41 @@ li.dropdown:hover>.dropdown-menu {
                                                     <div
                                                         class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
                                                         <?=$form->field($model, 'bp1', [
-          'inputOptions' => [
-            'placeholder' => 'ความดันโลหิตบน',
-        ],
-    'horizontalCssClasses' => [
-        'label' => 'col-xs-5 col-sm-5 col-md-5 col-lg-5',
-        'wrapper' => 'col-lg-7 col-md-7 col-sm-7',
-    ],
-])->label('BP')?>
+                                                                'inputOptions' => [
+                                                                    'placeholder' => 'ความดันโลหิตบน',
+                                                                ],
+                                                            'horizontalCssClasses' => [
+                                                                'label' => 'col-xs-5 col-sm-5 col-md-5 col-lg-5',
+                                                                'wrapper' => 'col-lg-7 col-md-7 col-sm-7',
+                                                            ],
+                                                        ])->label('BP')?>
                                                     </div>
                                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                                         <?=$form->field($model, 'bp2', [
-           'inputOptions' => [
-            'placeholder' => 'ความดันโลหิตล่าง',
-        ],
-    'template' => '{label} <div class="row"><div class="col-lg-11 col-md-11 col-sm-11">{input}{error}{hint}</div></div>',
-])->label(false)?>
+                                                                'inputOptions' => [
+                                                                    'placeholder' => 'ความดันโลหิตล่าง',
+                                                                ],
+                                                            'template' => '{label} <div class="row"><div class="col-lg-11 col-md-11 col-sm-11">{input}{error}{hint}</div></div>',
+                                                        ])->label(false)?>
                                                     </div>
                                                 </div>
                                                 <!-- xx -->
 
                                                 <?=$form->field($model, 'position')->widget(Select2::classname(), [
-        'data' => [ "sit" => "Sit.","lie" => "Lie."],
-        'options' => ['placeholder' => 'ท่าวัดความดันโลหิต'],
-        'pluginOptions' => [
-            'allowClear' => true,
-        ],
-    ]);?>
+                                                            'data' => [ "sit" => "Sit.","lie" => "Lie."],
+                                                            'options' => ['placeholder' => 'ท่าวัดความดันโลหิต'],
+                                                            'pluginOptions' => [
+                                                                'allowClear' => true,
+                                                            ],
+                                                        ]);?>
 
                                                 <?=$form->field($model, 'arm')->widget(Select2::classname(), [
-    'data' => ["lt" => "Lt.","rt" => "Rt."],
-    'options' => ['placeholder' => 'แขนข้างที่วัดความดันโลหิต'],
-    'pluginOptions' => [
-        'allowClear' => true,
-    ],
-]);?>
+                                                        'data' => ["lt" => "Lt.","rt" => "Rt."],
+                                                        'options' => ['placeholder' => 'แขนข้างที่วัดความดันโลหิต'],
+                                                        'pluginOptions' => [
+                                                            'allowClear' => true,
+                                                        ],
+                                                    ]);?>
 
 
                                             </div>
@@ -236,12 +243,12 @@ li.dropdown:hover>.dropdown-menu {
 
                                                 <?=$form->field($model, 'pr')->textInput(['placeholder' => 'ชีพจร', 'nextid' => 'pccservicepi-height'])->label(true)?>
                                                 <?=$form->field($model, 'pr_rhythm')->widget(Select2::classname(), [
-    'data' => ["regular" => "Regular","lrregular" => "Lrregular"],
-    'options' => ['placeholder' => 'จังหวะของชีพจร'],
-    'pluginOptions' => [
-        'allowClear' => true,
-    ],
-]);?>
+                                                        'data' => ["regular" => "Regular","lrregular" => "Lrregular"],
+                                                        'options' => ['placeholder' => 'จังหวะของชีพจร'],
+                                                        'pluginOptions' => [
+                                                            'allowClear' => true,
+                                                        ],
+                                                    ]);?>
                                                 <?=$form->field($model, 'rr')->textInput(['placeholder' => 'อัตราการหายใจ', 'nextid' => 'pccservicepi-height'])->label(true)?>
                                                 <?=$form->field($model, 'o2sat')->textInput(['placeholder' => 'ความเข้มข้นของออกซิเจน', 'nextid' => 'pccservicepi-height'])->label(true)?>
 
@@ -289,7 +296,7 @@ li.dropdown:hover>.dropdown-menu {
                                             </div>
                                             <!-- End Col-4 -->
                                         </div>
-<br><br>
+                                        <br><br>
 
 
                                     </div>
@@ -298,7 +305,7 @@ li.dropdown:hover>.dropdown-menu {
 
                             </div>
                         </div>
-<br>
+                        <br>
 
                         <!-- End NewRow -->
 
@@ -558,31 +565,50 @@ checkboxList([
 
 
                     <div class="tab-pane" id="tab_4">
-                                <h1>แสดงรายการเอกสาร</h1>
-                                <ul>
-                                <li><?= Html::a('แบบฟอร์ม OPD DOCTOR RECORD', ['/chiefcomplaint/report/opd-doctor-record','report_name' => 'opd-doctor-record','hn' => $hn,'vn' => $vn],['class' => 'print']) ?></li>
-                                <!-- <li><?php //Html::a('แบบฟอร์ม OPD NOTE.mrt', Url::to(ReportHelper::Url().'opd_note.php', true),['target' => '_blank'])?></li> -->
-                                <li><?=Html::a('แบบฟอร์ม OPD DOCTOR',['/dm/default/form','form_name' => 'dm_assessment_today','title' => 'DM Assessment Today'],['target' => '_blank'])?></li>
-                                <li><?=Html::a('แบบฟอร์ม OPD NOTE - Dietitian Record',null,['target' => '_blank'])?></li>
-                                <li><?=Html::a('แบบฟอร์ม OPD NOTE - Foot Record', null,['target' => '_blank'])?></li>
-                                <li><?=Html::a('แบบฟอร์ม OPD NOTE - HBOT Record',null,['target' => '_blank'])?></li>
-                                <li><?=Html::a('แบบฟอร์ม OPD NOTE - HD Record',null,['target' => '_blank'])?></li>
-                                <li><?=Html::a('แบบฟอร์ม OPD NOTE - Nurse Record',null,['target' => '_blank'])?></li>
-                                <li><?=Html::a('แบบฟอร์ม OPD NOTE - Pharmacist Record',null,['target' => '_blank'])?></li>
-                                <li><?=Html::a('แบบฟอร์ม OPD NOTE - Physical Therapy Record',null,['target' => '_blank'])?></li>
-                                <li><?=Html::a('แบบฟอร์ม OPD NOTE - Diabetes Educator Record',null,['target' => '_blank'])?></li>
-                                <li><?=Html::a('แบบฟอร์ม OPD NOTE - Wellness Record',null,['target' => '_blank'])?></li>
-                                </ul>
-                                <hr>
+                        <h1>แสดงรายการเอกสาร</h1>
+                        <ul>
+                            <li><?= Html::a('แบบฟอร์ม OPD DOCTOR RECORD', ['/chiefcomplaint/report/opd-doctor-record','report_name' => 'opd-doctor-record','hn' => $hn,'vn' => $vn],['class' => 'print']) ?>
+                            </li>
+                            <!-- <li><?php //Html::a('แบบฟอร์ม OPD NOTE.mrt', Url::to(ReportHelper::Url().'opd_note.php', true),['target' => '_blank'])?></li> -->
+                            <li><?=Html::a('แบบฟอร์ม OPD DOCTOR',['/dm/default/form','form_name' => 'dm_assessment_today','title' => 'DM Assessment Today'],['target' => '_blank'])?>
+                            </li>
+                            <li><?=Html::a('แบบฟอร์ม OPD NOTE - Dietitian Record',null,['target' => '_blank'])?></li>
+                            <li><?=Html::a('แบบฟอร์ม OPD NOTE - Foot Record', null,['target' => '_blank'])?></li>
+                            <li><?=Html::a('แบบฟอร์ม OPD NOTE - HBOT Record',null,['target' => '_blank'])?></li>
+                            <li><?=Html::a('แบบฟอร์ม OPD NOTE - HD Record',null,['target' => '_blank'])?></li>
+                            <li><?=Html::a('แบบฟอร์ม OPD NOTE - Nurse Record',null,['target' => '_blank'])?></li>
+                            <li><?=Html::a('แบบฟอร์ม OPD NOTE - Pharmacist Record',null,['target' => '_blank'])?></li>
+                            <li><?=Html::a('แบบฟอร์ม OPD NOTE - Physical Therapy Record',null,['target' => '_blank'])?>
+                            </li>
+                            <li><?=Html::a('แบบฟอร์ม OPD NOTE - Diabetes Educator Record',null,['target' => '_blank'])?>
+                            </li>
+                            <li><?=Html::a('แบบฟอร์ม OPD NOTE - Wellness Record',null,['target' => '_blank'])?></li>
+                        </ul>
+                        <hr>
                     </div>
 
-<!-- End Tab เอกสาร -->
+                    <!-- End Tab เอกสาร -->
 
                 </div>
             </div>
         </div>
         <!-- <div id="nc"></div> -->
+
     </div>
+
+    <?php //Html::submitButton("Submit", ['class' => "btn"]); ?>
+    <div class="row" style="margin: auto;width: 103%;">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <?=Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => "btn btn-success"]); ?>
+
+            <!-- <span class="btn btn-success" id="saveChiefcomplaint"> <i class="fas fa-check"></i> บันทึก</span> -->
+            <?=Html::a('ยกเลิก',['/site'],['class' => 'btn btn-default']);?> | ผู้บันทึก <i
+                class="fas fa-user-edit"></i> : <code><span class="show-requester-name"></span></code> &nbsp;| <i
+                class="far fa-clock"></i> : <code><?=$model->updated_at?> </code>
+
+        </div>
+    </div>
+
     <?php ActiveForm::end();?>
     <!--- DIALOG 1--->
     <div class="modal fade bd-popup1-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -850,12 +876,7 @@ checkboxList([
 
 
 
-    <div class="row" style="margin: auto;width: 103%;">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-    <span class="btn btn-success" id="saveChiefcomplaint"> <i class="fas fa-check"></i> บันทึก</span>  <?=Html::a('ยกเลิก',['/site'],['class' => 'btn btn-default']);?> |  ผู้บันทึก  <i class="fas fa-user-edit"></i> : <code><span class="show-requester-name"></span></code>  &nbsp;| <i class="far fa-clock"></i> : <code><?=$model->updated_at?> </code>
 
-    </div>
-</div>
 
 
 
@@ -864,7 +885,29 @@ checkboxList([
 $requester = $model->requester;
 $js = <<< JS
 
+
+
+
 $(function(){
+   
+    // $("#form-chiefcomplaint").submit(function(event) {
+    //     $("#form-chiefcomplaint").on('beforeSubmit', function(e) {
+    //     e.preventDefault(); // stopping submitting
+    //         var form = $(this);
+    //         if (form.find('.has-error').length) {
+    //     //   return false;
+    //       console.log(form.find('.has-error').length)
+    //         }else{
+    //             if($('#chiefcomplaint-requester').val() == ''){
+    //                 confirmRequester();
+    //             }else{
+    //                 alert('success');
+    //             }
+    //     console.log(form.find('.has-error').length)
+    //     return false;
+    //  }
+    //  return false;
+    // });
 
 loadFormControl();
 getRequester();
@@ -927,24 +970,24 @@ $('#chiefcomplaint-ht').keyup(function(){
 
 $('#saveChiefcomplaint').click(function(){
     //confirmRequester()
-    // saveChiefcomplaint();
+    saveChiefcomplaint();
    var form =  $('#form-chiefcomplaint');
 
-   if (form.find('.has-error').length) {
-    $.alert({
-                    theme:'modern',
-                    title: 'แจ้งเตือน!',
-                    content: 'ข้อมูลไม่สมบรูณ์',
-                    backgroundDismiss: false,
-                    backgroundDismissAnimation: 'glow',
-                    animation: 'zoom',
-                    closeAnimation: 'scale'
-                    // animationSpeed: 900,
-                });
-        }else{
-            confirmRequester();
+//    if (form.find('.has-error').length) {
+//     $.alert({
+//                     theme:'modern',
+//                     title: 'แจ้งเตือน!',
+//                     content: 'ข้อมูลไม่สมบรูณ์',
+//                     backgroundDismiss: false,
+//                     backgroundDismissAnimation: 'glow',
+//                     animation: 'zoom',
+//                     closeAnimation: 'scale'
+//                     // animationSpeed: 900,
+//                 });
+//         }else{
+//             confirmRequester();
 
-        }
+//         }
 
 });
 

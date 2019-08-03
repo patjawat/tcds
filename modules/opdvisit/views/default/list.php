@@ -7,6 +7,7 @@ use yii\widgets\Pjax;
 use app\components\DbHelper;
 use app\components\FormatYear;
 use app\components\PatientHelper;
+use kartik\daterange\DateRangePicker;
 
 $this->title = 'รายการผู้รับบริการ';
 // $this->params['breadcrumbs'][] = $this->title;
@@ -25,16 +26,13 @@ $this->title = 'รายการผู้รับบริการ';
 }
 </style>
 <div class="opd-visit-index">
-
-    <?php //yii\widgets\Pjax::begin(['id' => 'grid-user-pjax','timeout'=>5000]) ?>
-    <?php //   echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'id' => 'opd-visit',
         'pjax' => true,
-        'filterUrl'=> Url::to(["/nursescreen/opd-visit"]),
+        // 'filterUrl'=> Url::to(["/nursescreen/opd-visit"]),
+        // 'filterUrl'=> Url::to(["/nursescreen/opd-visit"]),
         'pjaxSettings' => [
             'options' => [
                 'enablePushState' => false,
@@ -46,16 +44,40 @@ $this->title = 'รายการผู้รับบริการ';
                 'class' => 'yii\grid\SerialColumn',
             ],
 
+            // [
+            //     'attribute' => 'service_start_date',
+            //     'header' => 'วันที่',
+            //     'width' => '8%',
+            //     'contentOptions' => ['style' => 'max-width: 100px;'],
+            //     'format' => 'raw',
+            //     'value' => function ($model) {
+            //         return FormatYear::toThai($model['service_start_date']);
+            //     }
+            // ],
             [
-                'attribute' => 'service_start_date',
-                'header' => 'วันที่',
-                'width' => '8%',
-                'contentOptions' => ['style' => 'max-width: 100px;'],
-                'format' => 'raw',
-                'value' => function ($model) {
-                    return FormatYear::toThai($model['service_start_date']);
-                }
-            ],
+                'attribute'=>'service_start_date',
+                'width' => '20%',
+                'options' => [
+                    'format' => 'YYYY-MM-DD',
+                    ],        
+                'filterType' => GridView::FILTER_DATE_RANGE,
+                'filterWidgetOptions' => ([       
+                  'attribute' => 'service_start_date',
+                  'presetDropdown' => true,
+                  'convertFormat' => false,
+                  'language' => 'th',
+                  'pluginOptions' => [
+                    'separator' => ' - ',
+                    'format' => 'YYYY-MM-DD',
+                    'locale' => [
+                          'format' => 'YYYY-MM-DD'
+                      ],
+                  ],
+                  'pluginEvents' => [
+                    "apply.daterangepicker" => "function() { apply_filter('service_start_date') }",
+                  ],
+                ])
+              ],
             [
                 'attribute' => 'service_start_time',
                 'header' => 'เวลา',

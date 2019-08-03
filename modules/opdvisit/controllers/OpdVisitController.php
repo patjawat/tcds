@@ -241,7 +241,7 @@ class OpdVisitController extends Controller
         PatientHelper::setCurrentDoctorName($doctor_fname, $doctor_lname);
         PatientHelper::setCurrentDoctorPrefix($doctor_prefix);
 
-        return $this->redirect(['/chiefcomplaint']);
+        return $this->redirect(['/chiefcomplaint/chiefcomplaint/show-form']);
     }
 
     private function OpdVisit($hn, $vn, $div_id,$doctor_id, $visit_date)

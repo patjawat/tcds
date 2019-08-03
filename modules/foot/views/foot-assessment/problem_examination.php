@@ -473,7 +473,7 @@ use app\modules\foot\models\ItemsDoppler;
                 </div>
                 <!-- End Row -->
 
-               
+
                 <!-- Start Row -->
                 <div class="row">
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4 col-md-offset-3">
@@ -489,8 +489,8 @@ use app\modules\foot\models\ItemsDoppler;
 
                 <!-- End Row -->
                 <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                3.2 Silfverskiold test
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        3.2 Silfverskiold test
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[silfverskiold_test_right]')->radioList(ArrayHelper::map(ItemsSilfverskioldTest::find()->all(), 'id', 'name'))->label(false); ?>
@@ -518,7 +518,7 @@ use app\modules\foot\models\ItemsDoppler;
                 <!-- End Row -->
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    3.3 Deformities
+                        3.3 Deformities
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[deformities_right]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
@@ -533,29 +533,14 @@ use app\modules\foot\models\ItemsDoppler;
                 <!-- End Row -->
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    3.3.1 Claw toe
+                        3.3.1 Claw toe
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[claw_toe_right]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
                     </div>
                     <!-- End Col -->
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[claw_toe_left]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
-                    </div>
-                </div>
-                <!-- End Row -->
-
-                 <!-- End Row -->
-                 <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    3.3.2 Hammer toe
-                    </div>
-                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                        <?= $form->field($model, 'record_complete[hammer_toe_right]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
-                    </div>
-                    <!-- End Col -->
-                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[hammer_toe_left]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
+                        <?= $form->field($model, 'record_complete[claw_toe_left]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
                     </div>
                 </div>
                 <!-- End Row -->
@@ -563,22 +548,37 @@ use app\modules\foot\models\ItemsDoppler;
                 <!-- End Row -->
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    3.3.3 Mallet toe
+                        3.3.2 Hammer toe
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                        <?= $form->field($model, 'record_complete[hammer_toe_right]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
+                    </div>
+                    <!-- End Col -->
+                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                        <?= $form->field($model, 'record_complete[hammer_toe_left]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <!-- End Row -->
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        3.3.3 Mallet toe
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[mallet_toe_right]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
                     </div>
                     <!-- End Col -->
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[mallet_toe_left]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
+                        <?= $form->field($model, 'record_complete[mallet_toe_left]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
                     </div>
                 </div>
                 <!-- End Row -->
 
-                 <!-- End Row -->
-                 <div class="row">
+                <!-- End Row -->
+                <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    3.3.4 Hallux Valgus
+                        3.3.4 Hallux Valgus
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[hallux_valgus_right]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
@@ -590,10 +590,10 @@ use app\modules\foot\models\ItemsDoppler;
                 </div>
                 <!-- End Row -->
 
-                 <!-- End Row -->
-                 <div class="row">
+                <!-- End Row -->
+                <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    3.3.5 Hallux Varus
+                        3.3.5 Hallux Varus
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[hallux_varus_right]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
@@ -605,10 +605,10 @@ use app\modules\foot\models\ItemsDoppler;
                 </div>
                 <!-- End Row -->
 
-  <!-- End Row -->
-  <div class="row">
+                <!-- End Row -->
+                <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    3.3.6 Hallux Rigidus/Limitus
+                        3.3.6 Hallux Rigidus/Limitus
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[hallux_igidus_right]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
@@ -620,32 +620,32 @@ use app\modules\foot\models\ItemsDoppler;
                 </div>
                 <!-- End Row -->
 
-                 <!-- End Row -->
-                 <div class="row">
+                <!-- End Row -->
+                <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    3.3.7 Bunion
+                        3.3.7 Bunion
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[bunion_right]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
                     </div>
                     <!-- End Col -->
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[bunion_left]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
+                        <?= $form->field($model, 'record_complete[bunion_left]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
                     </div>
                 </div>
                 <!-- End Row -->
 
-                 <!-- End Row -->
-                 <div class="row">
+                <!-- End Row -->
+                <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    3.3.8 Bunionette
+                        3.3.8 Bunionette
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[bunionette_right]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
                     </div>
                     <!-- End Col -->
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[bunionette_left]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
+                        <?= $form->field($model, 'record_complete[bunionette_left]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
                     </div>
                 </div>
                 <!-- End Row -->
@@ -653,7 +653,7 @@ use app\modules\foot\models\ItemsDoppler;
 
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    3.3.9 Charcot Foot
+                        3.3.9 Charcot Foot
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[charcot_foot_right]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
@@ -667,7 +667,7 @@ use app\modules\foot\models\ItemsDoppler;
 
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    3.3.10 Post surgical deformity
+                        3.3.10 Post surgical deformity
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[post_surgical_deformity_right]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
@@ -705,7 +705,7 @@ use app\modules\foot\models\ItemsDoppler;
                 <!-- End Row -->
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    4.1 Neuropathic symptom
+                        4.1 Neuropathic symptom
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[neuropathic_symptom_right]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
@@ -719,63 +719,63 @@ use app\modules\foot\models\ItemsDoppler;
                 </div>
                 <!-- End Row -->
 
-                 <!-- End Row -->
-                 <div class="row">
+                <!-- End Row -->
+                <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    specify type and site
+                        specify type and site
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[neuropathic_symptom_specify_right]')->checkboxList(ArrayHelper::map(ItemsNeuropathicSymptom::find()->all(), 'id', 'name'))->label(false); ?>
-                        
+                        <?= $form->field($model, 'record_complete[neuropathic_symptom_specify_right]')->checkboxList(ArrayHelper::map(ItemsNeuropathicSymptom::find()->all(), 'id', 'name'))->label(false); ?>
+
 
                     </div>
                     <!-- End Col -->
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[neuropathic_symptom_specify_left]')->checkboxList(ArrayHelper::map(ItemsNeuropathicSymptom::find()->all(), 'id', 'name'))->label(false); ?>
+                        <?= $form->field($model, 'record_complete[neuropathic_symptom_specify_left]')->checkboxList(ArrayHelper::map(ItemsNeuropathicSymptom::find()->all(), 'id', 'name'))->label(false); ?>
 
                     </div>
                 </div>
                 <!-- End Row -->
 
-                 <!-- End Row -->
-                 <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    4.2 Monofilament (10g)
-                    </div>
-                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[neuropathic_symptom_specify_right]')->checkboxList(ArrayHelper::map(ItemsMonofilament::find()->all(), 'id', 'name'))->label(false); ?>
-                        
-
-                    </div>
-                    <!-- End Col -->
-                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[neuropathic_symptom_specify_left]')->checkboxList(ArrayHelper::map(ItemsMonofilament::find()->all(), 'id', 'name'))->label(false); ?>
-
-                    </div>
-                </div>
                 <!-- End Row -->
-
-
-                 <!-- End Row -->
-                 <div class="row">
+                <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    4.3 Tuning fork (128 Hz) at hallux
+                        4.2 Monofilament (10g)
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[tuning_fork_right]')->checkboxList(ArrayHelper::map(ItemsTuningFork::find()->all(), 'id', 'name'))->label(false); ?>
-                        
+                        <?= $form->field($model, 'record_complete[neuropathic_symptom_specify_right]')->checkboxList(ArrayHelper::map(ItemsMonofilament::find()->all(), 'id', 'name'))->label(false); ?>
+
 
                     </div>
                     <!-- End Col -->
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[tuning_fork_left]')->checkboxList(ArrayHelper::map(ItemsTuningFork::find()->all(), 'id', 'name'))->label(false); ?>
+                        <?= $form->field($model, 'record_complete[neuropathic_symptom_specify_left]')->checkboxList(ArrayHelper::map(ItemsMonofilament::find()->all(), 'id', 'name'))->label(false); ?>
 
                     </div>
                 </div>
                 <!-- End Row -->
 
 
-                
+                <!-- End Row -->
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        4.3 Tuning fork (128 Hz) at hallux
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                        <?= $form->field($model, 'record_complete[tuning_fork_right]')->checkboxList(ArrayHelper::map(ItemsTuningFork::find()->all(), 'id', 'name'))->label(false); ?>
+
+
+                    </div>
+                    <!-- End Col -->
+                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                        <?= $form->field($model, 'record_complete[tuning_fork_left]')->checkboxList(ArrayHelper::map(ItemsTuningFork::find()->all(), 'id', 'name'))->label(false); ?>
+
+                    </div>
+                </div>
+                <!-- End Row -->
+
+
+
             </div>
         </div>
         <!-- End Col -->
@@ -803,7 +803,7 @@ use app\modules\foot\models\ItemsDoppler;
                 <!-- End Row -->
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    5.1 Vascular symptom
+                        5.1 Vascular symptom
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[vascular_symptom_right]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
@@ -817,55 +817,55 @@ use app\modules\foot\models\ItemsDoppler;
                 </div>
                 <!-- End Row -->
 
-                 <!-- End Row -->
-                 <div class="row">
+                <!-- End Row -->
+                <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    5.1.1 Intermittent claudication
+                        5.1.1 Intermittent claudication
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[intermittent_claudication_right]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
+                        <?= $form->field($model, 'record_complete[intermittent_claudication_right]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
                     </div>
                     <!-- End Col -->
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[intermittent_claudication_left]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
+                        <?= $form->field($model, 'record_complete[intermittent_claudication_left]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
                     </div>
                 </div>
                 <!-- End Row -->
 
-                 <!-- End Row -->
-                 <div class="row">
+                <!-- End Row -->
+                <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    5.1.2 Rest pain
+                        5.1.2 Rest pain
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[rest_pain_right]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
+                        <?= $form->field($model, 'record_complete[rest_pain_right]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
                     </div>
                     <!-- End Col -->
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[rest_pain_left]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
+                        <?= $form->field($model, 'record_complete[rest_pain_left]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
                     </div>
                 </div>
                 <!-- End Row -->
 
-                  <!-- End Row -->
-                  <div class="row">
+                <!-- End Row -->
+                <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    5.1.3 Gangrene
+                        5.1.3 Gangrene
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[gangrene_right]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
                     </div>
                     <!-- End Col -->
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[gangrene_left]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
+                        <?= $form->field($model, 'record_complete[gangrene_left]')->inline()->checkboxList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(), 'id', 'name'))->label(false); ?>
                     </div>
                 </div>
                 <!-- End Row -->
 
-                  <!-- End Row -->
-                  <div class="row">
+                <!-- End Row -->
+                <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    5.1.4 Edema , specfify type
+                        5.1.4 Edema , specfify type
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                     </div>
@@ -876,17 +876,17 @@ use app\modules\foot\models\ItemsDoppler;
                 <!-- End Row -->
 
 
-                 <!-- End Row -->
-                 <div class="row">
+                <!-- End Row -->
+                <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    pitting edema
+                        pitting edema
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[pitting_edema_right]')->inline()->checkboxList(ArrayHelper::map(ItemsPittingEdema::find()->all(), 'id', 'name'))->label(false); ?>
                     </div>
                     <!-- End Col -->
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[pitting_edema_left]')->inline()->checkboxList(ArrayHelper::map(ItemsPittingEdema::find()->all(), 'id', 'name'))->label(false); ?>
+                        <?= $form->field($model, 'record_complete[pitting_edema_left]')->inline()->checkboxList(ArrayHelper::map(ItemsPittingEdema::find()->all(), 'id', 'name'))->label(false); ?>
                     </div>
                 </div>
                 <!-- End Row -->
@@ -895,63 +895,73 @@ use app\modules\foot\models\ItemsDoppler;
                 <!-- End Row -->
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    non-pitting edema
+                        non-pitting edema
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[non_pitting_edema_right]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
+                        <?= $form->field($model, 'record_complete[non_pitting_edema_right]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
                     </div>
                     <!-- End Col -->
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[non_pitting_edema_left]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
-                    </div>
-                </div>
-                <!-- End Row -->
-
-                   <!-- End Row -->
-                   <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    5.2 Vessel palpation
-                    </div>
-                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    </div>
-                    <!-- End Col -->
-                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                        <?= $form->field($model, 'record_complete[non_pitting_edema_left]')->inline()->radioList(['No' => 'No', 'Yes' => 'Yes'])->label(false); ?>
                     </div>
                 </div>
                 <!-- End Row -->
 
 
-                  <!-- End Row -->
-                  <div class="row">
+   <!-- start box-sub-border -->
+   <div class="box-sub-border">
+                    <div class="box-sub-title"> 5.2 Vessel palpation</div>
+                <!-- End Row -->
+                <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    DP
+                       
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                    </div>
+                    <!-- End Col -->
+                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                    </div>
+                </div>
+                <!-- End Row -->
+
+
+                <!-- End Row -->
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                        DP
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[dp_right]')->inline()->radioList(ArrayHelper::map(ItemsVesselPalpation::find()->where('id < 3')->all(), 'id', 'name'))->label(false); ?>
                     </div>
                     <!-- End Col -->
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[dp_left]')->inline()->radioList(ArrayHelper::map(ItemsVesselPalpation::find()->where('id < 3')->all(), 'id', 'name'))->label(false); ?>
+                        <?= $form->field($model, 'record_complete[dp_left]')->inline()->radioList(ArrayHelper::map(ItemsVesselPalpation::find()->where('id < 3')->all(), 'id', 'name'))->label(false); ?>
                     </div>
                 </div>
                 <!-- End Row -->
 
-                 <!-- End Row -->
-                 <div class="row">
+                <!-- End Row -->
+                <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    PT
+                        PT
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                         <?= $form->field($model, 'record_complete[tp_right]')->inline()->radioList(ArrayHelper::map(ItemsVesselPalpation::find()->where('id < 3')->all(), 'id', 'name'))->label(false); ?>
                     </div>
                     <!-- End Col -->
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                    <?= $form->field($model, 'record_complete[pt_left]')->inline()->radioList(ArrayHelper::map(ItemsVesselPalpation::find()->where('id < 3')->all(), 'id', 'name'))->label(false); ?>
+                        <?= $form->field($model, 'record_complete[pt_left]')->inline()->radioList(ArrayHelper::map(ItemsVesselPalpation::find()->where('id < 3')->all(), 'id', 'name'))->label(false); ?>
                     </div>
                 </div>
                 <!-- End Row -->
+</div>
+   <!-- End box-sub-border -->
 
-                <div class="row">
+                <!-- start box-sub-border -->
+                <div class="box-sub-border">
+                    <div class="box-sub-title">5.3 Doppler</div>
+
+                    <div class="row">
                     <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4 col-md-offset-3">
                         <p>Right</p>
                     </div>
@@ -961,27 +971,107 @@ use app\modules\foot\models\ItemsDoppler;
                     </div>
                 </div>
                 <!-- End Row -->
-                
-                 <!-- End Row -->
-                 <div class="row">
-                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
-                    5.3 Doppler
+
+                    <!-- End Row -->
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                            
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                            <?= $form->field($model, 'record_complete[doppler_right]')->radioList(ArrayHelper::map(ItemsDoppler::find()->all(), 'id', 'name'))->label(false); ?>
+                        </div>
+                        <!-- End Col -->
+                        <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                            <?= $form->field($model, 'record_complete[doppler_left]')->radioList(ArrayHelper::map(ItemsDoppler::find()->all(), 'id', 'name'))->label(false); ?>
+                        </div>
                     </div>
-                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                        <?= $form->field($model, 'record_complete[doppler_right]')->radioList(ArrayHelper::map(ItemsDoppler::find()->all(), 'id', 'name'))->label(false); ?>
-                    </div>
-                    <!-- End Col -->
-                    <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                        <?= $form->field($model, 'record_complete[doppler_left]')->radioList(ArrayHelper::map(ItemsDoppler::find()->all(), 'id', 'name'))->label(false); ?>
-                    </div>
+                    <!-- End Row -->
+
                 </div>
-                <!-- End Row -->
+                <!-- End box-sub-border -->
+
+                <!-- start box-sub-border -->
+                <div class="box-sub-border">
+                    <div class="box-sub-title">5.4 Ankle/Brachial Index (ABI)</div>
+                    <!-- End Row -->
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                            <!-- 5.4 Ankle/Brachial Index (ABI) -->
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                            <?= $form->field($model, 'record_complete[abi1_right]')->textInput()->label(false); ?>
+                            <?= $form->field($model, 'record_complete[abi2_right]')->textInput()->label(false); ?>
+                            <span class="label label-primary">00.00</span>
+                            <?= $form->field($model, 'record_complete[abi_compressible_right]')->checkbox()->label('Non-compressible (>1.3)'); ?>
+                        </div>
+                        <!-- End Col -->
+                        <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                            <?= $form->field($model, 'record_complete[abi1_left]')->textInput()->label(false); ?>
+                            <?= $form->field($model, 'record_complete[abi2_left]')->textInput()->label(false); ?>
+                            <span class="label label-primary">00.00</span>
+                            <?= $form->field($model, 'record_complete[abi_compressible_left]')->checkbox()->label('Non-compressible (>1.3)'); ?>
+                        </div>
+                    </div>
+                    <!-- End Row -->
+
+                </div>
+              <!-- End box-sub-border -->
+
+               <!-- start box-sub-border -->
+               <div class="box-sub-border">
+                    <div class="box-sub-title">5.5 Toe pressure (mmHg)</div>
+                    <!-- End Row -->
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                            <!-- 5.4 Ankle/Brachial Index (ABI) -->
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                            <?= $form->field($model, 'record_complete[toe_pressure_right]')->textInput()->label(false); ?>
+                        </div>
+                        <!-- End Col -->
+                        <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                            <?= $form->field($model, 'record_complete[toe_pressure_left]')->textInput()->label(false); ?>
+                        </div>
+                    </div>
+                    <!-- End Row -->
+
+                </div>
+              <!-- End box-sub-border -->
 
 
+          <!-- start box-sub-border -->
+          <div class="box-sub-border">
+                    <div class="box-sub-title">Toe/Brachial Index (TBI)</div>
+                    <!-- End Row -->
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                            <!-- 5.4 Ankle/Brachial Index (ABI) -->
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                            <?= $form->field($model, 'record_complete[tbi1_right]')->textInput()->label(false); ?>
+                            <?= $form->field($model, 'record_complete[tbi2_right]')->textInput()->label(false); ?>
+                            <span class="label label-primary">00.00</span>
+                        </div>
+                        <!-- End Col -->
+                        <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+                            <?= $form->field($model, 'record_complete[tbi1_left]')->textInput()->label(false); ?>
+                            <?= $form->field($model, 'record_complete[tbi2_left]')->textInput()->label(false); ?>
+                            <span class="label label-primary">00.00</span>
+                        </div>
+                    </div>
+                    <!-- End Row -->
+
+                </div>
+              <!-- End box-sub-border -->
 
             </div>
+            <!-- End Col -->
         </div>
-        <!-- End Col -->
+        <!-- End box-border -->
+
+
+
+       
     </div>
 </div>
 <!-- End Row -->

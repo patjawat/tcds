@@ -1,8 +1,8 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-// use kartik\form\ActiveForm;
 use yii\helpers\ArrayHelper;
+use yii\web\View;
 use karatae99\datepicker\DatePicker;
 use app\modules\foot\models\ItemsOccupation;
 use app\modules\foot\models\ItemsSmokingFoot;
@@ -15,103 +15,6 @@ use app\modules\foot\models\ItemsSpecifySite;
 use app\modules\foot\models\ItemsProsthesisFor;
 use app\modules\foot\models\ItemsSpecifyProcedureDate;
 ?>
-<style>
-.radio,
-.checkbox {
-    position: relative;
-    display: block;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background-color: #e2e2e2;
-    padding: 6px;
-    /* width: 216px; */
-    border-radius: 5px;
-}
-
-.checkbox:hover {
-    background-color: #c5c5c5;
-}
-
-.field-footassessment-record_complete-smoking_how_long_ago>.control-label {
-    background-color: #999;
-    color: #fff;
-    height: 33px;
-    padding: 6px;
-    margin-top: -5px;
-    margin-bottom: -5px;
-    border-radius: 5px;
-    width: 100%;
-}
-
-.field-footassessment-record_complete-smoking_how_long_ago {
-    margin-top: -5px;
-}
-
-.box-border {
-    background-color: #FFF;
-    border-radius: 5px;
-    padding: 10px;
-    margin-top: 15px;
-}
-
-.box-card {
-    background-color: #FFF;
-    border-radius: 8px;
-    padding: 10px;
-    margin-top: 15px;
-}
-
-.box-container {
-    width: 50%;
-    margin: auto;
-}
-
-.box-border {
-    border-radius: 15px;
-    padding: 20px;
-    border: 1.5px #ddd solid;
-    border-style: dashed;
-}
-
-.box-title {
-    color: #999;
-    margin-top: -32px;
-    background-color: #fff;
-    width: 35%;
-    text-align: -webkit-center;
-    padding: 2px;
-}
-
-.item-text-center {
-    text-align: -webkit-center;
-}
-
-.control {
-    display: inline-block;
-    max-width: 100%;
-
-    font-weight: 700;
-    /* color: #039285; */
-}
-
-#footassessment-record_complete-specify_site_digit_right,
-#footassessment-record_complete-specify_site_digit_left {
-
-    display: block;
-    margin-top: -10px;
-    background-color: #e2e2e2;
-    padding: 6px;
-    border-radius: 5px;
-}
-
-#footassessment-record_complete-using_ambulation_aid {
-    display: block;
-    margin-top: 10px;
-    background-color: #e2e2e2;
-    padding: 6px;
-    border-radius: 5px;
-}
-</style>
 
 
 
@@ -121,9 +24,13 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
         <div class="box-card">
             <div class="box-border">
-                <div class="box-title">1. Occupation</div>
-                <?= $form->field($model, 'record_complete[occupation]')->checkboxList(ArrayHelper::map(ItemsOccupation::find()->all(),'id','name'))->label(false); ?>
-                <?= $form->field($model, 'record_complete[occupation_other]')->textArea()->label(false);?>
+                <div class="box-title" style="width: 13%;">1. Occupation</div>
+                <?=$form->field($model, 'record_complete[occupation]')
+                ->checkboxList(
+                    ArrayHelper::map(ItemsOccupation::find()->all(),'id','name'),['itemOptions' => ['class' => 'occupation','id' => 'occupation']])
+                ->label(false);
+                ?>
+                <?= $form->field($model, 'record_complete[occupation_other]')->textArea(['id' => 'occupation_other'])->label(false);?>
             </div>
         </div>
         <!-- End Col -->
@@ -138,9 +45,11 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
         <div class="box-card">
             <div class="box-border">
-                <div class="box-title">2. Smoking</div>
-                <?= $form->field($model, 'record_complete[smoking]')->radioList(ArrayHelper::map(ItemsSmokingFoot::find()->all(),'id','name'))->label(false); ?>
-                <?= $form->field($model, 'record_complete[smoking_how_long_ago]')->radioList(ArrayHelper::map(ItemsSmokingHowLongAgo::find()->all(),'id','name'))->label('How Long Ago ?'); ?>
+                <div class="box-title" style="width: 13%;">2. Smoking</div>
+                <?= $form->field($model, 'record_complete[smoking]')->radioList(ArrayHelper::map(ItemsSmokingFoot::find()->all(),'id','name'),['itemOptions' => ['class'=> 'smoking_item']])->label(false); ?>
+                <div id="how_long_ago">
+                    <?= $form->field($model, 'record_complete[smoking_how_long_ago]')->radioList(ArrayHelper::map(ItemsSmokingHowLongAgo::find()->all(),'id','name'))->label('How Long Ago ?'); ?>
+                </div>
             </div>
         </div>
         <!-- End Col -->
@@ -156,7 +65,7 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
         <div class="box-card">
             <div class="box-border">
-                <div class="box-title">3. Activity</div>
+                <div class="box-title" style="width: 13%;">3. Activity</div>
                 <?= $form->field($model, 'record_complete[activity]')->radioList(ArrayHelper::map(ItemsActivity::find()->all(),'id','name'))->label(false); ?>
             </div>
         </div>
@@ -173,9 +82,11 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
         <div class="box-card">
             <div class="box-border">
-                <div class="box-title">4. Using ambulation aid</div>
-                <?= $form->field($model, 'record_complete[using_ambulation_aid]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
-                <?= $form->field($model, 'record_complete[specify]')->radioList(ArrayHelper::map(ItemsSpecify::find()->all(),'id','name'))->label('Specify'); ?>
+                <div class="box-title" style="width:27%;">4. Using ambulation aid</div>
+                <?= $form->field($model, 'record_complete[using_ambulation_aid]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'],['itemOptions' => ['class'=> 'using_ambulation_aid']])->label(false); ?>
+                <div class="specify_site">
+                    <?= $form->field($model, 'record_complete[specify]')->radioList(ArrayHelper::map(ItemsSpecify::find()->all(),'id','name'),['itemOptions' => ['class'=> 'using_ambulation_aid_specify_site']])->label('Specify'); ?>
+                </div>
             </div>
         </div>
         <!-- End Col -->
@@ -191,24 +102,62 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
         <div class="box-card">
             <div class="box-border">
 
-                <div class="box-title">5. Previous foot ulcer</div>
-                <h4 class="text-center">Specify site</h4>
+                <div class="box-title" style="width:20%;">5. Previous foot ulcer</div>
                 <div class="row">
+                    <h4 class="text-center">Specify site</h4>
+
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <p class="text-center">Right</p>
                         <div class="item-text-center">
-                            <?= $form->field($model, 'record_complete[ulcer_check_right]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                            <?= $form->field($model, 'record_complete[ulcer_check_right]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'],
+                            ['itemOptions' => 
+                            [
+                                'class'=> 'ulcer_check_right',
+                                'onclick' => 'return previousFootUlcer($(this).val(),".ulcer_check_items_right")'
+                            ]])->label(false); ?>
                         </div>
-                        <?= $form->field($model, 'record_complete[ulcer_right]')->radioList(ArrayHelper::map(ItemsSpecifyTypeSite::find()->all(),'id','name'))->label(false); ?>
-                        <?= $form->field($model, 'record_complete[ulcer_digit_right]')->inline()->radioList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(),'id','name'))->label(false); ?>
+
+                        <div class="ulcer_check_items_right"
+                            <?=$model->record_complete['ulcer_check_right']  == 'Yes' ? '' :'hidden';?>>
+                            <?= $form->field($model, 'record_complete[ulcer_right]')
+                            ->radioList(ArrayHelper::map(ItemsSpecifyTypeSite::find()
+                            ->all(),'id','name'),[
+                                'itemOptions' => [
+                                'class'=> 'ulcer_check_right',
+                                'onclick' => 'return previousFootUlcerDigit($(this).val(),".ulcer_digit_right")'
+                                ]])->label(false); ?>
+                        </div>
+
+                        <div class="ulcer_digit_right"
+                            <?=$model->record_complete['ulcer_right']  == '4' ? '' :'hidden';?>>
+                            <?= $form->field($model, 'record_complete[ulcer_digit_right]')->inline()
+                        ->radioList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(),'id','name'))
+                        ->label(false); ?>
+                        </div>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <p class="text-center">Left</p>
                         <div class="item-text-center">
-                            <?= $form->field($model, 'record_complete[ulcer_check_left]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                            <?= $form->field($model, 'record_complete[ulcer_check_left]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'],['itemOptions' => [
+                                'class'=> 'ulcer_check_left',
+                                'onclick' => 'return previousFootUlcer($(this).val(),".ulcer_check_items_left")'
+                                ]])->label(false); ?>
                         </div>
-                        <?= $form->field($model, 'record_complete[ulcer_left]')->radioList(ArrayHelper::map(ItemsSpecifyTypeSite::find()->all(),'id','name'))->label(false); ?>
-                        <?= $form->field($model, 'record_complete[ulcer_digit_left]')->inline()->radioList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(),'id','name'))->label(false); ?>
+                        <div class="ulcer_check_items_left"
+                            <?=$model->record_complete['ulcer_check_left'] == 'Yes' ? '' :'hidden';?>>
+                            <?= $form->field($model, 'record_complete[ulcer_left]')->radioList(ArrayHelper::map(ItemsSpecifyTypeSite::find()
+                            ->all(),'id','name'),
+                            [
+                                'itemOptions' => [
+                                'class'=> 'ulcer_check_right',
+                                'onclick' => 'return previousFootUlcerDigit($(this).val(),".ulcer_digit_left")'
+                                ]]
+                                )->label(false); ?>
+                        </div>
+                        <div class="ulcer_digit_left"
+                            <?=$model->record_complete['ulcer_left']  == '4' ? '' :'hidden';?>>
+                            <?= $form->field($model, 'record_complete[ulcer_digit_left]')->inline()->radioList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(),'id','name'))->label(false); ?>
+                        </div>
                     </div>
                 </div>
 
@@ -229,7 +178,7 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
         <div class="box-card">
             <div class="box-border">
 
-                <div class="box-title">6. Previous amputation</div>
+                <div class="box-title" style="width:23%;">6. Previous amputation</div>
                 <h4 class="text-center">Specify type and site</h4>
                 <!-- Start Row -->
                 <div class="row">
@@ -237,18 +186,56 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
 
                         <p class="text-center">Right</p>
                         <div class="item-text-center">
-                            <?= $form->field($model, 'record_complete[amputation_check_right]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                            <?= $form->field($model, 'record_complete[amputation_check_right]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'],
+                            ['itemOptions' => 
+                            [
+                                'class'=> 'amputation_check_right',
+                                'onclick' => 'return previousAmputation($(this).val(),".amputation_right")'
+                            ]])->label(false); ?>
                         </div>
-                        <?= $form->field($model, 'record_complete[amputation_right]')->radioList(ArrayHelper::map(ItemsSpecifySite::find()->all(),'id','name'))->label(false); ?>
-                        <?= $form->field($model, 'record_complete[amputation_digit_right]')->inline()->radioList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(),'id','name'))->label(false); ?>
+
+                        <div class="amputation_right"
+                            <?=$model->record_complete['amputation_check_right'] == 'Yes' ? '' :'hidden';?>>
+                            <?= $form->field($model, 'record_complete[amputation_right]')->radioList(ArrayHelper::map(ItemsSpecifySite::find()->all(),'id','name'),
+                          [
+                            'itemOptions' => [
+                            'class'=> 'ulcer_check_right',
+                            'onclick' => 'return previousAmputationDigit($(this).val(),".amputation_digit_right")'
+                            ]]
+                            )->label(false); ?>
+                        </div>
+                        <div class="amputation_digit_right"
+                            <?=$model->record_complete['amputation_right'] == '7' ? '' :'hidden';?>>
+                            <?= $form->field($model, 'record_complete[amputation_digit_right]')->inline()->radioList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(),'id','name'))->label(false); ?>
+                        </div>
+
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <p class="text-center">Left</p>
                         <div class="item-text-center">
-                            <?= $form->field($model, 'record_complete[amputation_check_left]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                            <?= $form->field($model, 'record_complete[amputation_check_left]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'],
+                           ['itemOptions' => 
+                           [
+                               'class'=> 'amputation_check_left',
+                               'onclick' => 'return previousAmputation($(this).val(),".amputation_left")'
+                           ]])->label(false); ?>
                         </div>
-                        <?= $form->field($model, 'record_complete[amputation_left]')->radioList(ArrayHelper::map(ItemsSpecifySite::find()->all(),'id','name'))->label(false); ?>
-                        <?= $form->field($model, 'record_complete[amputation_digit_left]')->inline()->radioList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(),'id','name'))->label(false); ?>
+                        <div class="amputation_left"
+                            <?=$model->record_complete['amputation_check_left'] == 'Yes' ? '' :'hidden';?>>
+                            <?= $form->field($model, 'record_complete[amputation_left]')->radioList(ArrayHelper::map(ItemsSpecifySite::find()->all(),'id','name'),
+                         [
+                            'itemOptions' => [
+                            'class'=> 'ulcer_check_left',
+                            'onclick' => 'return previousAmputationDigit($(this).val(),".amputation_digit_left")'
+                            ]]
+                            )->label(false); ?>
+                        </div>
+
+                        <div class="amputation_digit_left"
+                            <?=$model->record_complete['amputation_left'] == '7' ? '' :'hidden';?>>
+                            <?= $form->field($model, 'record_complete[amputation_digit_left]')->inline()->radioList(ArrayHelper::map(ItemsSpecifySiteDigit::find()->all(),'id','name'))->label(false); ?>
+                        </div>
+
                     </div>
                 </div>
                 <!-- End Row -->
@@ -259,16 +246,40 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <p class="text-center">Right</p>
                         <div class="item-text-center">
-                            <?= $form->field($model, 'record_complete[prosthesis_right]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                            <?= $form->field($model, 'record_complete[prosthesis_right]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'],
+                            ['itemOptions' => 
+                            [
+                                'onclick' => '{ 
+                                    if($(this).val() == "Yes"){
+                                        $(".prosthesis_for_right").show(300);
+                                    }else{
+                                        $(".prosthesis_for_right").hide(300);
+                                    }
+                                }'
+                            ]])->label(false); ?>
                         </div>
-                        <?= $form->field($model, 'record_complete[prosthesis_for_right]')->radioList(ArrayHelper::map(ItemsProsthesisFor::find()->all(),'id','name'))->label(false); ?>
+                        <div class="prosthesis_for_right" <?=$model->record_complete['prosthesis_right'] == 'Yes' ? '' : 'hidden';?>>
+                            <?= $form->field($model, 'record_complete[prosthesis_for_right]')->radioList(ArrayHelper::map(ItemsProsthesisFor::find()->all(),'id','name'))->label(false); ?>
+                        </div>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <p class="text-center">Left</p>
                         <div class="item-text-center">
-                            <?= $form->field($model, 'record_complete[prosthesis_left]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                            <?= $form->field($model, 'record_complete[prosthesis_left]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'],
+                            ['itemOptions' => 
+                            [
+                                'onclick' => '{ 
+                                    if($(this).val() == "Yes"){
+                                        $(".prosthesis_for_left").show(300);
+                                    }else{
+                                        $(".prosthesis_for_left").hide(300);
+                                    }
+                                }'
+                            ]])->label(false); ?>
                         </div>
-                        <?= $form->field($model, 'record_complete[prosthesis_for_left]')->radioList(ArrayHelper::map(ItemsProsthesisFor::find()->all(),'id','name'))->label(false); ?>
+                        <div class="prosthesis_for_left" <?=$model->record_complete['prosthesis_left'] == 'Yes' ? '' : 'hidden';?>>
+                            <?= $form->field($model, 'record_complete[prosthesis_for_left]')->radioList(ArrayHelper::map(ItemsProsthesisFor::find()->all(),'id','name'))->label(false); ?>
+                        </div>
                     </div>
                 </div>
                 <!-- End Row -->
@@ -290,11 +301,10 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
         <div class="box-card">
             <div class="box-border">
 
-                <div class="box-title">7. Previous revascularization</div>
+                <div class="box-title" style="width:27%;">7. Previous revascularization</div>
                 <?php
                 //print_r($model->record_complete['right_evt'])
                 ?>
-                xx
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <p class="text-center">Right</p>
@@ -402,3 +412,145 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
     </div>
 </div>
 <!-- End Row -->
+
+
+
+<?php
+$js = <<< JS
+occupationOtherCheck()
+// previousFootUlcer($(".ulcer_check_right:checked").val(),".ulcer_check_items_right")
+// previousFootUlcer($(".ulcer_check_left:checked").val(),".ulcer_check_items_left")
+
+// previousFootUlcerDigit("#footassessment-record_complete-ulcer_right > div > label > input","#footassessment-record_complete-ulcer_digit_right")
+// previousFootUlcerDigit("#footassessment-record_complete-ulcer_left > div > label > input","#footassessment-record_complete-ulcer_digit_left")
+
+// previousAmputation($(this).val(),"#footassessment-record_complete-amputation_right")
+// previousAmputationDigit("#footassessment-record_complete-amputation_right  > div > label > input","#footassessment-record_complete-amputation_digit_right")
+
+$(".occupation").click(function(e, parameters) {
+var nonUI = false;
+try {
+    nonUI = parameters.nonUI;
+} catch (e) {}
+var checked = nonUI ? !this.checked : this.checked;
+// alert('Checked = ' + checked);
+var value = e.target.value;
+if(checked == true){
+    if(value == 11){
+        $('#occupation_other').css("background-color",'#fff').prop('readonly', false);
+    }
+   console.log('checked'+value);
+}else{
+   console.log('Uncheck'+value);
+  
+    if(value == 11){
+        $('#occupation_other').css("background-color",'#eee').prop('readonly', true);
+        $('#occupation_other').val('');
+    }
+}
+});
+
+usingAmbulationAid()
+smoking()
+
+$('.using_ambulation_aid').click(function (e) { 
+    // e.preventDefault();
+    // console.log(e.target.value)
+    usingAmbulationAid()
+    
+});
+
+$('.smoking_item').click(function (e) { 
+    smoking()
+});
+
+function occupationOtherCheck(){
+    $('#footassessment-record_complete-occupation > div > label > input').each(function(index, e){
+ // statement
+    if(e.checked == true & e.value == 11){
+        console.log(e.value)
+        $('#occupation_other').css("background-color",'#fff').prop('readonly', false);
+    }else{
+        $('#occupation_other').css("background-color",'#eee').prop('readonly', true);
+        $('#occupation_other').val('');
+    }
+});
+}
+
+function usingAmbulationAid(){
+var val = $(".using_ambulation_aid:checked").val();
+    if(val == 'Yes'){
+        $('.specify_site').show(300)
+    }else{
+        $('.specify_site').hide(300);
+    }
+}
+//2. Smoking
+function smoking(){
+    $('#footassessment-record_complete-smoking > div > label > input').each(function(index, e){
+    if(e.checked == true & e.value == 3){
+        console.log(e.value)
+        $('#how_long_ago').show(300)
+    }else{
+        $('#how_long_ago').hide(300)
+    }
+   
+});
+}
+
+//5. Previous foot ulcer
+function previousFootUlcer(val,position){
+        if(val == 'Yes'){
+            $(position).show(300)
+            
+        }else{
+            $(position).hide(300);
+        }
+}
+// 5. Previous foot ulcer Digit
+function previousFootUlcerDigit(val,position){
+        if(val == 4){
+            $(position).show(300)
+        }else{
+            $(position).hide(300)
+        }
+        // $('.ulcer_digit_right').show(300)
+    console.log(position)
+    // alert(position)
+    
+
+}
+
+//6. Previous amputation
+function previousAmputation(val,position){
+    if(val == 'Yes'){
+            $(position).show(300)
+            // console.log(val,position)
+            // previousAmputationDigit(position)
+            
+        }else{
+            $(position).hide(300);
+            // console.log(val,position)
+            // previousAmputationDigit(position)
+
+
+        }
+}
+
+function previousAmputationDigit(val,position){
+
+    if(val == 7){
+        console.log(position)
+        $(position).show(300)
+    }else{
+        $(position).hide(300)
+    }
+
+}
+
+
+
+
+JS;
+$this->registerJS($js,View::POS_END, 'my-options');
+?>

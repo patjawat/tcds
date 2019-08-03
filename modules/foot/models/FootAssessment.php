@@ -35,15 +35,13 @@ class FootAssessment extends \yii\db\ActiveRecord
               'vsttime',
               'updated_at',
               'created_by',
+              'requester',
             ], 'safe'],
             [['record_complete', 'record_summary'], 'string'],
             [['hn', 'vn'], 'string', 'max' => 12],
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [

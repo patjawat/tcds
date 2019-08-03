@@ -11,7 +11,7 @@ use \yii\web\Response;
 use app\components\PatientHelper;
 use app\modules\foot\models\FootAssessment;
 
-class FootAssessmentController extends \yii\web\Controller
+class FootAssessmentController extends Controller
 {
     public function actionIndex()
     {
@@ -21,6 +21,7 @@ class FootAssessmentController extends \yii\web\Controller
         $checkvn = FootAssessment::findOne(['vn' => $vn]);
         if ($checkvn) {
             $model = $checkvn;
+            $model->requester = '';
             $model->record_complete = Json::decode($model->record_complete);
         } else {
             $model = new FootAssessment();
@@ -206,13 +207,54 @@ class FootAssessmentController extends \yii\web\Controller
 
                 'doppler_right' => $model->record_complete['doppler_right'],
                 'doppler_left' => $model->record_complete['doppler_left'],
+
+
+                'abi1_right' => $model->record_complete['abi1_right'],
+                'abi2_right' => $model->record_complete['abi2_right'],
+                'abi1_left' => $model->record_complete['abi1_left'],
+                'abi2_left' => $model->record_complete['abi2_left'],
+
+                'abi_compressible_right' => $model->record_complete['abi_compressible_right'],
+                'abi_compressible_left' => $model->record_complete['abi_compressible_left'],
+
+                'tbi1_right' => $model->record_complete['tbi1_right'],
+                'tbi2_right' => $model->record_complete['tbi2_right'],
+                'tbi1_left' => $model->record_complete['tbi1_left'],
+                'tbi2_left' => $model->record_complete['tbi2_left'],
                 
+
+                'toe_pressure_right' => $model->record_complete['toe_pressure_right'],
+                'toe_pressure_left' => $model->record_complete['toe_pressure_left'],
+
+              
+
+                'dp_right' => $model->record_complete['dp_right'],
+                'pt_left' => $model->record_complete['pt_left'],
+
+                'foot_size' => $model->record_complete['foot_size'],
+                'footwear_indoor' => $model->record_complete['footwear_indoor'],
+                'footwear_indoor_other' => $model->record_complete['footwear_indoor_other'],
+                'footwear_outdoor' => $model->record_complete['footwear_outdoor'],
+                'footwear_outdoor_other' => $model->record_complete['footwear_outdoor_other'],
+                'footwear_exercise' => $model->record_complete['footwear_exercise'],
+                'footwear_exercise_other' => $model->record_complete['footwear_exercise_other'],
+
+                'stock' => $model->record_complete['stock'],
+                'stock_use' => $model->record_complete['stock_use'],
+                'patient_care' => $model->record_complete['patient_care'],
+                'general_footcare_check' => $model->record_complete['general_footcare_check'],
+                'general_footcare_item' => $model->record_complete['general_footcare_item'],
+                'foot_take_care' => $model->record_complete['foot_take_care'],
+                'foot_patient_check' => $model->record_complete['foot_patient_check'],
+                'foot_categorization' => $model->record_complete['foot_categorization'],
+                'foot_suggestion' => $model->record_complete['foot_suggestion'],
                 
                 
             ];
             $model->record_complete = Json::encode($record_complete);
-            $model->save(false);
-            return $model->record_complete;
+            if($model->save(false)){
+                return $this->redirect(['/foot/foot-assessment']);
+            }
         } else {
 
             if (Yii::$app->request->isAjax) {

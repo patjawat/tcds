@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 // use kartik\form\ActiveForm;
+use yii\web\View;
 use yii\helpers\ArrayHelper;
 use karatae99\datepicker\DatePicker;
 use app\modules\foot\models\ItemsOccupation;
@@ -198,6 +199,15 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 <?php
 $js = <<< JS
 
+
+
+AbiRight()
+AbiLeft()
+TbiRight()
+TbiLeft()
+
+
+
 $("#formFootComplate").on('beforeSubmit', function (e) {
   e.preventDefault(); // stopping submitting
   if($('.requester').val() == ''){ //ถ้า requester == ''
@@ -226,14 +236,6 @@ $("#formFootComplate").on('beforeSubmit', function (e) {
 
 
 occupationOtherCheck()
-// previousFootUlcer($(".ulcer_check_right:checked").val(),".ulcer_check_items_right")
-// previousFootUlcer($(".ulcer_check_left:checked").val(),".ulcer_check_items_left")
-
-// previousFootUlcerDigit("#footassessment-record_complete-ulcer_right > div > label > input","#footassessment-record_complete-ulcer_digit_right")
-// previousFootUlcerDigit("#footassessment-record_complete-ulcer_left > div > label > input","#footassessment-record_complete-ulcer_digit_left")
-
-// previousAmputation($(this).val(),"#footassessment-record_complete-amputation_right")
-// previousAmputationDigit("#footassessment-record_complete-amputation_right  > div > label > input","#footassessment-record_complete-amputation_digit_right")
 
 $(".occupation").click(function(e, parameters) {
 var nonUI = false;
@@ -365,6 +367,63 @@ console.log(val)
 
 
 
+function validationNum(num){
+    return $.isNumeric(num);
+    console.log($.isNumeric(num))
+}
+
+function AbiRight(){
+    var num1 = $('#abi1_right').val();
+    var num2 = $('#abi2_right').val();
+    if(num2!==''){
+        var result = (num1/num2).toFixed(2);
+        // console.log(result)
+    }else{
+        var result = '00.00'
+    }
+    $('.abi-result-right').html(result)
+
+}
+
+
+function AbiLeft(){
+    var num1 = $('#abi1_left').val();
+    var num2 = $('#abi2_left').val();
+    if(num2!==''){
+        var result = (num1/num2).toFixed(2);
+    }else{
+        var result = '00.00'
+    }
+    $('.abi-result-left').html(result)
+}
+
+// #########
+
+function TbiRight(){
+    var num1 = $('#tbi1_right').val();
+    var num2 = $('#tbi2_right').val();
+    if(num2!==''){
+        var result = (num1/num2).toFixed(2);
+    }else{
+        var result = '00.00'
+    }
+    $('.tbi-result-right').html(result)
+console.log(num2)
+}
+
+
+function TbiLeft(){
+    var num1 = $('#tbi1_left').val();
+    var num2 = $('#tbi2_left').val();
+    if(num2!==''){
+        var result = (num1/num2).toFixed(2);
+    }else{
+        var result = '00.00'
+    }
+    $('.tbi-result-left').html(result)
+}
+
+
 JS;
-$this->registerJS($js);
+$this->registerJS($js,View::POS_END, 'my-options');
 ?>

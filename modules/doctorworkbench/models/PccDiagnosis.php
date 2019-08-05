@@ -7,6 +7,12 @@ use Yii;
 
 class PccDiagnosis extends \yii\db\ActiveRecord
 {
+    public static function getDb()
+    {
+        return Yii::$app->get('tcds');
+    }
+    
+    
     public static function tableName()
     {
         return 'pcc_service_diagnosis';

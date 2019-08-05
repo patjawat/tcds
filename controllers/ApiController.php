@@ -2,19 +2,40 @@
 
 namespace app\controllers;
 use Yii;
-use yii\web\Response;
+use yii\filters\ContentNegotiator;
 use yii\rest\ActiveController;
+use yii\web\Response;
 use app\modules\document\models\Documentqr;
 use app\modules\document\models\Document;
 use app\components\DateTimeHelper;
+use app\modules\chiefcomplaint\models\Chiefcomplaint;
 
 class ApiController extends ActiveController
 {
-    // public function actionIndex()
-    // {
-    //     return $this->render('index');
-    // }
-    public $modelClass = 'Documentqr';
+
+    
+    // public $modelClass = 'Chiefcomplaint';
+    // public $modelClass = 'Document';
+    // public $serializer = [
+    //     'class' => 'yii\rest\Serializer',
+    //     'collectionEnvelope' => 'items',
+    // ];
+    public $enableCsrfValidation = false;
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => ContentNegotiator::className(),
+                // 'only' => ['index', 'view'],
+                'only' => ['*'],
+                'formats' => [
+                    'application/json' => Response::FORMAT_JSON,
+                ],
+            ],
+        ];
+    }
+    public $modelClass = 'app\modules\document\models\Documentqr';
     public $serializer = [
         'class' => 'yii\rest\Serializer',
         'collectionEnvelope' => 'items',
@@ -56,7 +77,8 @@ class ApiController extends ActiveController
                 'filename' => $request->post('filename'),
                 'barcode' => $request->post('barcode')
                 ]);
-            if(!$checkUpdate == DateTimeHelper::getDbDate()){
+
+            if(!$checkUpdate){
                 $model->hn = $request->post('hn');
                 $model->sub_dir = $request->post('sub_dir');
                 $model->filename = $request->post('filename');
@@ -67,8 +89,9 @@ class ApiController extends ActiveController
             }else{
                 return 'Update latest';
             }
-            
+           
+           
         }    
+        // return $request->post('hn');
     }
-
 }

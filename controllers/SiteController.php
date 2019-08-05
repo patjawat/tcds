@@ -107,7 +107,7 @@ class SiteController extends Controller {
         $sql = "SELECT * from opd_visit v
         LEFT JOIN m_patient p ON p.hn = v.hn
         WHERE v.pcc_vn = '$pcc_vn' AND v.hn = '$hn'";
-        $query = DbHelper::queryOne('db',$sql);
+        $query = DbHelper::queryOne('tcds',$sql);
 
         // PatientHelper::setCurrentPatient($query['hn'],$query['pcc_vn'],$query['vn'],$query['fname'],$query['lname'],$query['cid'],$query['prename'],$query['sex'],$query['birthday']);
 

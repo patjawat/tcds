@@ -15,6 +15,11 @@ use yii\helpers\Url;
 
 class Document extends \yii\db\ActiveRecord
 {
+    public static function getDb()
+    {
+        return Yii::$app->get('tcds');
+    }
+    
 
     public static function tableName()
     {

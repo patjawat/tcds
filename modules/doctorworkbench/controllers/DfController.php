@@ -74,7 +74,7 @@ class DfController extends Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             $sql = "select right(concat('F',DATE_FORMAT(now(), '%y'),'0000',COALESCE(MAX(right(id,7)),0)+1),10) as next_number  from df";
-            $query = DbHelper::queryOne('db', $sql);
+            $query = DbHelper::queryOne('tcds', $sql);
 
             $id = $query['next_number'];
 

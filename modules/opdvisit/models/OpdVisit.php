@@ -15,9 +15,12 @@ use app\modules\usermanager\models\User;
 
 class OpdVisit extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+
+    public static function getDb()
+    {
+        return Yii::$app->get('tcds');
+    }
+    
     public static function tableName()
     {
         return 'opd_visit';

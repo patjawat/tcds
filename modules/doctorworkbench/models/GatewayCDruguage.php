@@ -21,9 +21,11 @@ use Yii;
  */
 class GatewayCDruguage extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+    public static function getDb()
+    {
+        return Yii::$app->get('tcds');
+    }
+    
     public static function tableName()
     {
         return 'gateway_c_druguage';

@@ -214,8 +214,6 @@ class ChiefcomplaintController extends Controller
             if ($model->requester) {
                 $model->save(false);
                 return $this->redirect(['/']);
-                // return $model->requester;
-
             }
             }
         } else {

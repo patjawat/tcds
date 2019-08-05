@@ -12,9 +12,11 @@ use Yii;
  */
 class ItemsStockSometimes extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+    public static function getDb()
+    {
+        return Yii::$app->get('tcds');
+    }
+    
     public static function tableName()
     {
         return 'items_stock_sometimes';

@@ -14,7 +14,7 @@ $fullname = PatientHelper::getPatientNameByHn($hn);
 $fname = PatientHelper::getCurrentFname();
 $lname = PatientHelper::getCurrentLname();
 $cid = PatientHelper::getCurrentCid();
-$model = mPatient::findOne($hn);
+// $model = mPatient::findOne($hn);
 
 $patient  = HisPatient::findOne(['hn' => $hn]);
 
@@ -35,7 +35,7 @@ $this->registerCss($this->render('../../dist/css/style.css'));
 // use Model
 
 $url = \yii\helpers\Url::to(['order/icd10-list']); //กำหนด URL ที่จะไปโหลดข้อมูล
-$prefix = empty($person->prefix_id) ? '' : BasePrefix::findOne($model->prefix_id)->prefix_name; //กำหนดค่าเริ่มต้น
+// $prefix = empty($person->prefix_id) ? '' : BasePrefix::findOne($model->prefix_id)->prefix_name; //กำหนดค่าเริ่มต้น
 ?>
 
 <?php //app\modules\doctorworkbench\controllers\DoctorFreeController::DfCount();?>

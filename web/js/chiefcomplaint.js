@@ -7,7 +7,8 @@ $("#form-chiefcomplaint").on('beforeSubmit', function (e) {
     console.log(form.find('.has-error').length)
   } else {
     if ($('#chiefcomplaint-requester').val() == '') {
-      confirmRequester();
+      // confirmRequester();
+      getRequester("#form-chiefcomplaint")
     } else {
       alert('success');
     }
@@ -50,24 +51,25 @@ function loadFormChiefcomplaint() {
 
 
 
-function confirmRequester() {
-  $.ajax({
-    type: "get",
-    url: "index.php?r=chiefcomplaint/chiefcomplaint/requester",
-    dataType: "json",
-    success: function (response) {
-      $('#main-modal').modal('show');
-      $('.modal-title').html(response.title);
-      $('.modal-body').html(response.content);
-      $('.modal-footer').html(response.footer);
-      $('.save').hide();
-      // window.location.replace("/");
-      // alert();
-    }
-  });
+// function confirmRequester() {
+//   $.ajax({
+//     type: "get",
+//     url: "index.php?r=chiefcomplaint/chiefcomplaint/requester",
+//     dataType: "json",
+//     success: function (response) {
+//       $('#main-modal').modal('show');
+//       $('.modal-title').html(response.title);
+//       $('.modal-body').html(response.content);
+//       $('.modal-footer').html(response.footer);
+//       $('.save').hide();
+      
+//       // window.location.replace("/");
+//       // alert();
+//     }
+//   });
 
 
-}
+// }
 
 
 // function loadNc(){
@@ -88,31 +90,31 @@ function confirmRequester() {
 //     });
 // }
 
-function saveChiefcomplaint() {
-  $("#form-chiefcomplaint").submit();
-  // $.ajax({
-  //   type: "post",
-  //   beforeSend: function () {
-  //     $('#main-modal').modal('hide');
-  //     $(".view-container").hide();
-  //     $(".view-process").show();
-  //   },
-  //   url: "index.php?r=chiefcomplaint/chiefcomplaint/show-form",
-  //   dataType: "json",
-  //   data: $('#form-chiefcomplaint').serialize(),
-  //   success: function (response) {
+// function saveChiefcomplaint() {
+//   $("#form-chiefcomplaint").submit();
+//   // $.ajax({
+//   //   type: "post",
+//   //   beforeSend: function () {
+//   //     $('#main-modal').modal('hide');
+//   //     $(".view-container").hide();
+//   //     $(".view-process").show();
+//   //   },
+//   //   url: "index.php?r=chiefcomplaint/chiefcomplaint/show-form",
+//   //   dataType: "json",
+//   //   data: $('#form-chiefcomplaint').serialize(),
+//   //   success: function (response) {
 
-  //     // if(response == true){
-  //     //   window.location.replace("/");
-  //     // }
-  //     // alert('xx');
+//   //     // if(response == true){
+//   //     //   window.location.replace("/");
+//   //     // }
+//   //     // alert('xx');
 
-  //     // loadFormChiefcomplaint()
-  //     // $('#showForm-chiefcomplaint').html(response)
-  //   }
-  // });
+//   //     // loadFormChiefcomplaint()
+//   //     // $('#showForm-chiefcomplaint').html(response)
+//   //   }
+//   // });
 
-}
+// }
 function loadDrugAllergy() {
   $.ajax({
     url: 'index.php?r=opdvisit/default/check-drug-allergy',

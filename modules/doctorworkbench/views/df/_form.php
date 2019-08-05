@@ -15,7 +15,7 @@ $hn = PatientHelper::getCurrentHn();
 
 $sql = "SELECT * from df_items
 WHERE id NOT IN (SELECT df_code from df WHERE hn = '$hn' AND vn = '$vn' AND delete_status = 'N')";
-$query = DbHelper::queryAll('db', $sql);
+$query = DbHelper::queryAll('tcds', $sql);
 
 $df = ArrayHelper::map($query, 'id', 'name');
 

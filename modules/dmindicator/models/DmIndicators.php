@@ -8,10 +8,14 @@ use yii\helpers\ArrayHelper;
 class DmIndicators extends \yii\db\ActiveRecord
 {
   
+  public static function getDb()
+  {
+      return Yii::$app->get('tcds');
+  }
 
     public static function tableName()
     {
-        return 'dm_indicators';
+        return 'dmindicators';
     }
 
 

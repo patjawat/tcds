@@ -4,17 +4,15 @@ namespace app\modules\foot\models;
 
 use Yii;
 
-/**
- * This is the model class for table "items_foot_type".
- *
- * @property int $id
- * @property string $name
- */
+
 class ItemsFootType extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+    public static function getDb()
+    {
+        return Yii::$app->get('tcds');
+    }
+    
+    
     public static function tableName()
     {
         return 'items_foot_type';

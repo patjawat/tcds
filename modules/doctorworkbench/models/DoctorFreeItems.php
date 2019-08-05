@@ -12,9 +12,11 @@ use Yii;
  */
 class DoctorFreeItems extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+    public static function getDb()
+    {
+        return Yii::$app->get('tcds');
+    }
+    
     public static function tableName()
     {
         return 'doctor_free_items';

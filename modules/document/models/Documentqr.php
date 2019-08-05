@@ -15,6 +15,11 @@ use yii\helpers\Url;
 
 class Documentqr extends \yii\db\ActiveRecord
 {
+    public static function getDb()
+    {
+        return Yii::$app->get('tcds');
+    }
+    
     const UPLOAD_FOLDER='document-qr';
 
     public static function getUploadPath(){

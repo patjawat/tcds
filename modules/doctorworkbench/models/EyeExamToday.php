@@ -15,9 +15,11 @@ use yii\helpers\Json;
 
 class EyeExamToday extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+    public static function getDb()
+    {
+        return Yii::$app->get('tcds');
+    }
+    
     public static function tableName()
     {
         return 'eye_exam_today';

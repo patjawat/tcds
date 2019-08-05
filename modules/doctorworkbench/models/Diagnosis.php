@@ -17,6 +17,11 @@ use app\modules_nurse\nurse_screen\models\OpdVisit;
 class Diagnosis extends \yii\db\ActiveRecord
 {
 
+    public static function getDb()
+    {
+        return Yii::$app->get('tcds');
+    }
+    
     public static function tableName()
     {
         return 'diagnosis';

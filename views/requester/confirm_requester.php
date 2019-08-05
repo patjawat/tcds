@@ -1,33 +1,20 @@
 <?php
-use yii\helpers\Url;
-use yii\widgets\ActiveForm;
-use yii\helpers\Html;
 ?>
 <div class="form-group">
-    <input type="password" name="requester" id="master-requester" class="form-control" placeholder="Requester" value=""
-        autofocus>
+    <input type="password" name="requester" id="master-requester" class="form-control" placeholder="Requester" value="">
     <input type="text" name="success-requester" id="success-requester" class="form-control" hidden="true">
 
 </div>
 
-<?php // echo Html::a('ตกลง','#',['class' => 'btn btn-success save pill-right'])?>
-<?php
-                                
-    //  $key = 'ท25254';
-    //  $url = 'http://e4d4bb07.ngrok.io/HIS/index.php/RequesterRpcS';
-    //  $Client = new JsonRpc\Client($url);
-    //  $success = false;
-    //  $success = $Client->call('getById', [$key]);
-    //  $data =  $Client->result[0];
-    //  print_r($data);
-    ?>
 <?php
 $js = <<< JS
+// ตั้งค่า auto Focus ตอนแสดง modal
+   $('#main-modal').on('shown.bs.modal', function () {
+    $('#master-requester').focus();
+});
+// ## จบ
 
-// alert();
-// $('#master-requester').focus();
 $('#success-requester').hide();
-
 $('#master-requester').keyup(function(e){
         var value = $(this).val();
         console.log(value);
@@ -50,30 +37,20 @@ $('#master-requester').keyup(function(e){
                                 $('.save').show();
                                 $('.requester').val($('#master-requester').val());
                                 $('#success-requester').val($('#master-requester').val());
-                                // $("#form-chiefcomplaint").submit();
-                                
                             }
-                            
                         }
                     });
                 }else{
-                    // alert('save');
-                    
                     var r = confirm("ยืนยันการบันทึก!");
                         if (r == true) {
-                            // saveChiefcomplaint();
                             $('$formId').submit();
                             return true;
                         } else {
                             return false;
                         }
                 }
-                   
     }
-
-    // }, 1000 );
     });
-
 
 JS;
 $this->registerJS($js);

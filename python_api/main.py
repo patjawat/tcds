@@ -13,7 +13,7 @@ from PIL import Image
 # import psycopg2
 import simplejson as json
 import requests
-import json
+# import json
 
 
 # #กำหนดที่เก็บรูปภาพ
@@ -47,9 +47,9 @@ def ReadQR(data):
 
 def InsertDB(hn,sub_dir,filename,barcode,type,url_insert):
 			payload = {'hn':hn,'sub_dir':sub_dir,'filename':filename,'barcode':barcode,'type':type}
-			r = requests.post(url_insert,json=payload)
+			r = requests.post(url_insert,data=payload)
 			print(r.text)
-            # print(url_insert)
+            # print(hn)
 
 def ReadBarcode(file):
         image = Image.open(file)
@@ -90,8 +90,6 @@ def predict():
             return jsonify(
                 prediction=hn
             ), 201
-            # for item in items:
-                # return input_value
 
 
 @app.route("/document-qr", methods=["GET"])
@@ -113,8 +111,7 @@ def documentQR():
 def ConvertFile(hn,url_insert):
 	# print(hn)
 	# กำหนดที่เก็บรูปภาพ
-
-	DATASET_PATH = '../web/reg/'+hn
+	DATASET_PATH = '../var/www/mount/hims-app/reg/'+hn
 	root_dir = Path(DATASET_PATH)
 	items = root_dir.iterdir()
 	for item in items:
@@ -124,7 +121,7 @@ def ConvertFile(hn,url_insert):
 			his_directory = item  # ที่อยู่ของ File ต้นฉบับ
 
 			# dis_dir = 'REG2/'+hn+'/'+str(item.name)
-			dis_dir = '../web/reg2/'+hn+'/'+str(item.name)
+			dis_dir = '../web/reg/'+hn+'/'+str(item.name)
             			# ตรวจสอบ directory ถ้าไม่มีให้สร้าง
 			if not os.path.exists(dis_dir):
 				os.makedirs(dis_dir)
@@ -136,7 +133,7 @@ def ConvertFile(hn,url_insert):
                             file_type = file.split('.')[1]  # แยกนามสกุล
                             source = str(his_directory)+'/'+str(file_name)+".TIF"
                             disination = str(dis_dir)+'/'+str(file_name)+".TIF"
-
+                            # print(file)
                             if file_type == 'tif':
                                         shutil.copyfile(sub_dir, str(dis_dir)+'/'+str(file_name)+'.TIF')
                                         print('tif')

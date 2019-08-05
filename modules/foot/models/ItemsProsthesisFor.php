@@ -12,9 +12,11 @@ use Yii;
  */
 class ItemsProsthesisFor extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+    public static function getDb()
+    {
+        return Yii::$app->get('tcds');
+    }
+    
     public static function tableName()
     {
         return 'items_prosthesis_for';

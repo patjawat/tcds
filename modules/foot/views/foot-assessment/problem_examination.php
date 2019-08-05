@@ -1168,7 +1168,7 @@ use app\modules\foot\models\ItemsDoppler;
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                             <?= $form->field($model, 'record_complete[abi1_right]')->textInput(['class' => 'abi-right','id' => 'abi1_right','onKeyup' => 'return AbiRight()'])->label(false); ?>
-                            <?= $form->field($model, 'record_complete[abi2_left]')->textInput(['class' => 'abi-right','id' => 'abi2_right','onKeyup' => 'return AbiRight()'])->label(false); ?>
+                            <?= $form->field($model, 'record_complete[abi2_right]')->textInput(['class' => 'abi-right','id' => 'abi2_right','onKeyup' => 'return AbiRight()'])->label(false); ?>
                             <span class="label label-primary abi-result-right">00.00</span>
                             <?= $form->field($model, 'record_complete[abi_compressible_right]')->checkbox()->label('Non-compressible (>1.3)'); ?>
                         </div>
@@ -1217,12 +1217,12 @@ use app\modules\foot\models\ItemsDoppler;
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
                             <?= $form->field($model, 'record_complete[tbi1_right]')->textInput(['class' => 'tbi-right','id' => 'tbi1_right','onKeyup' => 'return TbiRight()'])->label(false); ?>
-                            <?= $form->field($model, 'record_complete[tbi2_right]')->textInput(['class' => 'tbi-left','id' => 'tbi2_left','onKeyup' => 'return TbiLeft()'])->label(false); ?>
-                            <span class="label label-primary tbi-result-rigt">00.00</span>
+                            <?= $form->field($model, 'record_complete[tbi2_right]')->textInput(['class' => 'tbi-right','id' => 'tbi2_right','onKeyup' => 'return TbiRight()'])->label(false); ?>
+                            <span class="label label-primary tbi-result-right">00.00</span>
                         </div>
                         <!-- End Col -->
                         <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
-                            <?= $form->field($model, 'record_complete[tbi1_left]')->textInput(['class' => 'tbi-right','id' => 'tbi1_right','onKeyup' => 'return TbiRight()'])->label(false); ?>
+                            <?= $form->field($model, 'record_complete[tbi1_left]')->textInput(['class' => 'tbi-left','id' => 'tbi1_left','onKeyup' => 'return TbiLeft()'])->label(false); ?>
                             <?= $form->field($model, 'record_complete[tbi2_left]')->textInput(['class' => 'tbi-left','id' => 'tbi2_left','onKeyup' => 'return TbiLeft()'])->label(false); ?>
                             <span class="label label-primary tbi-result-left">00.00</span>
                         </div>
@@ -1247,42 +1247,48 @@ use app\modules\foot\models\ItemsDoppler;
 
 
 <?php
-$js = <<< JS
+// $js = <<< JS
 
-function validationNum(num){
-    return $.isNumeric(num);
-    console.log($.isNumeric(num))
-}
+// AbiRight()
+// AbiLeft()
+// TbiRight()
+// TbiLeft()
 
-function AbiRight(){
-    var num1 = $('#abi1_right').val();
-    var num2 = $('#abi2_left').val();
-    if(num2!==''){
-        var result = (num1/num2).toFixed(2);
-    }else{
-        var result = '00.00'
-    }
-    $('.abi-result-right').html(result)
+// function validationNum(num){
+//     return $.isNumeric(num);
+//     console.log($.isNumeric(num))
+// }
 
-}
+// function AbiRight(){
+//     var num1 = $('#abi1_right').val();
+//     var num2 = $('#abi2_right').val();
+//     if(num2!==''){
+//         var result = (num1/num2).toFixed(2);
+//         // console.log(result)
+//     }else{
+//         var result = '00.00'
+//     }
+//     $('.abi-result-right').html(result)
+
+// }
 
 
-function AbiLeft(){
-    var num1 = $('#abi1_left').val();
-    var num2 = $('#abi2_left').val();
-    if(num2!==''){
-        var result = (num1/num2).toFixed(2);
-    }else{
-        var result = '00.00'
-    }
-    $('.abi-result-left').html(result)
-}
+// function AbiLeft(){
+//     var num1 = $('#abi1_left').val();
+//     var num2 = $('#abi2_left').val();
+//     if(num2!==''){
+//         var result = (num1/num2).toFixed(2);
+//     }else{
+//         var result = '00.00'
+//     }
+//     $('.abi-result-left').html(result)
+// }
 
-// #########
+// // #########
 
 // function TbiRight(){
 //     var num1 = $('#tbi1_right').val();
-//     var num2 = $('#tbi2_left').val();
+//     var num2 = $('#tbi2_right').val();
 //     if(num2!==''){
 //         var result = (num1/num2).toFixed(2);
 //     }else{
@@ -1305,6 +1311,6 @@ function AbiLeft(){
 // }
 
 
-JS;
-$this->registerJS($js,View::POS_END, 'my-options');
+// JS;
+// $this->registerJS($js,View::POS_END, 'my-options');
 ?>

@@ -4,32 +4,18 @@ namespace app\modules\doctorworkbench\models;
 
 use Yii;
 
-/**
- * This is the model class for table "his_patient".
- *
- * @property int $hn ข้อมูลผู้ป่วย
- * @property string $prefix
- * @property string $fname
- * @property string $lname
- * @property string $sex
- * @property string $birthday_date
- * @property string $idcard
- * @property string $UPDATE_TIME
- * @property string $doctor_id แพทย์เจ้าของไข้
- */
 class HisPatient extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+    public static function getDb()
+    {
+        return Yii::$app->get('tcds');
+    }
+
     public static function tableName()
     {
         return 'his_patient';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -44,9 +30,6 @@ class HisPatient extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [

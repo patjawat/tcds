@@ -218,6 +218,7 @@ if(checkUpdate < 1){
 $('#api').click(function (e) { 
     e.preventDefault();
     convertFile($hn,url_convert_him,url_insert);
+    // console.log(url_insert)
 
   
 });

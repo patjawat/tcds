@@ -81,12 +81,12 @@ class PatientHelper extends Component
     {
         return \Yii::$app->session->get('cid');
     }
-    public static function genNextHn()
-    {
-        $prev_hn = mPatient::find()->orderBy(['hn' => SORT_DESC])->one();
-        $next_hn = '000000000' . ((int) $prev_hn->hn + 1);
-        return substr($next_hn, -9);
-    }
+    // public static function genNextHn()
+    // {
+    //     $prev_hn = mPatient::find()->orderBy(['hn' => SORT_DESC])->one();
+    //     $next_hn = '000000000' . ((int) $prev_hn->hn + 1);
+    //     return substr($next_hn, -9);
+    // }
 
     public static function setCurrentHn($hn)
     {

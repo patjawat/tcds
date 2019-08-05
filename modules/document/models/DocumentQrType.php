@@ -13,9 +13,11 @@ use Yii;
  */
 class DocumentQrType extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
+    public static function getDb()
+    {
+        return Yii::$app->get('tcds');
+    }
+    
     public static function tableName()
     {
         return 'document_qr_type';

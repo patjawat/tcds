@@ -309,8 +309,19 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <p class="text-center">Right</p>
                         <div class="item-text-center">
-                            <?php echo  $form->field($model, 'record_complete[revascularization_right]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                            <?php echo  $form->field($model, 'record_complete[revascularization_right]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'],
+                            ['itemOptions' => 
+                            [
+                                'onclick' => '{ 
+                                    if($(this).val() == "Yes"){
+                                        $(".revascularization_items_right").show(300);
+                                    }else{
+                                        $(".revascularization_items_right").hide(300);
+                                    }
+                                }'
+                            ]])->label(false); ?>
                         </div>
+                        <div class="revascularization_items_right" <?=$model->record_complete['revascularization_right'] == 'Yes' ? '' : 'hidden';?>>
                         <?=$form->field($model, 'record_complete[right_evt]')->checkbox()->label('EVT'); ?>
                         <?= DatePicker::widget(['model' => $model,
                                                 'attribute' => 'record_complete[right_evt_date]',
@@ -353,14 +364,25 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
                         <br>
                         <?=$form->field($model, 'record_complete[right_hybrid_note]')->textArea()->label(false); ?>
 
-
+                        </div>
 
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <p class="text-center">Left</p>
                         <div class="item-text-center">
-                            <?php echo $form->field($model, 'record_complete[revascularization_left]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'])->label(false); ?>
+                        <?php echo  $form->field($model, 'record_complete[revascularization_left]')->inline()->radioList(['No' => 'No','Yes' => 'Yes'],
+                            ['itemOptions' => 
+                            [
+                                'onclick' => '{ 
+                                    if($(this).val() == "Yes"){
+                                        $(".revascularization_items_left").show(300);
+                                    }else{
+                                        $(".revascularization_items_left").hide(300);
+                                    }
+                                }'
+                            ]])->label(false); ?>
                         </div>
+                        <div class="revascularization_items_left" <?=$model->record_complete['revascularization_left'] == 'Yes' ? '' : 'hidden';?>>
                         <?=$form->field($model, 'record_complete[left_evt]')->checkbox()->label('EVT'); ?>
                         <?= DatePicker::widget(['model' => $model,
                                                 'attribute' => 'record_complete[left_evt_date]',
@@ -404,6 +426,7 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
                         <?=$form->field($model, 'record_complete[left_hybrid_note]')->textArea()->label(false); ?>
 
                     </div>
+                    </div>
                 </div>
 
             </div>
@@ -413,144 +436,3 @@ use app\modules\foot\models\ItemsSpecifyProcedureDate;
 </div>
 <!-- End Row -->
 
-
-
-<?php
-$js = <<< JS
-occupationOtherCheck()
-// previousFootUlcer($(".ulcer_check_right:checked").val(),".ulcer_check_items_right")
-// previousFootUlcer($(".ulcer_check_left:checked").val(),".ulcer_check_items_left")
-
-// previousFootUlcerDigit("#footassessment-record_complete-ulcer_right > div > label > input","#footassessment-record_complete-ulcer_digit_right")
-// previousFootUlcerDigit("#footassessment-record_complete-ulcer_left > div > label > input","#footassessment-record_complete-ulcer_digit_left")
-
-// previousAmputation($(this).val(),"#footassessment-record_complete-amputation_right")
-// previousAmputationDigit("#footassessment-record_complete-amputation_right  > div > label > input","#footassessment-record_complete-amputation_digit_right")
-
-$(".occupation").click(function(e, parameters) {
-var nonUI = false;
-try {
-    nonUI = parameters.nonUI;
-} catch (e) {}
-var checked = nonUI ? !this.checked : this.checked;
-// alert('Checked = ' + checked);
-var value = e.target.value;
-if(checked == true){
-    if(value == 11){
-        $('#occupation_other').css("background-color",'#fff').prop('readonly', false);
-    }
-   console.log('checked'+value);
-}else{
-   console.log('Uncheck'+value);
-  
-    if(value == 11){
-        $('#occupation_other').css("background-color",'#eee').prop('readonly', true);
-        $('#occupation_other').val('');
-    }
-}
-});
-
-usingAmbulationAid()
-smoking()
-
-$('.using_ambulation_aid').click(function (e) { 
-    // e.preventDefault();
-    // console.log(e.target.value)
-    usingAmbulationAid()
-    
-});
-
-$('.smoking_item').click(function (e) { 
-    smoking()
-});
-
-function occupationOtherCheck(){
-    $('#footassessment-record_complete-occupation > div > label > input').each(function(index, e){
- // statement
-    if(e.checked == true & e.value == 11){
-        console.log(e.value)
-        $('#occupation_other').css("background-color",'#fff').prop('readonly', false);
-    }else{
-        $('#occupation_other').css("background-color",'#eee').prop('readonly', true);
-        $('#occupation_other').val('');
-    }
-});
-}
-
-function usingAmbulationAid(){
-var val = $(".using_ambulation_aid:checked").val();
-    if(val == 'Yes'){
-        $('.specify_site').show(300)
-    }else{
-        $('.specify_site').hide(300);
-    }
-}
-//2. Smoking
-function smoking(){
-    $('#footassessment-record_complete-smoking > div > label > input').each(function(index, e){
-    if(e.checked == true & e.value == 3){
-        console.log(e.value)
-        $('#how_long_ago').show(300)
-    }else{
-        $('#how_long_ago').hide(300)
-    }
-   
-});
-}
-
-//5. Previous foot ulcer
-function previousFootUlcer(val,position){
-        if(val == 'Yes'){
-            $(position).show(300)
-            
-        }else{
-            $(position).hide(300);
-        }
-}
-// 5. Previous foot ulcer Digit
-function previousFootUlcerDigit(val,position){
-        if(val == 4){
-            $(position).show(300)
-        }else{
-            $(position).hide(300)
-        }
-        // $('.ulcer_digit_right').show(300)
-    console.log(position)
-    // alert(position)
-    
-
-}
-
-//6. Previous amputation
-function previousAmputation(val,position){
-    if(val == 'Yes'){
-            $(position).show(300)
-            // console.log(val,position)
-            // previousAmputationDigit(position)
-            
-        }else{
-            $(position).hide(300);
-            // console.log(val,position)
-            // previousAmputationDigit(position)
-
-
-        }
-}
-
-function previousAmputationDigit(val,position){
-
-    if(val == 7){
-        console.log(position)
-        $(position).show(300)
-    }else{
-        $(position).hide(300)
-    }
-
-}
-
-
-
-
-JS;
-$this->registerJS($js,View::POS_END, 'my-options');
-?>

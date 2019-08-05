@@ -88,8 +88,6 @@ class FootAssessmentController extends Controller
                 'skin_condition_right' => $model->record_complete['skin_condition_right'],
                 'interspace_right' => $model->record_complete['interspace_right'],
                 'interspace_left' => $model->record_complete['interspace_left'],
-                'callus_left' => $model->record_complete['callus_left'],
-                'callus_right' => $model->record_complete['callus_right'],
                 'callus_select_right' => $model->record_complete['callus_select_right'],
                 'callus_select_left' => $model->record_complete['callus_select_left'],
                 'temperature_change_right' => $model->record_complete['temperature_change_right'],

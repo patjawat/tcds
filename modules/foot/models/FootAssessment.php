@@ -4,6 +4,14 @@ namespace app\modules\foot\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\AttributeBehavior;
+use yii\db\Expression;
+use yii\db\ActiveRecord;
+use app\components\DateTimeHelper;
+use app\components\PatientHelper;
+use yii\helpers\Json;
 
 class FootAssessment extends \yii\db\ActiveRecord
 {
@@ -21,23 +29,26 @@ class FootAssessment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['hn', 'vn', 'vstdate'], 'required'],
-            [['vstdate', 'vsttime'], 'safe'],
+            [['hn', 'vn', 'created_at'], 'required'],
+            [[
+              'created_at', 
+              'vsttime',
+              'updated_at',
+              'created_by',
+              'requester',
+            ], 'safe'],
             [['record_complete', 'record_summary'], 'string'],
             [['hn', 'vn'], 'string', 'max' => 12],
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
             'id' => 'ID',
             'hn' => 'HN',
             'vn' => 'VN',
-            'vstdate' => 'วันที่รับบริการ',
+            'created_at' => 'วันที่รับบริการ',
             'vsttime' => 'เวลารับบริการ',
             'record_complete' => 'Diabetic Foot Assessment Record Complete',
             'record_summary' => 'Diabetic Foot Assessment Record Summary ',
@@ -123,4 +134,41 @@ class FootAssessment extends \yii\db\ActiveRecord
     //   }
 
 
+    public function behaviors()
+{
+    return [
+        // [
+        //     'class' => AttributeBehavior::className(),
+        //     'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['id']],
+        //     'value' => function(){
+        //         return DateTimeHelper::getDbDateTimeNow();
+        //     }
+        // ],
+        [
+            'class' => AttributeBehavior::className(),
+            'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['created_at','updated_at']],
+            'value' => DateTimeHelper::getDbNow()
+            
+        ],
+        [
+            'class' => AttributeBehavior::className(),
+            'attributes' => [ActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at'],
+            'value' => DateTimeHelper::getDbNow()           
+            
+        ],
+        // [
+        //     'class' => AttributeBehavior::className(),
+        //     'attributes' => [ActiveRecord::EVENT_BEFORE_UPDATE => 'data_json'],
+        //     'value' => DateTimeHelper::getDbTimestramp()
+            
+        // ],
+
+        [
+            'class' => BlameableBehavior::className(),
+            'createdByAttribute'=>'created_by',
+            'updatedByAttribute' => 'updated_by',
+        ]
+
+    ];
+}
 }

@@ -40,7 +40,7 @@ use yii\bootstrap\ActiveForm;
 
 </style>
 <?php $form = ActiveForm::begin([
-    'id' => 'form-chiefcomplaint',
+    'id' => 'form-usermanager',
     'fieldConfig' => [
         'horizontalCssClasses' => [
             'label' => 'col-lg-4 col-md-4 col-sm-4',

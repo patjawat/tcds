@@ -57,7 +57,7 @@ class User extends ActiveRecord implements IdentityInterface
                  ['username', 'string', 'min' => 2, 'max' => 255],
 
                  ['email', 'filter', 'filter' => 'trim'],
-                 ['email', 'required'],
+                //  ['email', 'required'],
                  ['email', 'email'],
                 ['email', 'unique', 'targetClass' => '\app\modules\usermanager\models\User', 'message' => 'This email address has already been taken.'],
 

@@ -84,50 +84,6 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionRevisit($pcc_vn, $hn, $vn)
-    {
-        $check_hn = HisPatient::findOne(['hn' => $hn]);
-        if ($check_hn) {
-            $fname = $check_hn->fname;
-            $lname = $check_hn->lname;
-            $birthday_date = $check_hn->birthday_date;
-        } else {
-            $url = PatientHelper::getUrl() . 'PatientRpcS';
-            $Client = new JsonRpc\Client($url);
-            $success = false;
-            $success = $Client->call('getByHn', [$hn]);
-
-            $data = $Client->result[0];
-            $fname = $data->fname;
-            $lname = $data->lname;
-            $birthday_date = $data->birthday_date;
-        }
-
-        $sql = "SELECT * from opd_visit v
-        LEFT JOIN m_patient p ON p.hn = v.hn
-        WHERE v.pcc_vn = '$pcc_vn' AND v.hn = '$hn'";
-        $query = DbHelper::queryOne('tcds', $sql);
-
-        // PatientHelper::setCurrentPatient($query['hn'],$query['pcc_vn'],$query['vn'],$query['fname'],$query['lname'],$query['cid'],$query['prename'],$query['sex'],$query['birthday']);
-
-        PatientHelper::setCurrentHn($hn);
-        PatientHelper::setCurrentPccVn($pcc_vn);
-        PatientHelper::setCurrentVn($vn);
-        PatientHelper::setCurrentFname($fname);
-        PatientHelper::setCurrentLname($lname);
-        PatientHelper::setCurrentAge($birthday_date, $hn);
-        PatientHelper::DrugAllergy();
-
-        // PatientHelper::setCurrentHn($data->hn);
-        // PatientHelper::setCurrentPatient($data->hn, $pcc_vn,$data->fname,$data->lname,$data->cid,null);
-        if (Yii::$app->user->can('doctor')) {
-            return $this->redirect(['/doctorworkbench']);
-        } else {
-            return $this->redirect(['/chiefcomplaint/chiefcomplaint/show-form']);
-
-        }
-
-    }
 
     public function actionLanding()
     {

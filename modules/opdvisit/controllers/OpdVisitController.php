@@ -285,6 +285,55 @@ class OpdVisitController extends Controller
       //       // PatientHelper::setCurrentVn($check_vn->vn);
     }
 
+
+
+    public function actionRevisit($pcc_vn, $hn, $vn)
+    {
+        $check_hn = HisPatient::findOne(['hn' => $hn]);
+        if ($check_hn) {
+            $fname = $check_hn->fname;
+            $lname = $check_hn->lname;
+            $birthday_date = $check_hn->birthday_date;
+            $sex = $check_hn->sex;
+            $sex = $check_hn->sex;
+            $prefix = $check_hn->prefix;
+        } else {
+            $url = PatientHelper::getUrl() . 'PatientRpcS';
+            $Client = new JsonRpc\Client($url);
+            $success = false;
+            $success = $Client->call('getByHn', [$hn]);
+
+            $data = $Client->result[0];
+            $fname = $data->fname;
+            $lname = $data->lname;
+            $birthday_date = $data->birthday_date;
+            $sex = $data->sex;
+            $prefix = $data->prefix;
+        }
+
+
+        PatientHelper::setCurrentPrefix($prefix);
+        PatientHelper::setCurrentSex($sex);
+        PatientHelper::setCurrentHn($hn);
+        PatientHelper::setCurrentPccVn($pcc_vn);
+        PatientHelper::setCurrentVn($vn);
+        PatientHelper::setCurrentFname($fname);
+        PatientHelper::setCurrentLname($lname);
+        PatientHelper::setCurrentAge($birthday_date, $hn);
+        PatientHelper::DrugAllergy();
+
+        // PatientHelper::setCurrentHn($data->hn);
+        // PatientHelper::setCurrentPatient($data->hn, $pcc_vn,$data->fname,$data->lname,$data->cid,null);
+        if (Yii::$app->user->can('doctor')) {
+            return $this->redirect(['/doctorworkbench']);
+        } else {
+            return $this->redirect(['/chiefcomplaint/chiefcomplaint/show-form']);
+
+        }
+
+    }
+
+
     private function GetPatient($hn)
     {
         $url = PatientHelper::getUrl().'PatientRpcS';
@@ -300,5 +349,7 @@ class OpdVisitController extends Controller
         PatientHelper::setCurrentAge($data->birthday_date,$hn);
     }
 
+
+    
 
 }

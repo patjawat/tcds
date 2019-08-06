@@ -92,78 +92,16 @@ class ChiefcomplaintController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-// original
-    // public function actionShowForm()
-    // {
-    //     $pcc_vn = PatientHelper::getCurrentPccVn();
-    //     $vn = PatientHelper::getCurrentVn();
-    //     $hn = PatientHelper::getCurrentHn();
-    //     $checkvn = Chiefcomplaint::findOne(['pcc_vn' => $pcc_vn, 'vn' => $vn]);
-    //     if ($checkvn) {
-    //         $last = Chiefcomplaint::find()->orderby(['date_service' => SORT_DESC])->where(['hn' => $hn])->one();
-    //         $model = $checkvn;
-    //         $model->ht = $last->ht;
-    //         $model->nursing_assessment = Json::decode($model->nursing_assessment);
-
-    //     } else {
-    //         $model = new Chiefcomplaint();
-    //         // $model->id = substr(Yii::$app->getSecurity()->generateRandomString(),10);
-    //         $model->hn = $hn;
-    //         $model->vn = $vn;
-    //         $model->pcc_vn = $pcc_vn;
-    //         $model->date_service = Date('Y-m-d');
-    //         $model->time_service = Date('H:i:s');
-    //         // $model->doctor_id  =  PatientHelper::getCurrentDoctorID();
-
-    //     }
-    //     if ($model->load(Yii::$app->request->post())) {
-    //         Yii::$app->response->format = Response::FORMAT_JSON;
-
-    //         //    return $this->redirect(['view', 'id' => $model->id]);
-    //         $model->pcc_vn = $pcc_vn;
-    //         $nursing_assessment = [
-    //             'type_of_patient' => $model->nursing_assessment['type_of_patient'],
-    //             'triage' => $model->nursing_assessment['triage'],
-    //             'access' => $model->nursing_assessment['access'],
-    //             'loc' => $model->nursing_assessment['loc'],
-    //             'pain_score_adult' => $model->nursing_assessment['pain_score_adult'] == '' ? '' : number_format($model->nursing_assessment['pain_score_adult'], 2, '.', ''),
-    //             'pain_score_child' => $model->nursing_assessment['pain_score_child'] == '' ? '' : number_format($model->nursing_assessment['pain_score_child'], 2, '.', ''),
-    //             'pain_score_child_items' => $model->nursing_assessment['pain_score_child_items'],
-    //             'fall_risk' => $model->nursing_assessment['fall_risk'],
-    //             'risk_precaution' => $model->nursing_assessment['risk_precaution'],
-    //             'dm_type' => $model->nursing_assessment['dm_type'],
-    //             'thyroid_type' => $model->nursing_assessment['thyroid_type'],
-    //             'fall_risk_yes' => $model->nursing_assessment['fall_risk_yes'],
-
-    //         ];
-    //         $model->nursing_assessment = Json::encode($nursing_assessment);
-
-    //         if ($model->save(false)) {
-    //             return $this->redirect(['/']);
-
-    //         }
-    //     } else {
-    //         if (Yii::$app->request->isAjax) {
-    //             Yii::$app->response->format = Response::FORMAT_JSON;
-    //             return $this->renderAjax('create', [
-    //                 'model' => $model,
-    //             ]);
-    //         } else {
-    //             return $this->render('create', [
-    //                 'model' => $model,
-    //             ]);
-    //         }
-    //     }
-
-    // }
-
-
 
     public function actionShowForm()
     {
         $pcc_vn = PatientHelper::getCurrentPccVn();
         $vn = PatientHelper::getCurrentVn();
         $hn = PatientHelper::getCurrentHn();
+        if (empty($hn)) {
+            return $this->redirect(['/site/index']);
+        }
+        
         $checkvn = Chiefcomplaint::findOne(['pcc_vn' => $pcc_vn, 'vn' => $vn]);
         if ($checkvn) {
             $last = Chiefcomplaint::find()->orderby(['date_service' => SORT_DESC])->where(['hn' => $hn])->one();

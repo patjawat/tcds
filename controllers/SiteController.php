@@ -7,7 +7,7 @@ use app\components\PatientHelper;
 use app\components\UserHelper;
 use app\models\ContactForm;
 use app\models\LoginForm;
-use app\modules\opdvisit\models\HisPatient;
+
 use app\modules\opdvisit\models\OpdVisitSearch;
 use JsonRpc;
 use kartik\report\Report;

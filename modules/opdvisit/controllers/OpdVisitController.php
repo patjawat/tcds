@@ -5,6 +5,7 @@ namespace app\modules\opdvisit\controllers;
 use app\components\PatientHelper;
 use app\modules\opdvisit\models\OpdVisit;
 use app\modules\opdvisit\models\OpdVisitSearch;
+use app\modules\opdvisit\models\HisPatient;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;

@@ -190,6 +190,12 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
     <!-- start col -->
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2">
         <?=Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => "btn btn-success"]); ?>
+        | ผู้บันทึก <i
+                class="fas fa-user-edit"></i> : <code>
+                <!-- <span class="show-requester-name"></span> -->
+                <?=$requester ? PatientHelper::RequesterName($requester) : '-';?>
+                </code> &nbsp;| <i
+                class="far fa-clock"></i> : <code><?=$model->updated_at?> </code>
     </div>
 </div>
 <!-- End Col -->

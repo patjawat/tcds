@@ -20,11 +20,13 @@ class FootAssessmentController extends Controller
         $hn = PatientHelper::getCurrentHn();
         $checkvn = FootAssessment::findOne(['vn' => $vn]);
         if ($checkvn) {
+            $requester = $checkvn->requester;
             $model = $checkvn;
             $model->requester = '';
             $model->record_complete = Json::decode($model->record_complete);
         } else {
             $model = new FootAssessment();
+            $requester = null;
             $model->hn = $hn;
             $model->vn = $vn;
         }
@@ -259,10 +261,12 @@ class FootAssessmentController extends Controller
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return $this->renderAjax('index', [
                     'model' => $model,
+                    'requester' => $requester
                 ]);
             } else {
                 return $this->render('index', [
                     'model' => $model,
+                    'requester' => $requester
                 ]);
             }
         }

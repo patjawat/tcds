@@ -143,7 +143,7 @@ $this->title = 'รายการผู้รับบริการ';
                             $pcc_vn = $model['pcc_vn'];
                             $hn = $model['hn'];
                             $vn = $model['vn'];
-                            return Html::a('<i class="fas fa-edit"></i> แก้ไข', ['/site/revisit', 'pcc_vn' => $pcc_vn,'hn' => $hn,'vn'=> $vn], ['class' => '', 'data-confirm' => 'แก้ไข Visit นี้']);
+                            return Html::a('<i class="fas fa-edit"></i> แก้ไข', ['/opdvisit/opd-visit/revisit', 'pcc_vn' => $pcc_vn,'hn' => $hn,'vn'=> $vn], ['class' => '', 'data-confirm' => 'แก้ไข Visit นี้']);
 
                     },
                     'delete' => function($url, $model, $key) {

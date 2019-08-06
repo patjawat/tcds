@@ -593,7 +593,10 @@ checkboxList([
 
             <!-- <span class="btn btn-success" id="saveChiefcomplaint"> <i class="fas fa-check"></i> บันทึก</span> -->
             <?=Html::a('ยกเลิก', ['/site'], ['class' => 'btn btn-default']);?> | ผู้บันทึก <i
-                class="fas fa-user-edit"></i> : <code><span class="show-requester-name"></span></code> &nbsp;| <i
+                class="fas fa-user-edit"></i> : <code>
+                <!-- <span class="show-requester-name"></span> -->
+                <?=$requester ? PatientHelper::RequesterName($requester) : '-';?>
+                </code> &nbsp;| <i
                 class="far fa-clock"></i> : <code><?=$model->updated_at?> </code>
 
         </div>
@@ -900,7 +903,7 @@ $(function(){
     // });
 
 loadFormControl();
-getRequester();
+// getRequesterName();
 scoreChildControl();
 
 $('#pain_score_child').keyup(function(){
@@ -1079,17 +1082,17 @@ function scoreChildControl(){
     }
 }
 
-function getRequester(){
-    $.ajax({
-        type: "post",
-        url: "index.php?r=site/get-requester ",
-        data: {'key':'$requester'} ,
-        dataType: "json",
-        success: function (response) {
-            $('.show-requester-name').html(response);
-        }
-    });
-}
+// function getRequesterName(){
+//     $.ajax({
+//         type: "post",
+//         url: "index.php?r=site/get-requester ",
+//         data: {'key':'$requester'} ,
+//         dataType: "json",
+//         success: function (response) {
+//             $('.show-requester-name').html(response);
+//         }
+//     });
+// }
 
 function loadFormControl(){
     $("#dm_type").css("background-color:#fb1b1b;");

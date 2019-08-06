@@ -128,7 +128,7 @@ $this->title = 'รายการผู้รับบริการ';
                 'contentOptions' => ['style' => 'max-width: 100px;'],
                 'format' => 'raw',
                 'value' => function ($model) {
-                return $model['vn'];
+                return $model['pcc_vn'];
 
                 }
             ],

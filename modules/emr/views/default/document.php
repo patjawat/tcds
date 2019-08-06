@@ -23,7 +23,8 @@ $model = new Documentqr;
 $data= Json::decode(SystemData::findOne(['id' => 'system'])->data);
 $barcode_api = $data['barcode_api'];
 // ตรวจสอบการ Updaet Document Him
-$checkUpdate = Document::find(['hn' => $hn,'updated_at' => DateTimeHelper::getDbDate()])->count();
+$checkUpdate = Document::find()
+->where(['hn' => $hn,'updated_at' => DateTimeHelper::getDbDate()])->count();
 
 ?>
 
@@ -192,19 +193,6 @@ var hn  = $('#hn').text()
 var url_convert_him = '$barcode_api';
 var url_insert = '$get_url_insert';
 var checkUpdate = '$checkUpdate';
-// $('.container_loadding').hide();
-
-// ตรวจสอบการโอเอกสารจาก him
-// if(hn == document_him ){
-//     // ไม่ต้องทำไร
-//     $('.container_loadding').hide();
-//     loadEmrDocument()
-// }else if(hn == ""){
-//     localStorage.setItem("document_him","")
-// }else{
-//     convertFile($hn,url_convert_him,url_insert);
-// }
-// จบ
 
 // ตรวจสอบการ แปลง file
 // ถ้าวันนี้ยังไม่มีการแปลงไฟล์ให้ cpnvert

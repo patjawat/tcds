@@ -167,6 +167,7 @@ class ChiefcomplaintController extends Controller
         $checkvn = Chiefcomplaint::findOne(['pcc_vn' => $pcc_vn, 'vn' => $vn]);
         if ($checkvn) {
             $last = Chiefcomplaint::find()->orderby(['date_service' => SORT_DESC])->where(['hn' => $hn])->one();
+            $requester = $checkvn->requester;
             $model = $checkvn;
             $model->ht = $last->ht;
             $model->requester = "";
@@ -174,6 +175,7 @@ class ChiefcomplaintController extends Controller
 
         } else {
             $model = new Chiefcomplaint();
+            $requester = null;
             // $model->id = substr(Yii::$app->getSecurity()->generateRandomString(),10);
             $model->hn = $hn;
             $model->vn = $vn;
@@ -221,10 +223,12 @@ class ChiefcomplaintController extends Controller
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return $this->renderAjax('create', [
                     'model' => $model,
+                    'requester' => $requester
                 ]);
             } else {
                 return $this->render('create', [
                     'model' => $model,
+                    'requester' => $requester
                 ]);
             }
         }

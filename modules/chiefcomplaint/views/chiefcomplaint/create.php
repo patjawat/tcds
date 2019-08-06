@@ -12,6 +12,7 @@ $this->title = 'Create Chiefcomplaint';
 <div class="chiefcomplaint-create">
     <?= $this->render('_form', [
         'model' => $model,
+        'requester' => $requester
     ]) ?>
 
 </div>

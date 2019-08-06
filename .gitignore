@@ -12,7 +12,7 @@ Thumbs.db
 
 composer.phar
 
-composer.lock
+# composer.lock
 
 .DS_Store
 

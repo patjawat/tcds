@@ -8,10 +8,8 @@ use kartik\widgets\FileInput;
 use app\modules\doctorworkbench\models\HisPatient;
 
 $hn = PatientHelper::getCurrentHn();
-$vn_session = PatientHelper::getCurrentVn();
-$vn = PatientHelper::getDateVisitByVn(11);
-$fullname = PatientHelper::getPatientNameByHn($hn);
-//$fullname = PatientHelper::getPatientNameByHn($hn);
+$vn = PatientHelper::getCurrentVn();
+// $vn = PatientHelper::getDateVisitByVn(11);
 $fname = PatientHelper::getCurrentFname();
 $lname = PatientHelper::getCurrentLname();
 $cid = PatientHelper::getCurrentCid();

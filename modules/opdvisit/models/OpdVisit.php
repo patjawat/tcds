@@ -16,6 +16,7 @@ use app\modules\usermanager\models\User;
 class OpdVisit extends \yii\db\ActiveRecord
 {
 
+    public $items;
     public static function getDb()
     {
         return Yii::$app->get('tcds');
@@ -33,7 +34,7 @@ class OpdVisit extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'vn', 'hn', 'service_start_date', 'service_start_time'], 'required'],
-            [['created_at', 'updated_at', 'service_start_date', 'service_start_time', 'service_end_date', 'service_end_time','visit_date','print','checkout','no_med'], 'safe'],
+            [['created_at', 'updated_at', 'service_start_date', 'service_start_time', 'service_end_date', 'service_end_time','visit_date','print','checkout','no_med','checkout_date','checkout_time','items'], 'safe'],
             [['data_json'], 'string'],
             [['id', 'requester', 'created_by', 'updated_by', 'service_department', 'department'], 'string', 'max' => 255],
             [['vn', 'pcc_vn'], 'string', 'max' => 12],
@@ -68,7 +69,9 @@ class OpdVisit extends \yii\db\ActiveRecord
             'department' => 'แผนก/คลินิก',
             'doctor_id' => 'Doctor ID',
             'data_json' => 'Data Json',
-            'visit_date' => 'visit_date'
+            'visit_date' => 'visit_date',
+            'checkout_date' => 'วันที่ Checkout',
+            'checkout_time' => 'เวลา checkout'
         ];
     }
     public function behaviors()

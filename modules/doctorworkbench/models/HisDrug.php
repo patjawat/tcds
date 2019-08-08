@@ -14,6 +14,8 @@ use Yii;
  */
 class HisDrug extends \yii\db\ActiveRecord
 {
+
+    public $textxx;
     public static function getDb()
     {
         return Yii::$app->get('tcds');
@@ -31,7 +33,7 @@ class HisDrug extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'trade_name', 'general_name'], 'required'],
-            [['update_time'], 'safe'],
+            [['update_time','textxx'], 'safe'],
             [['id'], 'string', 'max' => 10],
             [['trade_name', 'general_name'], 'string', 'max' => 300],
             [['id'], 'unique'],

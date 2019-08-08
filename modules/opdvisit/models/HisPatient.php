@@ -52,4 +52,9 @@ class HisPatient extends \yii\db\ActiveRecord
         $data = DbHelper::queryOne('db', $sql);
         return $data['age_year'];
     }
+
+    public function Fullname($hn){
+        $model = HisPatient::findOne(['hn' => $hn]);
+        return $model ? $model->prefix.''.$model->fname.' '.$model->lname : '';
+    }
 }

@@ -1,22 +1,20 @@
 <?php
 
 use app\components\PatientHelper;
-use app\modules_share\newpatient\models\mPatient;
-use cenotia\components\modal\RemoteModal;
-use lo\widgets\modal\ModalAjax;
-use kartik\widgets\FileInput;
+use app\components\DateTimeHelper;
 use app\modules\doctorworkbench\models\HisPatient;
-
+use cenotia\components\modal\RemoteModal;
+use kartik\widgets\FileInput;
+use lo\widgets\modal\ModalAjax;
+use yii\db\Expression;
 $hn = PatientHelper::getCurrentHn();
 $vn = PatientHelper::getCurrentVn();
-// $vn = PatientHelper::getDateVisitByVn(11);
+$prefix = PatientHelper::getCurrentVn();
 $fname = PatientHelper::getCurrentFname();
 $lname = PatientHelper::getCurrentLname();
 $cid = PatientHelper::getCurrentCid();
-// $model = mPatient::findOne($hn);
 
 $patient = HisPatient::findOne(['hn' => $hn]);
-
 
 if ($patient) {
     $sex = $patient->sex == 'M' ? 'ชาย' : 'หญิง';
@@ -32,21 +30,18 @@ $this->title = '<i class="fas fa-user-md pull-left"></i> ห้องตรว�
 $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 $this->registerCss($this->render('../../dist/css/style.css'));
 
-// use Model
-
 $url = \yii\helpers\Url::to(['order/icd10-list']); //กำหนด URL ที่จะไปโหลดข้อมูล
-// $prefix = empty($person->prefix_id) ? '' : BasePrefix::findOne($model->prefix_id)->prefix_name; //กำหนดค่าเริ่มต้น
 ?>
 
-<?php //app\modules\doctorworkbench\controllers\DoctorFreeController::DfCount(); ?>
 
 <style>
-    .btn-patient-alert {
-        display: none;
-    }
-    .kv-editable-link {
-        color: #017bfe;
-    }
+.btn-patient-alert {
+    display: none;
+}
+
+.kv-editable-link {
+    color: #017bfe;
+}
 </style>
 
 
@@ -58,45 +53,44 @@ RemoteModal::begin([
     "footer" => "", // always need it for jquery plugin
 ])
 ?>
-<?php RemoteModal::end(); ?>
+<?php RemoteModal::end();?>
 
 <style>
-    #remoteModal-ajax>.modal-dialog {
-        width: 60%;
-    }
+#remoteModal-ajax>.modal-dialog {
+    width: 60%;
+}
 
-    .navbar-default .navbar-nav>li.dropdown:hover>a,
-    .navbar-default .navbar-nav>li.dropdown:hover>a:hover,
-    .navbar-default .navbar-nav>li.dropdown:hover>a:focus {
-        background-color: rgb(231, 231, 231);
-        color: rgb(85, 85, 85);
-    }
+.navbar-default .navbar-nav>li.dropdown:hover>a,
+.navbar-default .navbar-nav>li.dropdown:hover>a:hover,
+.navbar-default .navbar-nav>li.dropdown:hover>a:focus {
+    background-color: rgb(231, 231, 231);
+    color: rgb(85, 85, 85);
+}
 
-    li.dropdown:hover>.dropdown-menu {
-        display: block;
-        background-color: #d6d6d6;;
-    }
+li.dropdown:hover>.dropdown-menu {
+    display: block;
+    background-color: #d6d6d6;
+    ;
+}
 
+.text-right {
+    text-align: right;
+}
 
+.text-center {
+    text-align: center;
+}
 
-    .text-right {
-        text-align: right;
-    }
+.help-block {
+    display: block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: #737373;
+}
 
-    .text-center {
-        text-align: center;
-    }
-
-    .help-block {
-        display: block;
-        margin-top: 0px;
-        margin-bottom: 0px;
-        color: #737373;
-    }
-
-    .form-group {
-        margin-bottom: 5px;
-    }
+.form-group {
+    margin-bottom: 5px;
+}
 </style>
 
 <div class="view-process">
@@ -106,7 +100,7 @@ RemoteModal::begin([
             <h3>บันทึกข้อมูล กรุณารอสักครู่ ...</h3>
             <div class="progress progress-striped active">
                 <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
-                     style="width: 100%">
+                    style="width: 100%">
                     <span class="sr-only">45% Complete</span>
                 </div>
             </div>
@@ -114,66 +108,52 @@ RemoteModal::begin([
 
     </div>
 </div>
-
-
-
 <!-- new Row -->
-
-
-
 <div class="row view-container" style="margin-top: -27px;">
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-        <h3 class=""><i class="fas fa-user-md pull-left"></i> ห้องตรวจแพทย์  
-        <!-- <span class="doctor_of"><i class="fas fa-edit"></i></span> -->
-<?= Html::a('<i class="fas fa-edit"></i>', '#', ['class' => 'doctor_of', 'onClick' => 'doctorOf()']) ?>
+        <h3 class=""><i class="fas fa-user-md pull-left"></i> ห้องตรวจแพทย์
+            <!-- <span class="doctor_of"><i class="fas fa-edit"></i></span> -->
+            <?=Html::a('<i class="fas fa-edit"></i>', '#', ['class' => 'doctor_of', 'onClick' => 'doctorOf()'])?>
         </h3>
         <br>
     </div>
 
     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-            <?php if ($hn): ?>
-            <div class="pull-right" style="padding-top:14px;">
-                <?= Html::a('<i class="fas fa-external-link-alt"></i> cv risk (thai)', 'http://10.1.99.6/Thai-CV-Risk-Score/index.php?hn="' . $hn . '"&prefix="' . $patient->prefix . '"&fname="' . $patient->fname . '"&lname="' . $patient->lname . '"sex="' . $sex . '"&birthday_date="' . $patient->birthday_date . '"', ['class' => 'btn btn-primary', 'target' => '_blank']) ?>
-                <?= Html::a('<i class="fas fa-external-link-alt"></i> cv risk (acc)', null, ['class' => 'btn btn-primary']) ?>
-                <?= Html::a('<i class="fas fa-external-link-alt"></i> dm risk', 'http://10.1.99.6/diabetes_risk_score/?hn="' . $hn . '"&prefix="' . $patient->prefix . '"&fname="' . $patient->fname . '"&lname="' . $patient->lname . '"sex="' . $sex . '"&birthday_date="' . $patient->birthday_date . '"', ['class' => 'btn btn-primary', 'target' => '_blank']) ?>
-                <?php Html::a('แบบฟอร์ม OPD DOCTOR RECORD', ['/chiefcomplaint/report/opd-doctor-record', 'report_name' => 'opd-doctor-record', 'hn' => $hn, 'vn' => $vn], ['class' => 'btn btn-danger print', 'target' => '_blank']) ?>
-    <?= Html::a('<i class="fas fa-vial"></i> LAB', ['/lab/default/lab-result/'], ['target' => '_blank', 'class' => 'btn btn-warning']); ?>
-    <?= Html::a('<i class="fas fa-expand"></i> PACS', ['/doctorworkbench/default/pacs'], ['target' => '_blank', 'class' => 'btn btn-info']); ?>
-                <!-- <button type="button" class="btn btn-info" role="modal-remote1" value="<?= Url::to(['/drug/drugitems/show-drugitems']) ?>"><i class="fas fa-expand"></i> PACS</button> -->
-
-            </div>
-<?php endif; ?>
+        <?php if ($hn): ?>
+        <div class="pull-right" style="padding-top:14px;">
+            <?=Html::a('<i class="fas fa-external-link-alt"></i> cv risk (thai)', 'http://10.1.99.6/Thai-CV-Risk-Score/index.php?hn="' . $hn . '"&prefix="' . $patient->prefix . '"&fname="' . $patient->fname . '"&lname="' . $patient->lname . '"sex="' . $sex . '"&birthday_date="' . $patient->birthday_date . '"', ['class' => 'btn btn-primary', 'target' => '_blank'])?>
+            <?=Html::a('<i class="fas fa-external-link-alt"></i> cv risk (acc)', null, ['class' => 'btn btn-primary'])?>
+            <?=Html::a('<i class="fas fa-external-link-alt"></i> dm risk', 'http://10.1.99.6/diabetes_risk_score/?hn="' . $hn . '"&prefix="' . $patient->prefix . '"&fname="' . $patient->fname . '"&lname="' . $patient->lname . '"sex="' . $sex . '"&birthday_date="' . $patient->birthday_date . '"', ['class' => 'btn btn-primary', 'target' => '_blank'])?>
+            <?php Html::a('แบบฟอร์ม OPD DOCTOR RECORD', ['/chiefcomplaint/report/opd-doctor-record', 'report_name' => 'opd-doctor-record', 'hn' => $hn, 'vn' => $vn], ['class' => 'btn btn-danger print', 'target' => '_blank'])?>
+            <?=Html::a('<i class="fas fa-vial"></i> LAB', ['/lab/default/lab-result/'], ['target' => '_blank', 'class' => 'btn btn-warning']);?>
+            <?=Html::a('<i class="fas fa-expand"></i> PACS', ['/doctorworkbench/default/pacs'], ['target' => '_blank', 'class' => 'btn btn-info']);?>
+            <!-- <button type="button" class="btn btn-info" role="modal-remote1" value="<?=Url::to(['/drug/drugitems/show-drugitems'])?>"><i class="fas fa-expand"></i> PACS</button> -->
+        </div>
+        <?php endif;?>
     </div>
 </div> <!-- End Row-->
 
-
-
 <div class="row">
     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-
-
         <div class="tabbable-panel" style="margin-top: -12px;margin-left: -7px;">
             <div class="tabbable-line">
                 <ul class="nav nav-tabs ">
                     <li class="active">
-                        <a href="#tab_1" class="loadPage" data-toggle="tab"
-                           url="index.php?r=lab/pcclab">
+                        <a href="#tab_1" class="loadPage" data-toggle="tab" url="index.php?r=lab/pcclab">
                             <i class="fas fa-stethoscope"></i> OPD DOCTOR RECORD TODAY
                         </a>
                     </li>
                     <li>
                         <a href="#tab_7" class="loadPage" data-toggle="tab" id="tab_medication"
-                           url="index.php?r=doctorworkbench/pcc-medication">
+                            url="index.php?r=doctorworkbench/pcc-medication">
                             <i class="fas fa-pills"></i> Medication
                         </a>
                     </li>
-
                     <li>
                         <a href="#doctor_free" class="loadPage" data-toggle="tab">
                             <i class="fas fa-hand-holding-usd"></i> Doctor Fee
                         </a>
                     </li>
-
                     <li>
                         <a href="#record_today" class="loadPage" data-toggle="tab">
                             <i class="fas fa-calendar-week"></i> RECORD TODAY
@@ -185,16 +165,11 @@ RemoteModal::begin([
                             <i class="fas fa-hand-holding-usd"></i> Eye Exam Today
                         </a>
                     </li>
-
-
-
-
                 </ul>
                 <div class="tab-content" style="margin-top:15px;">
                     <div class="tab-pane active" id="tab_1">
                         <div class="panel panel-default">
-                            <div class="panel-heading"
-                                 style="">
+                            <div class="panel-heading" style="">
                                 <h3 class="panel-title"><i class="fas fa-edit"></i>
                                     History & Physicial Exam
                                 </h3>
@@ -219,13 +194,11 @@ RemoteModal::begin([
                                 <h3 class="panel-title"><i class="fas fa-edit"></i> จ่ายยาและเวชภัณฑ์</h3>
                             </div>
                             <div class="row"
-                                 style="padding-top: 25px;padding-bottom: 25px;widyh: 90%;width: 100%;margin: auto;">
+                                style="padding-top: 25px;padding-bottom: 25px;widyh: 90%;width: 100%;margin: auto;">
                                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
 
                                     <div id="medication-form"></div>
                                 </div>
-
-
                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                     <?php
                                     echo ModalAjax::widget([
@@ -251,11 +224,6 @@ RemoteModal::begin([
                                 <div id="view_medication"></div>
                             </div>
                         </div>
-
-
-
-
-
                     </div>
                     <div class="tab-pane" id="doctor_free">
                         <div class="panel panel-default">
@@ -271,10 +239,9 @@ RemoteModal::begin([
                                     </div>
 
                                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                        <div class="card bg-primary text-white shadow"
-                                             style="height: 161px;">
-                                            <h1 class="text-center" style="color:#000;margin-top: 57px;"
-                                                id="sum_df">00.00</h1>
+                                        <div class="card bg-primary text-white shadow" style="height: 161px;">
+                                            <h1 class="text-center" style="color:#000;margin-top: 57px;" id="sum_df">
+                                                00.00</h1>
                                         </div>
                                     </div>
 
@@ -288,7 +255,7 @@ RemoteModal::begin([
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fas fa-qrcode"></i>  RECORD TODAY</h3>
+                                <h3 class="panel-title"><i class="fas fa-qrcode"></i> RECORD TODAY</h3>
                             </div>
                             <div class="panel-body shadow">
 
@@ -296,67 +263,66 @@ RemoteModal::begin([
                                 echo FileInput::widget([
                                     'name' => 'attachment_48[]',
                                     'options' => [
-                                        'multiple' => true
+                                        'multiple' => true,
                                     ],
                                     'pluginOptions' => [
                                         'uploadUrl' => Url::to(['/site/file-upload']),
                                         'uploadExtraData' => [
                                             'album_id' => 20,
-                                            'cat_id' => 'Nature'
+                                            'cat_id' => 'Nature',
                                         ],
-                                        'maxFileCount' => 10
-                                    ]
+                                        'maxFileCount' => 10,
+                                    ],
                                 ]);
                                 ?>
-
 
                             </div>
                         </div> <!-- End panel-->
                     </div>
-
-
                     <div class="tab-pane" id="eye_exam_today">
-
                         <div id="form_eye-exam-today"></div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
 
-            <?php if ($hn): ?>
-            <div class="form-group pull-right">
-                <?=
-                Html::a('<i class="fas fa-sign-out-alt"></i> Check Out', ['/doctorworkbench/default/check-out-confirm'], [
+        <?php if ($hn): ?>
+        <div class="form-group pull-right">
+            <?=Html::a('<i class="fas fa-sign-out-alt"></i> Check Out', ['/doctorworkbench/default/check-out-confirm'], [
                     'class' => 'btn btn-danger',
                     'id' => 'checkout',
                 ])
                 ?>
-                <?php // Html::submitButton('<i class="fas fa-sign-out-alt"></i> Check Out', ['class' => 'btn btn-danger','id' => 'check-out',])  ?>
-            <?= Html::submitButton('<i class="far fa-save"></i> บันทึก', ['class' => 'btn btn-success', 'id' => 'diag-save']) ?>
-            <?= Html::a('<i class="fas fa-power-off"></i> ยกเลิก', ['/doctorworkbench/default/clear-helper'], ['class' => 'btn btn-default', 'id' => 'cancel']) ?>
-            </div>
-<?php endif; ?>
-
+            <?php // Html::submitButton('<i class="fas fa-sign-out-alt"></i> Check Out', ['class' => 'btn btn-danger','id' => 'check-out',])  ?>
+            <?=Html::submitButton('<i class="far fa-save"></i> บันทึก', ['class' => 'btn btn-success', 'id' => 'diag-save'])?>
+            <?=Html::a('<i class="fas fa-power-off"></i> ยกเลิก', ['/doctorworkbench/default/clear-helper'], ['class' => 'btn btn-default', 'id' => 'cancel'])?>
+        </div>
+        <?php endif;?>
     </div><!-- End col-8-->
-
     <!-- start col-4 -->
     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
         <div id="chiefcomplaint" style="margin-top: 28px;"></div>
 
     </div> <!-- End col-4-->
-
 </div>
-
 <!-- End New Row -->
-
-
 
 <?php
 $js = <<< JS
 
+$(".view-process").hide();
+    loadDiagnosisForm()
+    loadDiagnosis();
+    loadChiefcomplaint();
+    loadMedication();
+    loadMedicationForm();
+    loadDrugAllergy();
+    loadDf();
+    loadFormDf();
+    loadFormEyeExamToday();
+
+
+    
 function loadDrugHistory(){
     $.ajax({
         type: "get",
@@ -438,16 +404,6 @@ function loadDiagnosisForm(){
 
 
 
-    $(".view-process").hide();
-    loadDiagnosisForm()
-    loadDiagnosis();
-    loadChiefcomplaint();
-    loadMedication();
-    loadMedicationForm();
-    loadDrugAllergy();
-    loadDf();
-    loadFormDf();
-    loadFormEyeExamToday();
     // loadEyeExamToday();
     // ตรวจสอบเจ้าของไข้
     // doctorOf();

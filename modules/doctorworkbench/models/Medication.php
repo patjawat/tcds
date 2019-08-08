@@ -12,9 +12,11 @@ use app\components\DateTimeHelper;
 use app\components\PatientHelper;
 use yii\helpers\Json;
 use app\modules_nurse\nurse_screen\models\OpdVisit;
+use app\modules\opdvisit\models\HisPatient;
 
 class Medication extends \yii\db\ActiveRecord
 {
+    
 
     public static function getDb()
     {
@@ -34,7 +36,7 @@ public $no_med;
             // [['id', 'vn', 'hn', 'icode'], 'required'],
             [['id'], 'string'],
             [['unitprice', 'costprice', 'totalprice'], 'number'],
-            [['date_service', 'time_service', 'data_json','created_by','updated_by','created_at','updated_at','no_med','qty'], 'safe'],
+            [['date_service', 'time_service', 'data_json','created_by','updated_by','created_at','updated_at','no_med','qty','qty_adjust','med_note','druguse'], 'safe'],
             [['vn', 'pcc_vn'], 'string', 'max' => 15],
             [['hn'], 'string', 'max' => 9],
             [['an', 'unit'], 'string', 'max' => 50],
@@ -78,7 +80,9 @@ public $no_med;
             'hospcode' => 'Hospcode',
             'cid' => 'เลขบัตรประชาชน',
             'pcc_vn' => 'pcc vn',
-            'no_med' => 'ไม่มียา'
+            'no_med' => 'ไม่มียา',
+            'qty_adjust' => 'ปรับจำนวนยา',
+            'med_note' => 'หมายเหตุ'
         ];
     }
 
@@ -98,24 +102,24 @@ public $no_med;
                 'value' => DateTimeHelper::getDbNow()
                 
             ],
-            [
-                'class' => AttributeBehavior::className(),
-                'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['pcc_vn']],
-                'value' => PatientHelper::getCurrentPccVn()
+            // [
+            //     'class' => AttributeBehavior::className(),
+            //     'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['pcc_vn']],
+            //     'value' => PatientHelper::getCurrentPccVn()
                 
-            ],
-            [
-                'class' => AttributeBehavior::className(),
-                'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['vn']],
-                'value' => PatientHelper::getCurrentVn()
+            // ],
+            // [
+            //     'class' => AttributeBehavior::className(),
+            //     'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['vn']],
+            //     'value' => PatientHelper::getCurrentVn()
                 
-            ],
-            [
-                'class' => AttributeBehavior::className(),
-                'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['hn']],
-                'value' => PatientHelper::getCurrentHn()
+            // ],
+            // [
+            //     'class' => AttributeBehavior::className(),
+            //     'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['hn']],
+            //     'value' => PatientHelper::getCurrentHn()
                 
-            ],
+            // ],
     
             [
                 'class' => BlameableBehavior::className(),
@@ -132,12 +136,18 @@ public $no_med;
     public  function getDrugitems(){
         return @$this->hasOne(HisDrug::className(), ['id' => 'icode']);
     }
-    public  function getDruguse(){
+    public  function getDruguses(){
         return @$this->hasOne(Drugusage::className(), ['drugusage' => 'druguse']);
     }
     public  function getDrugusehos(){
         return @$this->hasOne(GatewayCDruguage::className(), ['drugusage' => 'druguse']);
     }
+    
+    public  function getHispatient(){
+        return @$this->hasOne(HisPatient::className(), ['hn' => 'hn']);
+    }
+
+   
 
     public  function Drugitems($id){
         $model = HisDrug::findOne(['id' => $id]);

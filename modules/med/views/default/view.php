@@ -15,6 +15,7 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
     border-color: #ddd !important;
     text-shadow: -1px 0px white, 0 1px white, 1px 0 white, 0 -1px white;
 }
+
 .form-control-static {
     min-height: 34px;
     padding-top: 0px;
@@ -23,8 +24,8 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 }
 
 .help-block {
-    margin-top: -18px!important;
-    margin-bottom: -18px!important;
+    margin-top: -18px !important;
+    margin-bottom: -18px !important;
 }
 </style>
 
@@ -62,7 +63,7 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Panel title</h3>
+        <h3 class="panel-title">รายการจ่ายยา</h3>
     </div>
     <div class="panel-body">
         <?php $form = ActiveForm::begin();?>
@@ -137,7 +138,7 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
     ],
 ])->label(false);
 ?>
-<br>
+        <br>
         <?=Html::submitButton('<i class="far fa-save"></i> บันทึก', ['class' => 'btn btn-success']);?>
         <?php ActiveForm::end();?>
     </div>

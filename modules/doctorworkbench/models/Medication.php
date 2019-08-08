@@ -102,24 +102,24 @@ public $no_med;
                 'value' => DateTimeHelper::getDbNow()
                 
             ],
-            // [
-            //     'class' => AttributeBehavior::className(),
-            //     'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['pcc_vn']],
-            //     'value' => PatientHelper::getCurrentPccVn()
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['pcc_vn']],
+                'value' => PatientHelper::getCurrentPccVn()
                 
-            // ],
-            // [
-            //     'class' => AttributeBehavior::className(),
-            //     'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['vn']],
-            //     'value' => PatientHelper::getCurrentVn()
+            ],
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['vn']],
+                'value' => PatientHelper::getCurrentVn()
                 
-            // ],
-            // [
-            //     'class' => AttributeBehavior::className(),
-            //     'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['hn']],
-            //     'value' => PatientHelper::getCurrentHn()
+            ],
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['hn']],
+                'value' => PatientHelper::getCurrentHn()
                 
-            // ],
+            ],
     
             [
                 'class' => BlameableBehavior::className(),
@@ -136,7 +136,7 @@ public $no_med;
     public  function getDrugitems(){
         return @$this->hasOne(HisDrug::className(), ['id' => 'icode']);
     }
-    public  function getDruguses(){
+    public  function getDruguse(){
         return @$this->hasOne(Drugusage::className(), ['drugusage' => 'druguse']);
     }
     public  function getDrugusehos(){

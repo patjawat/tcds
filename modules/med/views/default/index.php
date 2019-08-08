@@ -7,13 +7,19 @@ $hn = PatientHelper::getCurrentHn();
 $vn = PatientHelper::getCurrentVn();
 $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 ?>
-
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h2>ระบบห้องยา</h2>
+<style>
+.panel-default>.panel-heading {
+    color: #05867a !important;
+    background-color: #fff !important;
+    border-color: #ddd !important;
+    text-shadow: -1px 0px white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+</style>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">ระบบห้องยาระบบห้องยา</h3>
     </div>
-</div>
-
+    <div class="panel-body">
 
 <?=GridView::widget([
     'id' => 'crud-datatable',
@@ -38,3 +44,5 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
     'condensed' => true,
     'responsive' => true,
 ])?>
+    </div>
+</div>

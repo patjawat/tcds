@@ -51,7 +51,7 @@ return [
                     'title' => Yii::t('yii', 'Delete'),
                     'class' => '',
                     'aria-label' => Yii::t('yii', 'Delete'),
-                    'data' => ['confirm' => 'ddd','confirm-title' => 'www']
+                    'data' => ['confirm' => 'รับทราบข้อมูล']
                     
                 ]);
             },

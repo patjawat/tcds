@@ -63,7 +63,7 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">รายการจ่ายยา</h3>
+        <h3 class="panel-title">รายการสั่งยา</h3>
     </div>
     <div class="panel-body">
         <?php $form = ActiveForm::begin();?>

@@ -54,7 +54,7 @@ def ReadQR(item):
                     "http://10.1.88.8/tcds/web/index.php?r=api/add-qr", data=payload)
                 if(r.text != 'null'):
                     print('Scan '+fileName+' To database Success')
-                    os.remove(item)
+                    # os.remove(item)
                 #     moveFile(hn, data, dataText)
                  
                 else:
@@ -64,6 +64,7 @@ def ReadQR(item):
                 if not os.path.exists(dir_path):
                     os.makedirs(dir_path)
                 cv2.imwrite(dir_path+barcodeData+'.jpg', img)
+    os.remove(item)
 
 
 if(root_dir.iterdir()):

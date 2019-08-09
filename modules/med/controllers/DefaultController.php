@@ -29,8 +29,8 @@ class DefaultController extends Controller
             ->joinWith(['patient' => function (ActiveQuery $query) {
                 return $query;
                 // ->andWhere(['=', 'his_patient.hn', 460028]);
-            }])->where(['checkout' => 'Y'])
-            ->andWhere(['between', 'checkout_date', $date, $date]);
+            }])->where(['checkout' => 'Y']);
+            //->andWhere(['between', 'checkout_date', $date, $date]);
         // ->joinWith(['availability' => function (ActiveQuery $query) {
         //     return $query
         //         ->andOnCondition(['>=', 'availability.start', strtotime('+7 days')])

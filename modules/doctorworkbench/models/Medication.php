@@ -36,7 +36,7 @@ public $no_med;
             // [['id', 'vn', 'hn', 'icode'], 'required'],
             [['id'], 'string'],
             [['unitprice', 'costprice', 'totalprice'], 'number'],
-            [['date_service', 'time_service', 'data_json','created_by','updated_by','created_at','updated_at','no_med','qty','qty_adjust','med_note','druguse'], 'safe'],
+            [['date_service', 'time_service', 'data_json','created_by','updated_by','created_at','updated_at','no_med','qty','qty_adjust','med_note','druguse','med_cancel'], 'safe'],
             [['vn', 'pcc_vn'], 'string', 'max' => 15],
             [['hn'], 'string', 'max' => 9],
             [['an', 'unit'], 'string', 'max' => 50],
@@ -82,7 +82,8 @@ public $no_med;
             'pcc_vn' => 'pcc vn',
             'no_med' => 'ไม่มียา',
             'qty_adjust' => 'ปรับจำนวนยา',
-            'med_note' => 'หมายเหตุ'
+            'med_note' => 'หมายเหตุ',
+            'med_cancel' => 'ยกเลิกยา'
         ];
     }
 
@@ -136,9 +137,9 @@ public $no_med;
     public  function getDrugitems(){
         return @$this->hasOne(HisDrug::className(), ['id' => 'icode']);
     }
-    public  function getDruguse(){
-        return @$this->hasOne(Drugusage::className(), ['drugusage' => 'druguse']);
-    }
+    // public  function getDruguse(){
+    //     return @$this->hasOne(Drugusage::className(), ['drugusage' => 'druguse']);
+    // }
     public  function getDrugusehos(){
         return @$this->hasOne(GatewayCDruguage::className(), ['drugusage' => 'druguse']);
     }

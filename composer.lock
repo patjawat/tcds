@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "19e0f715bdbacec0264709f6ab145cc7",
+    "content-hash": "91a9987c6a41ba6fecb0499f6d2d9177",
     "packages": [
         {
             "name": "2amigos/yii2-chartjs-widget",
@@ -366,16 +366,16 @@
         },
         {
             "name": "bower-asset/fullcalendar-scheduler",
-            "version": "v4.2.0",
+            "version": "v4.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fullcalendar/fullcalendar-scheduler.git",
-                "reference": "098a086bb37c4dc41d52e54fe8fd0e1154229149"
+                "reference": "e9c7a8c92595c632be676fdf4b55051c0c2a937f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fullcalendar/fullcalendar-scheduler/zipball/098a086bb37c4dc41d52e54fe8fd0e1154229149",
-                "reference": "098a086bb37c4dc41d52e54fe8fd0e1154229149"
+                "url": "https://api.github.com/repos/fullcalendar/fullcalendar-scheduler/zipball/e9c7a8c92595c632be676fdf4b55051c0c2a937f",
+                "reference": "e9c7a8c92595c632be676fdf4b55051c0c2a937f"
             },
             "type": "bower-asset"
         },
@@ -748,6 +748,44 @@
                 "wysiwyg"
             ],
             "time": "2017-09-13T13:09:47+00:00"
+        },
+        {
+            "name": "components/flag-icon-css",
+            "version": "3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lipis/flag-icon-css.git",
+                "reference": "b35a579e58c7fdc7c7358d1c4daade7887dc91eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lipis/flag-icon-css/zipball/b35a579e58c7fdc7c7358d1c4daade7887dc91eb",
+                "reference": "b35a579e58c7fdc7c7358d1c4daade7887dc91eb",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "name": "flag-icon-css",
+                    "files": [
+                        "less/**",
+                        "css/**",
+                        "flags/**"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Panayiotis Lipiridis (Lipis)",
+                    "email": "lipiridis@gmail.com"
+                }
+            ],
+            "description": "CSS for vector based country flags",
+            "time": "2019-02-24T11:00:49+00:00"
         },
         {
             "name": "defyma/yii2-datatable-manual-serverside",
@@ -1983,6 +2021,58 @@
                 "yii2"
             ],
             "time": "2019-08-01T14:32:46+00:00"
+        },
+        {
+            "name": "kartik-v/yii2-icons",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-icons.git",
+                "reference": "81d174a445d66042f257e2818d6e2e09ebdd8a15"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-icons/zipball/81d174a445d66042f257e2818d6e2e09ebdd8a15",
+                "reference": "81d174a445d66042f257e2818d6e2e09ebdd8a15",
+                "shasum": ""
+            },
+            "require": {
+                "components/flag-icon-css": "*",
+                "kartik-v/yii2-krajee-base": ">=1.9",
+                "yiisoft/yii2-jui": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "kartik\\icons\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://demos.krajee.com/"
+                }
+            ],
+            "description": "Set of icon frameworks for use in Yii Framework 2.0",
+            "homepage": "https://github.com/kartik-v/yii2-icons",
+            "keywords": [
+                "extension",
+                "font",
+                "icon",
+                "yii",
+                "yii2"
+            ],
+            "time": "2019-05-25T07:24:34+00:00"
         },
         {
             "name": "kartik-v/yii2-krajee-base",
@@ -3666,16 +3756,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.9.1",
+            "version": "1.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "e6828efaba2c9b79f4499dae1d66ef8bfa7b2b72"
+                "reference": "007c053ae6f31bba39dfa19a7726f56e9763bbea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/e6828efaba2c9b79f4499dae1d66ef8bfa7b2b72",
-                "reference": "e6828efaba2c9b79f4499dae1d66ef8bfa7b2b72",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/007c053ae6f31bba39dfa19a7726f56e9763bbea",
+                "reference": "007c053ae6f31bba39dfa19a7726f56e9763bbea",
                 "shasum": ""
             },
             "require": {
@@ -3710,7 +3800,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2019-04-07T13:18:21+00:00"
+            "time": "2019-08-09T12:45:53+00:00"
         },
         {
             "name": "npm-asset/bootstrap",
@@ -4810,12 +4900,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap4.git",
-                "reference": "4fe2a565a870d3c49f7a3b1a57d009488827a77a"
+                "reference": "9f2da04db535834d8a97fe83e1813d8354db2529"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/4fe2a565a870d3c49f7a3b1a57d009488827a77a",
-                "reference": "4fe2a565a870d3c49f7a3b1a57d009488827a77a",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/9f2da04db535834d8a97fe83e1813d8354db2529",
+                "reference": "9f2da04db535834d8a97fe83e1813d8354db2529",
                 "shasum": ""
             },
             "require": {
@@ -4871,7 +4961,7 @@
                 "bootstrap4",
                 "yii2"
             ],
-            "time": "2019-08-07T14:23:07+00:00"
+            "time": "2019-08-10T15:37:27+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -6657,16 +6747,16 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "3.1.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "234199f4528de6d12aaa58b612e98f7d36adb937"
+                "reference": "06a9a5947f47b3029d76118eb5c22802e5869687"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/234199f4528de6d12aaa58b612e98f7d36adb937",
-                "reference": "234199f4528de6d12aaa58b612e98f7d36adb937",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/06a9a5947f47b3029d76118eb5c22802e5869687",
+                "reference": "06a9a5947f47b3029d76118eb5c22802e5869687",
                 "shasum": ""
             },
             "require": {
@@ -6694,6 +6784,10 @@
             ],
             "authors": [
                 {
+                    "name": "Sebastian Bergmann",
+                    "email": "sebastian@phpunit.de"
+                },
+                {
                     "name": "Jeff Welch",
                     "email": "whatthejeff@gmail.com"
                 },
@@ -6702,16 +6796,12 @@
                     "email": "github@wallbash.com"
                 },
                 {
-                    "name": "Bernhard Schussek",
-                    "email": "bschussek@2bepublished.at"
-                },
-                {
-                    "name": "Sebastian Bergmann",
-                    "email": "sebastian@phpunit.de"
-                },
-                {
                     "name": "Adam Harvey",
                     "email": "aharvey@php.net"
+                },
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
                 }
             ],
             "description": "Provides the functionality to export PHP variables for visualization",
@@ -6720,7 +6810,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2017-04-03T13:19:02+00:00"
+            "time": "2019-08-11T12:43:14+00:00"
         },
         {
             "name": "sebastian/global-state",
@@ -7919,6 +8009,7 @@
         "kartik-v/yii2-widget-select2": 20,
         "kartik-v/yii2-widget-datepicker": 20,
         "kartik-v/yii2-report": 20,
+        "kartik-v/yii2-icons": 20,
         "loveorigami/yii2-modal-ajax": 20,
         "softark/yii2-dual-listbox": 20,
         "yiisoft/yii2-bootstrap4": 20,

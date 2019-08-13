@@ -34,7 +34,7 @@ class OpdVisit extends \yii\db\ActiveRecord
     {
         return [
             [['id', 'vn', 'hn', 'service_start_date', 'service_start_time'], 'required'],
-            [['created_at', 'updated_at', 'service_start_date', 'service_start_time', 'service_end_date', 'service_end_time','visit_date','print','checkout','no_med','checkout_date','checkout_time','items'], 'safe'],
+            [['created_at', 'updated_at', 'service_start_date', 'service_start_time', 'service_end_date', 'service_end_time','visit_date','print','checkout','no_med','checkout_date','checkout_time','items','med_accept','med_arrange','med_check','med_success'], 'safe'],
             [['data_json'], 'string'],
             [['id', 'requester', 'created_by', 'updated_by', 'service_department', 'department'], 'string', 'max' => 255],
             [['vn', 'pcc_vn'], 'string', 'max' => 12],

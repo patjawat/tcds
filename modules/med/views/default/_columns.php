@@ -47,7 +47,7 @@ return [
         'template' => '{accept}',
         'buttons' => [
             'accept' => function ($url,$model) {
-                return Html::a('<i class="fas fa-folder-plus"></i>',['/med/default/view','id' => $model->vn ], [
+                return Html::a('<i class="fas fa-edit"></i>',['/med/default/order-view','id' => $model->vn ], [
                     'title' => Yii::t('yii', 'Delete'),
                     'class' => '',
                     'aria-label' => Yii::t('yii', 'Delete'),

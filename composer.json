@@ -40,6 +40,7 @@
         "kartik-v/yii2-widget-datepicker": "dev-master",
         "kartik-v/yii2-editable": "*",
         "kartik-v/yii2-report": "@dev",
+        "kartik-v/yii2-icons": "@dev",
         "jsonrpc/jsonrpc": "v1.0.3",
         "karatae99/yii2-date-picker-thai-widget": "~1.0",
         "lesha724/yii2-document-viewer": "*",

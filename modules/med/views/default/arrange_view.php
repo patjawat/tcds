@@ -1,9 +1,13 @@
 <?php
 use app\components\PatientHelper;
+use app\modules\doctorworkbench\models\HisDrug;
 use unclead\multipleinput\MultipleInput;
 use unclead\multipleinput\MultipleInputColumn;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\JsExpression;
 use yii\widgets\ActiveForm;
+
 $hn = PatientHelper::getCurrentHn();
 $vn = PatientHelper::getCurrentVn();
 $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
@@ -26,6 +30,13 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 .help-block {
     margin-top: -18px !important;
     margin-bottom: -18px !important;
+}
+
+.list-cell__med_cancel{
+    width: 100px;
+}
+.list-cell__icode{
+    width: 250px;
 }
 </style>
 
@@ -81,12 +92,22 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
             'type' => MultipleInputColumn::TYPE_HIDDEN_INPUT,
         ],
         [
+            'type' => \kartik\select2\Select2::class,
             'name' => 'icode',
-            'title' => 'รหัสยา',
-            'enableError' => true,
+            'title' => 'icode',
             'options' => [
-                'class' => 'input-priority',
+                'data' => ArrayHelper::map(HisDrug::find()->all(), 'id', 'trade_name'),
+                'pluginOptions' => [
+                    'allowClear' => true,
+                    'minimumInputLength' => 3, //ต้องพิมพ์อย่างน้อย 3 อักษร ajax จึงจะทำงาน
+                    'ajax' => [
+                        'url' => \yii\helpers\Url::to(['/doctorworkbench/medication/drug-items-list']),
+                        'dataType' => 'json', //รูปแบบการอ่านคือ json
+                        'data' => new JsExpression('function(params) { return {q:params.term};}'),
+                    ],
+                ],
             ],
+            'enableError' => true,
         ],
         [
             'name' => 'druguse',
@@ -101,12 +122,9 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
             'title' => 'จำนวน',
             'type' => MultipleInputColumn::TYPE_STATIC,
             'enableError' => true,
-            'options' => [
-                'class' => 'input-priority',
-            ],
+            'options' => ['class' => 'input-priority'],
             'value' => function ($data) {
-                // return number_format($data['qty'], 2);
-                return Html::textInput('xxx', $data['qty'], ['class' => 'form-control','disabled'=>'true']);
+                return Html::textInput('xxx', $data['qty'], ['class' => 'form-control', 'disabled' => 'true']);
             },
         ],
         [
@@ -131,7 +149,19 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
             'title' => 'ยกลเลิกยา',
             'value' => function ($data) {
                 // return number_format($data['qty'], 2);
-                return Html::button('<i class="far fa-hand-paper"></i>',['class' => 'btn btn-warning','style' => 'margin-top:0px;']);
+                return $data['med_cancel'];
+            },
+            'enableError' => true,
+        ],
+        [
+            'name' => 'med_cancel',
+            'type' => MultipleInputColumn::TYPE_STATIC,
+            'title' => 'ยกลเลิกยา',
+            'defaultValue' => 1,
+            'value' => function ($data) {
+                // return number_format($data['qty'], 2);
+                // return Html::button('<i class="far fa-hand-paper"></i>',['class' => 'btn btn-warning','style' => 'margin-top:0px;']);
+                return Html::checkbox($data['med_cancel'], $data['med_cancel']);
             },
             'enableError' => true,
         ],

@@ -17,7 +17,7 @@ class MedicationSearch extends Medication
     public function rules()
     {
         return [
-            [['id', 'vn', 'hn', 'an', 'icode', 'druguse', 'provider_code', 'provider_name', 'date_service', 'time_service', 'data_json', 'unit', 'tmt24_code', 'usage_line1', 'usage_line2', 'usage_line3', 'drug_name', 'hospcode', 'cid', 'pcc_vn'], 'safe'],
+            [['id', 'vn', 'hn', 'an', 'icode', 'druguse', 'provider_code', 'provider_name', 'date_service', 'time_service', 'data_json', 'unit', 'tmt24_code', 'usage_line1', 'usage_line2', 'usage_line3', 'drug_name', 'hospcode', 'cid', 'pcc_vn','med_cancel'], 'safe'],
             [['qty', 'unitprice', 'costprice', 'totalprice'], 'number'],
         ];
     }
@@ -46,6 +46,7 @@ class MedicationSearch extends Medication
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['med_cancel'=>SORT_ASC,'icode'=>SORT_ASC]]
         ]);
 
         $this->load($params);

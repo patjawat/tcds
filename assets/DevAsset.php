@@ -41,6 +41,7 @@ class DevAsset extends AssetBundle {
         'js/chiefcomplaint.js',
         'js/doctorworkbench.js',
         'js/emr.js',
+        'js/medRoom.js',
         'jquery-confirm/jquery-confirm.min.js',
         'js/aos.js',
         'js/requester.js'

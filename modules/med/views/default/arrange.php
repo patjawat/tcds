@@ -2,6 +2,8 @@
 use app\components\PatientHelper;
 use kartik\grid\GridView;
 use yii\helpers\Html;
+use kartik\dialog\Dialog;
+
 ?>
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -55,14 +57,14 @@ use yii\helpers\Html;
             
                 [
                     'class' => 'kartik\grid\ActionColumn',
-                    'template' => '{accept}',
+                    'template' => '{arrange}',
                     'buttons' => [
-                        'accept' => function ($url,$model) {
-                            return Html::a('<i class="fas fa-clipboard-check"></i>',['/med/default/order-view','id' => $model->vn ], [
+                        'arrange' => function ($url,$model) {
+                            return Html::a('จัดยา',['/med/default/arrange-view','id' => $model->vn ], [
                                 'title' => Yii::t('yii', 'Delete'),
                                 'class' => '',
                                 'aria-label' => Yii::t('yii', 'Delete'),
-                                'data' => ['confirm' => 'รับทราบข้อมูล']
+                                'data' => ['confirm' => '<h4 class="text-center">HN : '.$model->hn.'</h4><h4 class="text-center">'.$model->patient($model->hn).'</h4>']
                                 
                             ]);
                         },
@@ -81,7 +83,16 @@ use yii\helpers\Html;
                 ],
             ],
             'krajeeDialogSettings' => [
-                'options' => ['title' => '<i class="fas fa-edit"></i> ยืนยัน'],
+                'id' => 'arrange-dialog',
+                'libName' => 'krajeeDialogOrder', // ตั้งชื่อของ Dialog
+                'overrideYiiConfirm' => true,
+                'options' => [
+                    'title' => '<i class="fas fa-edit"></i> การแจ้งเตือน',
+                    'size' => Dialog::SIZE_SMALL,
+                    'type' => Dialog::TYPE_WARNING,
+                    'btnOKLabel' => '<i class="fas fa-check"></i> ตกลง',
+                    'btnCancelLabel' => '<i class="fas fa-ban"></i> ยกเลิก'
+                ],
             ],
             'striped' => true,
             'condensed' => true,

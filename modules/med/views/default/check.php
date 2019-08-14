@@ -7,7 +7,7 @@ use kartik\dialog\Dialog;
 ?>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title"><i class="fas fa-clipboard-check"></i> ระบบการจ่ายยา</h3>
+        <h3 class="panel-title"><i class="fas fa-clipboard-check"></i> ระบบตรวจสอบยา</h3>
     </div>
     <div class="panel-body">
         <?php
@@ -61,7 +61,7 @@ use kartik\dialog\Dialog;
                     'width' => '150px',
                     'buttons' => [
                         'check' => function ($url,$model) {
-                            return Html::a('ดูข้อมูล',['/med/default/success-view','id' => $model->vn ], [
+                            return Html::a('ตรวจสอบข้อมูล',['/med/default/check-view','id' => $model->vn ], [
                                 'title' => Yii::t('yii', 'Delete'),
                                 'class' => '',
                                 'aria-label' => Yii::t('yii', 'Delete'),

@@ -10,6 +10,7 @@ use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
 use yii\web\Controller;
 use yii\web\Response;
+use app\components\DateTimeHelper;
 
 class DefaultController extends Controller
 {
@@ -27,7 +28,6 @@ class DefaultController extends Controller
             'content' => $this->renderAjax('requester'),
             'footer' => 'eee'
         ];
-        
     }
 
     public function actionOrderView($id)
@@ -63,17 +63,19 @@ class DefaultController extends Controller
                 }
                 $transaction->commit();
                 $model->med_accept = '1';
+                $model->med_accetp_time = DateTimeHelper::getDbNow();
                 $model->save();
                 Yii::$app->session->setFlash('success', 'บันทึกข้อมูลเรียบร้อย');
                 return $this->redirect(['index']);
-
             } catch (Exception $e) {
                 $transaction->rollBack();
                 Yii::$app->session->setFlash('error', 'มีข้อผิดพลาดในการบันทึก');
                 return $this->redirect(['index']);
             }
-
+        } else {
+            $model->med_accept_requester = '';
         }
+
         return $this->render('order_view', [
             'model' => $model,
         ]);
@@ -119,19 +121,72 @@ class DefaultController extends Controller
         }
     }
 
-    public function actionAccept()
-    {
-        \Yii::$app->session->remove('hn');
-        \Yii::$app->session->remove('vn');
-        \Yii::$app->session->remove('pcc_vn');
+    // public function actionAccept()
+    // {
+    //     \Yii::$app->session->remove('hn');
+    //     \Yii::$app->session->remove('vn');
+    //     \Yii::$app->session->remove('pcc_vn');
 
+    //     $searchModel = new MedicationSearch();
+    //     $date = Date('Y-m-d');
+    //     $query = OpdVisit::find()
+    //         ->joinWith(['patient' => function (ActiveQuery $query) {
+    //             return $query;
+    //             // ->andWhere(['=', 'his_patient.hn', 460028]);
+    //         }])->andWhere(['checkout' => 'Y', 'med_accept' => '1', 'med_arrange' => '0']);
+    //     $dataProvider = new ActiveDataProvider([
+    //         'query' => $query,
+    //         'pagination' => [
+    //             'pageSize' => 20,
+    //         ],
+    //     ]);
+
+    //     if (Yii::$app->request->isAjax) {
+    //         Yii::$app->response->format = Response::FORMAT_JSON;
+    //         return $this->renderAjax('accept', [
+    //             'dataProvider' => $dataProvider,
+    //             'searchModel' => $searchModel,
+    //         ]);
+    //     } else {
+    //         return $this->render('accept', [
+    //             'dataProvider' => $dataProvider,
+    //             'searchModel' => $searchModel,
+    //         ]);
+    //     }
+    // }
+
+    // public function actionAcceptView($id)
+    // {
+    //     $model = OpdVisit::findOne(['vn' => $id]);
+    //     $searchModel = new MedicationSearch();
+    //     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+    //     if ($model->load(Yii::$app->request->post())) {
+    //         $model->med_arrange = '1';
+    //         $model->med_arrange_time = DateTimeHelper::getDbNow();
+    //         $model->save();
+    //         return $this->redirect(['index', 'active' => 'tab2']);
+    //     } else {
+    //         $model->med_arrange_requester = '';
+    //         return $this->render('accept_view', [
+    //             'searchModel' => $searchModel,
+    //             'dataProvider' => $dataProvider,
+    //             'model' => $model,
+    //             'id' => $id
+    //         ]);
+    //     }
+    // }
+
+
+
+// จัดยา
+    public function actionArrange()
+    {
         $searchModel = new MedicationSearch();
-        $date = Date('Y-m-d');
         $query = OpdVisit::find()
             ->joinWith(['patient' => function (ActiveQuery $query) {
                 return $query;
-                // ->andWhere(['=', 'his_patient.hn', 460028]);
-            }])->andWhere(['checkout' => 'Y', 'med_accept' => '1']);
+            }])->andWhere(['checkout' => 'Y', 'med_accept' => '1', 'med_arrange' => '0']);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -141,39 +196,150 @@ class DefaultController extends Controller
 
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return $this->renderAjax('accept', [
+            return $this->renderAjax('arrange', [
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
             ]);
         } else {
-            return $this->render('accept', [
+            return $this->render('arrange', [
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
             ]);
         }
     }
 
-    public function actionAcceptView($id)
+// แสดงรายการจัดยา
+    public function actionArrangeView($id)
     {
-        $model = OpdVisit::findOne(['vn' => $id]); //เลือกใบ Order
-        // $model->items = Medication::find()->where(['vn' => $model->vn])->all();
+        $model = OpdVisit::findOne(['vn' => $id]);
         $searchModel = new MedicationSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        if (Yii::$app->request->isPost) {
-            return 'xxx';
+        if ($model->load(Yii::$app->request->post())) {
+            $model->med_arrange = '1';
+            $model->med_arrange_time = DateTimeHelper::getDbNow();
+            $model->save();
+            return $this->redirect(['index', 'active' => 'tab2']);
         } else {
-            return $this->render('accept_view', [
+            $model->med_arrange_requester = '';
+            return $this->render('arrange_view', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
                 'model' => $model,
                 'id' => $id
             ]);
         }
-        
-
     }
 
+
+
+// ตรวจสอบ
+public function actionCheck()
+{
+    $searchModel = new MedicationSearch();
+    $query = OpdVisit::find()
+        ->joinWith(['patient' => function (ActiveQuery $query) {
+            return $query;
+        }])->andWhere(['checkout' => 'Y', 'med_accept' => '1', 'med_arrange' => '1','med_check' => '0']);
+    $dataProvider = new ActiveDataProvider([
+        'query' => $query,
+        'pagination' => [
+            'pageSize' => 20,
+        ],
+    ]);
+
+    if (Yii::$app->request->isAjax) {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return $this->renderAjax('check', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    } else {
+        return $this->render('check', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
+}
+
+// แสดงรายการตรวจสอบ
+public function actionCheckView($id)
+{
+    $model = OpdVisit::findOne(['vn' => $id]);
+    $searchModel = new MedicationSearch();
+    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+    if ($model->load(Yii::$app->request->post())) {
+        $model->med_check = '1';
+        $model->med_check_time = DateTimeHelper::getDbNow();
+        $model->save();
+        return $this->redirect(['index', 'active' => 'tab3']);
+    } else {
+        $model->med_check_requester = '';
+        return $this->render('check_view', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $model,
+            'id' => $id
+        ]);
+    }
+}
+
+
+
+
+// จ่ายยา
+public function actionSuccess()
+{
+    $searchModel = new MedicationSearch();
+    $query = OpdVisit::find()
+        ->joinWith(['patient' => function (ActiveQuery $query) {
+            return $query;
+        }])->andWhere(['checkout' => 'Y', 'med_accept' => '1', 'med_arrange' => '1','med_check' => '1','med_success' => '0']);
+    $dataProvider = new ActiveDataProvider([
+        'query' => $query,
+        'pagination' => [
+            'pageSize' => 20,
+        ],
+    ]);
+
+    if (Yii::$app->request->isAjax) {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return $this->renderAjax('success', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    } else {
+        return $this->render('success', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
+    }
+}
+
+// แสดงรายการจ่ายยา
+public function actionSuccessView($id)
+{
+    $model = OpdVisit::findOne(['vn' => $id]);
+    $searchModel = new MedicationSearch();
+    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+    if ($model->load(Yii::$app->request->post())) {
+        $model->med_success = '1';
+        $model->med_success_time = DateTimeHelper::getDbNow();
+        $model->save();
+        return $this->redirect(['index', 'active' => 'tab4']);
+    } else {
+        $model->med_success_requester = '';
+        return $this->render('success_view', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $model,
+            'id' => $id
+        ]);
+    }
+}
+    
     public function actionMedCancel($type)
     {
         if (Yii::$app->request->isAjax) {
@@ -185,13 +351,11 @@ class DefaultController extends Controller
                     $model->med_cancel = $type;
                     $model->save(false);
                     return [
-                        'forceReload'=>'#grid-med-accept-pjax'
+                        'forceReload' => '#grid-med-accept-pjax'
                     ];
-                    
                 }
             }
         }
-
     }
 
     protected function findVisitModel($id)

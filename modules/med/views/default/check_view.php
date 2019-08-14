@@ -45,9 +45,9 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 </style>
 <br>
 <br>
-<?php $form = ActiveForm::begin(['id' => 'form-med-arrange','method' => 'post']);?>
+<?php $form = ActiveForm::begin(['id' => 'form-med-check','method' => 'post']);?>
 
-<?=$form->field($model, 'med_arrange_requester')->hiddenInput(['class' => 'requester'])->label(false)?>
+<?=$form->field($model, 'med_check_requester')->hiddenInput(['class' => 'requester'])->label(false)?>
    
    <?=GridView::widget([
     'dataProvider' => $dataProvider,
@@ -160,13 +160,13 @@ echo Dialog::widget([
 $request = Yii::$app->request;
 $js = <<< JS
 
-$("#form-med-arrange").on('beforeSubmit', function (e) {
+$("#form-med-check").on('beforeSubmit', function (e) {
   e.preventDefault();
   var form = $(this);
   var formId = form.attr('id');
 
-   if ($('#opdvisit-med_arrange_requester').val() == '') {
-        getRequester("#form-med-arrange");
+   if ($('#opdvisit-med_check_requester').val() == '') {
+        getRequester("#form-med-check");
         return false;
     }else{
         return true;

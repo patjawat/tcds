@@ -327,7 +327,7 @@ $hn = PatientHelper::getCurrentHn();
     <?php Modal::begin([
         'id' => 'main-modal',
         'header' => '<h4 class="modal-title"></h4>',
-        'size'=>'modal-md',
+        'size'=>'modal-sm',
         'footer' => '',
         'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
         ]);

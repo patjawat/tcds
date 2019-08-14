@@ -5,6 +5,7 @@ use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
+use yii\bootstrap\ActiveForm;
 
 $hn = PatientHelper::getCurrentHn();
 $vn = PatientHelper::getCurrentVn();
@@ -41,17 +42,14 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
     background-color: #eee!important;
     color: #000;
 }
-/* .med-cancel-text{
-    color: red;
-    text-shadow: -1px 0px white, 0 1px white, 1px 0 white, 0 -1px white;
-}
-.med-active{
-    color: #14b8cc;
-    text-shadow: -1px 0px #333, 0 1px #555555, 1px 0 #555555, 0 -1px #333;
-} */
 </style>
+<br>
+<br>
+<?php $form = ActiveForm::begin(['id' => 'form-med-accept','method' => 'post']);?>
 
-    <?=GridView::widget([
+<?=$form->field($model, 'med_arrange_requester')->hiddenInput(['class' => 'requester'])->label(false)?>
+   
+   <?=GridView::widget([
     'dataProvider' => $dataProvider,
     'id' => 'grid-med-accept',
     'pjax' => true,
@@ -72,14 +70,7 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
     },
     'toolbar' => [
         [
-            'content' => Html::a('<i class="fas fa-save"></i> </i>บันทึกจัดยา',
-                ['/med/default/accept-view', 'id' => $id], [
-                    'title' => 'Add',
-                    'id' => 'med-accept-save',
-                    'class' => 'btn btn-primary pull-right',
-                    // 'data-confirm' => 'ยืนยัน',
-                    // 'data-method' => 'post'
-                ]),
+            'content' => Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => "btn btn-success"]),
             'toolbarContainerOptions' => ['class' => 'btn-toolbar pull-right'],
         ],
     ],
@@ -95,27 +86,6 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
         'after' => '<i class="fas fa-check"></i>  <span class="label label-success">รายการที่ใช้งาน </span>&nbsp |  <i class="fas fa-times"></i>  <span class="label label-default">รายการที่ถูกยกเลิก</span>',
         'showFooter' => false,
     ],
-    // 'krajeeDialogSettings' => [
-    //     'id' => 'a22',
-    //     'libName' => 'krajeeDialogCust', // ตั้งชื่อของ Dialog
-    //     'overrideYiiConfirm' => true,
-    //     'options' => [
-    //         'title' => '<i class="fas fa-edit"></i> รับทราบ',
-    //         'size' => Dialog::SIZE_MEDIUM,
-    //         'type' => Dialog::TYPE_PRIMARY,
-    //         'buttons' => [
-    //             [
-    //                 'label' => 'Cancel',
-    //                // 'icon' => Dialog::ICON_CANCEL
-    //             ],
-    //             [
-    //                 'label' =>  'Ok',
-    //                 //'icon' => Dialog::ICON_OK,
-    //                 'class' => 'btn-primary'
-    //             ],
-    //         ]
-    //     ],
-    // ],
     'columns' => [
         [
             'class' => 'kartik\grid\SerialColumn',
@@ -167,19 +137,7 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
             'template' => '{med-canel}',
             'buttons' => [
                 'med-canel' => function ($url, $model, $key) {
-                    // return Html::a($model->med_cancel == '0' ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>',
-                    //     ['/med/default/med-cancel', 'type' => $model->med_cancel == '0' ? '1' : '0'],
-                    //     [
-                    //         'class' => $model->med_cancel == "1" ? 'med-cancel-text' : 'med-active',
-                    //         'id' => $key,
-                    //         // 'url' => 'index.php?r=med/default/med-cancel',
-                    //         'onclick' => '
-                    //        return medCancel(' . $key . ',$(this).attr("href"));
-                    //     ',
-                    //     ]
-                    // );
                     return $model->med_cancel == '0' ? '<i class="fas fa-check med-active"></i> <span class="label label-success">ใช้ </span>' : '<i class="fas fa-times med-cancel-text"></i> <span class="label label-default">ยกเลิก </span>';
-
                 },
             ],
             'dropdownOptions' => ['class' => 'float-right'],
@@ -191,42 +149,30 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
         ],
     ],
 ]);?>
-
+ <?php ActiveForm::end();?>
 <?php
 
-// Example 2: Custom krajeeDialogCust object
 echo Dialog::widget([
-    'libName' => 'krajeeDialogCust', // optional if not set will default to `krajeeDialog`
-    'options' => ['draggable' => true, 'closable' => true], // custom options
+    'libName' => 'krajeeDialogCust',
+    'options' => ['draggable' => true, 'closable' => true],
 ]);
 
-echo $id;
 $request = Yii::$app->request;
-echo $resUrl = $request->url;
-// echo $request->absoluteUrl;
 $js = <<< JS
 
-$('#med-accept-save').click(function (e) {
+$("#form-med-accept").on('beforeSubmit', function (e) {
+  e.preventDefault();
+  var form = $(this);
+  var formId = form.attr('id');
 
-    e.preventDefault();
-    $.ajax({
-        type: "get",
-        url: "index.php?r=med/default/requester",
-        dataType: "json",
-        success: function (response) {
-             $('#main-modal').modal('show');
-            $('.modal-title').html(response.title);
-            $('.modal-body').html(response.content);
-            $('.modal-footer').html(response.footer);
-        }
-    });
-
-
-
+   if ($('#opdvisit-med_arrange_requester').val() == '') {
+        getRequester("#form-med-accept");
+        return false;
+    }else{
+        return true;
+    }
+        return false;
 });
-// $('#med-accept-pjax').on('pjax:success', function() {
-//     $.pjax.reload({container: '#med-cancel-pjax'});
-// });
 
 JS;
 $this->registerJS($js, View::POS_END, 'my-options');

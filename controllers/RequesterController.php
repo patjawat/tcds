@@ -23,7 +23,7 @@ class RequesterController extends \yii\web\Controller
             Yii::$app->response->format = Response::FORMAT_JSON;
             if (Yii::$app->request->isPost) {
                 return [
-                    'title' => 'ระบุ Requester',
+                    'title' => '<i class="fas fa-fingerprint"></i> ระบุตัวตน (<code>Requester</code>)',
                     'content' => $this->renderAjax('confirm_requester', ['formId' => Yii::$app->request->post('formId')]),
                 ];
             }
@@ -44,7 +44,7 @@ class RequesterController extends \yii\web\Controller
         $data = $Client->result;
         if ($data) {
             return [
-                'title' => $data[0]->name,
+                'title' => '<i class="fas fa-user-check animated bounceIn delay-0.1s"></i> '.'<span class="animated bounceIn delay-0.2s">'.$data[0]->name.'</span>',
                 'content' => $data[0]->name,
                 'loadding' => '<img src="img/loading.gif" style="margin-left: 600px;margin-top: 50px;padding-bottom: 18px;" />',
                 'status' => true,

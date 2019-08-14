@@ -54,17 +54,16 @@ use yii\web\JsExpression;
                     'attribute'=>'hn',
                     'header' => 'จุดรับยา',
                 ],
-            
                 [
                     'class' => 'kartik\grid\ActionColumn',
                     'template' => '{accept}',
                     'buttons' => [
                         'accept' => function ($url,$model) {
                             return Html::a('<i class="fas fa-clipboard-check"></i> จัดยา',['/med/default/accept-view','id' => $model->vn ], [
-                                'title' => Yii::t('yii', 'Delete'),
+                                'title' => '',
                                 'class' => 'setdialog',
-                                'aria-label' => Yii::t('yii', 'Delete'),
-                                'data' => ['confirm' => 'จัดยา'],
+                                'aria-label' => '',
+                                'data' => ['confirm' => '<h4 class="text-center">HN : '.$model->hn.'</h4><h4 class="text-center">'.$model->patient($model->hn).'</h4>'],
                                 'onclick' => 'return setDialog("Test")'
                                 
                             ]);
@@ -72,7 +71,6 @@ use yii\web\JsExpression;
                     ],
                 ],
             ],
-
             'toolbar' => [
                 ['content' =>
                     Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create'],

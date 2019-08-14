@@ -45,9 +45,9 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 </style>
 <br>
 <br>
-<?php $form = ActiveForm::begin(['id' => 'form-med-arrange','method' => 'post']);?>
+<?php $form = ActiveForm::begin(['id' => 'form-med-success','method' => 'post']);?>
 
-<?=$form->field($model, 'med_arrange_requester')->hiddenInput(['class' => 'requester'])->label(false)?>
+<?=$form->field($model, 'med_success_requester')->hiddenInput(['class' => 'requester'])->label(false)?>
    
    <?=GridView::widget([
     'dataProvider' => $dataProvider,
@@ -73,6 +73,10 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
             'content' => Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => "btn btn-success"]),
             'toolbarContainerOptions' => ['class' => 'btn-toolbar pull-right'],
         ],
+        [
+            'content' => Html::submitButton('<i class="fas fa-power-off"></i> ยกเลิก', ['class' => "btn btn-danger"]),
+            
+        ],
     ],
     'panel' => [
         'heading' => '<h3 class="panel-title"><i class="fas fa-user-tag"></i> NAME : ' . $model->patient($model->hn) . '</h3>',
@@ -82,7 +86,15 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> <h5> HN : <code>' . $model->hn . '</code> </h5> </div>
                 <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3"> <h5> Physician : <code>1234</code></h5> </div>
                 <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5"> <h5> ผล LAB eGFR : <code>1234</code></h5> </div>
-            </div>',
+            </div>
+            <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> <h5> ผล LAB eGFR : <code>1234</code></h5> </div>
+        </div>
+        <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"> <h5> จุดสั่งยา  : <code> ____[คลินิก A]_______ </code> </h5> </div>
+        <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3"> <h5>  <code> ____[คลินิก B]_______ </code></h5> </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4"> <h5> <code>____[คลินิก C]_______</code></h5> </div>
+    </div>',
         'after' => '<i class="fas fa-check"></i>  <span class="label label-success">รายการที่ใช้งาน </span>&nbsp |  <i class="fas fa-times"></i>  <span class="label label-default">รายการที่ถูกยกเลิก</span>',
         'showFooter' => false,
     ],
@@ -160,13 +172,13 @@ echo Dialog::widget([
 $request = Yii::$app->request;
 $js = <<< JS
 
-$("#form-med-arrange").on('beforeSubmit', function (e) {
+$("#form-med-success").on('beforeSubmit', function (e) {
   e.preventDefault();
   var form = $(this);
   var formId = form.attr('id');
 
-   if ($('#opdvisit-med_arrange_requester').val() == '') {
-        getRequester("#form-med-arrange");
+   if ($('#opdvisit-med_success_requester').val() == '') {
+        getRequester("#form-med-success");
         return false;
     }else{
         return true;

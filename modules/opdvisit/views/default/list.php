@@ -1,13 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
 use kartik\grid\GridView;
-use yii\widgets\Pjax;
-use app\components\DbHelper;
-use app\components\FormatYear;
-use app\components\PatientHelper;
-use kartik\daterange\DateRangePicker;
+use kartik\dialog\Dialog;
+use yii\web\JsExpression;
 
 $this->title = 'รายการผู้รับบริการ';
 // $this->params['breadcrumbs'][] = $this->title;
@@ -36,6 +32,17 @@ $this->title = 'รายการผู้รับบริการ';
         'pjaxSettings' => [
             'options' => [
                 'enablePushState' => false,
+            ],
+        ],
+        'krajeeDialogSettings' => [
+            'libName' => 'krajeeDialogVisit', // ตั้งชื่อของ Dialog
+            'overrideYiiConfirm' => true,
+            'options' => [
+                'title' => '<i class="fas fa-edit"></i> แก้ไข Visit',
+                'size' => Dialog::SIZE_SMALL,
+                'type' => Dialog::TYPE_WARNING,
+                'btnOKLabel' => '<i class="fas fa-check"></i> ตกลง',
+                'btnCancelLabel' => '<i class="fas fa-ban"></i> ยกเลิก'
             ],
         ],
         'summary' => false,
@@ -143,7 +150,12 @@ $this->title = 'รายการผู้รับบริการ';
                             $pcc_vn = $model['pcc_vn'];
                             $hn = $model['hn'];
                             $vn = $model['vn'];
-                            return Html::a('<i class="fas fa-edit"></i> แก้ไข', ['/opdvisit/opd-visit/revisit', 'pcc_vn' => $pcc_vn,'hn' => $hn,'vn'=> $vn], ['class' => '', 'data-confirm' => 'แก้ไข Visit นี้']);
+                            return Html::a('<i class="fas fa-edit"></i> แก้ไข', ['/opdvisit/opd-visit/revisit', 'pcc_vn' => $pcc_vn,'hn' => $hn,'vn'=> $vn], [
+                                'class' => '', 
+                                // 'data-confirm' => 'แก้ไข Visit นี้'
+                                'data' => ['confirm' => '<h4 class="text-center">HN : '.$model->hn.'</h4><h4 class="text-center">'.$model->patient($model->hn).'</h4>']
+
+                                ]);
 
                     },
                     'delete' => function($url, $model, $key) {

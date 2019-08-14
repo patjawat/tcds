@@ -51,7 +51,7 @@ $tab = Yii::$app->request->get('active') ?  Yii::$app->request->get('active') : 
     <!-- End Tabs5 -->
   </div>
   <!-- End Tabs Contents -->
-<h1><?=Yii::$app->request;?></h1>
+
 <?php
 $js  = <<< JS
 

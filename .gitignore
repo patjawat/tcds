@@ -30,7 +30,6 @@ tests/_support/_generated
 /docker/mariadb/data
 /docker/pgdata/data
 
-/report.1
 /config/db.php
 /config/tcds.php
 /config/theptarin.php

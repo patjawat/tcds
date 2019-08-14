@@ -66,8 +66,14 @@ class MedicationController extends Controller
     public function actionCreate()
     {
         $model = new Medication();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $vn = PatientHelper::getCurrentVn();
+        $pcc_vn = PatientHelper::getCurrentPccVn();
+        $hn = PatientHelper::getCurrentHn();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->vn  = $vn;
+            $model->hn = $hn;
+            $model->pcc_vn = $pcc_vn;
+            $model->save(false);
             if (Yii::$app->request->isAjax) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return $model;

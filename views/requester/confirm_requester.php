@@ -1,10 +1,12 @@
 <?php
+use yii\bootstrap4\Html;
 ?>
 <div class="form-group">
     <input type="password" name="requester" id="master-requester" class="form-control" placeholder="Requester" value="">
     <input type="text" name="success-requester" id="success-requester" class="form-control" hidden="true">
 </div>
 <?php
+$img = Html::img('@web/img/loadding30.gif',['width' => '80px']);
 $js = <<< JS
 
 $('#testFrm').click(function (e) { 
@@ -33,7 +35,8 @@ $('#master-requester').keyup(function(e){
                         data: {keys:value},
                         dataType: "json",
                         beforeSend: function(){
-                            $('.modal-title').html('<i class="fas fa-search"></i> กำลังค้นหา <img src="/img/loadding30.gif" width="80px"/>');
+                            // $('.modal-title').html('<i class="fas fa-search"></i> กำลังค้นหา <img src="/img/loadding30.gif" width="80px"/>');
+                            $('.modal-title').html('<i class="fas fa-search"></i> กำลังค้นหา'+'$img');
                             $('.save').hide();
                         },
                         success: function (response) {

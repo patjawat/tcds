@@ -122,26 +122,26 @@ class OpdVisit extends \yii\db\ActiveRecord
             'class' => AttributeBehavior::className(),
             'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['service_start_date']],
             'value' => function(){
-                return DateTimeHelper::getDbDate();
+                return DateTimeHelper::getDbNow();
             }
         ],
         [
             'class' => AttributeBehavior::className(),
             'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['service_start_time']],
             'value' => function(){
-                return DateTimeHelper::getDbTime();
+                return DateTimeHelper::getDbNow();
             }
         ],
         [
             'class' => AttributeBehavior::className(),
             'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['created_at','updated_at']],
-            'value' => DateTimeHelper::getDbTimestramp()
+            'value' => DateTimeHelper::getDbNow()
 
         ],
         [
             'class' => AttributeBehavior::className(),
             'attributes' => [ActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at'],
-            'value' => DateTimeHelper::getDbTimestramp()
+            'value' => DateTimeHelper::getDbNow()
 
         ],
         // [

@@ -10,7 +10,10 @@ use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\helpers\Json;
 use app\components\DateTimeHelper;
+use yii\web\JsExpression;
+use yii\db\JsonExpression;
 
 class DefaultController extends Controller
 {
@@ -20,15 +23,59 @@ class DefaultController extends Controller
         return $this->render('index');
     }
 
-    public function actionRequester()
+    // public function actionRequester()
+    // {
+    //     Yii::$app->response->format = Response::FORMAT_JSON;
+    //     return [
+    //         'title' => 'xx',
+    //         'content' => $this->renderAjax('requester'),
+    //         'footer' => 'eee'
+    //     ];
+    // }
+
+
+    public function actionOrder()
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        return [
-            'title' => 'xx',
-            'content' => $this->renderAjax('requester'),
-            'footer' => 'eee'
-        ];
+        \Yii::$app->session->remove('hn');
+        \Yii::$app->session->remove('vn');
+        \Yii::$app->session->remove('pcc_vn');
+
+        $searchModel = new MedicationSearch();
+        $date = Date('Y-m-d');
+        $condition = ['med_accept_status' => '0'];
+        $data = new JsonExpression($condition);
+        $query = OpdVisit::find()
+            ->joinWith(['patient' => function (ActiveQuery $query) {
+                return $query;
+                // ->andWhere(['=', 'his_patient.hn', 460028]);
+            }])->andWhere(['checkout' => 'Y', 'med_accept' => '0']);
+        //->andWhere(['between', 'checkout_date', $date, $date]);
+        // ->joinWith(['availability' => function (ActiveQuery $query) {
+        //     return $query
+        //         ->andOnCondition(['>=', 'availability.start', strtotime('+7 days')])
+        //         ->andWhere(['IS', 'availability.ID', NULL]);
+        // }])
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return $this->renderAjax('order', [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]);
+        } else {
+            return $this->render('order', [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]);
+        }
     }
+
 
     public function actionOrderView($id)
     {
@@ -62,9 +109,12 @@ class DefaultController extends Controller
                     $medication->save(false);
                 }
                 $transaction->commit();
+                $medAccept = [
+
+                ];
                 $model->med_accept = '1';
-                $model->med_accetp_time = DateTimeHelper::getDbNow();
-                $model->save();
+               $model->med_accetp_time = DateTimeHelper::getDbNow();
+                $model->save(false);
                 Yii::$app->session->setFlash('success', 'บันทึกข้อมูลเรียบร้อย');
                 return $this->redirect(['index']);
             } catch (Exception $e) {
@@ -81,104 +131,6 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function actionOrder()
-    {
-        \Yii::$app->session->remove('hn');
-        \Yii::$app->session->remove('vn');
-        \Yii::$app->session->remove('pcc_vn');
-
-        $searchModel = new MedicationSearch();
-        $date = Date('Y-m-d');
-        $query = OpdVisit::find()
-            ->joinWith(['patient' => function (ActiveQuery $query) {
-                return $query;
-                // ->andWhere(['=', 'his_patient.hn', 460028]);
-            }])->andWhere(['checkout' => 'Y', 'med_accept' => '0']);
-        //->andWhere(['between', 'checkout_date', $date, $date]);
-        // ->joinWith(['availability' => function (ActiveQuery $query) {
-        //     return $query
-        //         ->andOnCondition(['>=', 'availability.start', strtotime('+7 days')])
-        //         ->andWhere(['IS', 'availability.ID', NULL]);
-        // }])
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 20,
-            ],
-        ]);
-
-        if (Yii::$app->request->isAjax) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return $this->renderAjax('order', [
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel,
-            ]);
-        } else {
-            return $this->render('order', [
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel,
-            ]);
-        }
-    }
-
-    // public function actionAccept()
-    // {
-    //     \Yii::$app->session->remove('hn');
-    //     \Yii::$app->session->remove('vn');
-    //     \Yii::$app->session->remove('pcc_vn');
-
-    //     $searchModel = new MedicationSearch();
-    //     $date = Date('Y-m-d');
-    //     $query = OpdVisit::find()
-    //         ->joinWith(['patient' => function (ActiveQuery $query) {
-    //             return $query;
-    //             // ->andWhere(['=', 'his_patient.hn', 460028]);
-    //         }])->andWhere(['checkout' => 'Y', 'med_accept' => '1', 'med_arrange' => '0']);
-    //     $dataProvider = new ActiveDataProvider([
-    //         'query' => $query,
-    //         'pagination' => [
-    //             'pageSize' => 20,
-    //         ],
-    //     ]);
-
-    //     if (Yii::$app->request->isAjax) {
-    //         Yii::$app->response->format = Response::FORMAT_JSON;
-    //         return $this->renderAjax('accept', [
-    //             'dataProvider' => $dataProvider,
-    //             'searchModel' => $searchModel,
-    //         ]);
-    //     } else {
-    //         return $this->render('accept', [
-    //             'dataProvider' => $dataProvider,
-    //             'searchModel' => $searchModel,
-    //         ]);
-    //     }
-    // }
-
-    // public function actionAcceptView($id)
-    // {
-    //     $model = OpdVisit::findOne(['vn' => $id]);
-    //     $searchModel = new MedicationSearch();
-    //     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-    //     if ($model->load(Yii::$app->request->post())) {
-    //         $model->med_arrange = '1';
-    //         $model->med_arrange_time = DateTimeHelper::getDbNow();
-    //         $model->save();
-    //         return $this->redirect(['index', 'active' => 'tab2']);
-    //     } else {
-    //         $model->med_arrange_requester = '';
-    //         return $this->render('accept_view', [
-    //             'searchModel' => $searchModel,
-    //             'dataProvider' => $dataProvider,
-    //             'model' => $model,
-    //             'id' => $id
-    //         ]);
-    //     }
-    // }
-
-
-
 // จัดยา
     public function actionArrange()
     {
@@ -186,8 +138,11 @@ class DefaultController extends Controller
         $query = OpdVisit::find()
             ->joinWith(['patient' => function (ActiveQuery $query) {
                 return $query;
-            }])->andWhere(['checkout' => 'Y', 'med_accept' => '1', 'med_arrange' => '0']);
-        $dataProvider = new ActiveDataProvider([
+            }])->andWhere(['checkout' => 'Y','med_arrange' => '0']);
+            // ->andWhere(['json_column->med_accept' => ['mail1@example.com', 'mail2@example.com']]);
+            //  ->andWhere(['med_accept' => ['"med_accept_status":"0"']]);
+
+            $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
                 'pageSize' => 20,
@@ -265,25 +220,6 @@ public function actionCheck()
 // แสดงรายการตรวจสอบ
 public function actionCheckView($id)
 {
-    // $model = OpdVisit::findOne(['vn' => $id]);
-    // $searchModel = new MedicationSearch();
-    // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-    // if ($model->load(Yii::$app->request->post())) {
-    //     $model->med_check = '1';
-    //     $model->med_check_time = DateTimeHelper::getDbNow();
-    //     $model->save();
-    //     return $this->redirect(['index', 'active' => 'tab3']);
-    // } else {
-    //     $model->med_check_requester = '';
-    //     return $this->render('check_view', [
-    //         'searchModel' => $searchModel,
-    //         'dataProvider' => $dataProvider,
-    //         'model' => $model,
-    //         'id' => $id
-    //     ]);
-    // }
-
     $model = OpdVisit::findOne(['vn' => $id]); //เลือกใบ Order
         $model->items = Medication::find()->where(['vn' => $model->vn])->all();
 
@@ -344,7 +280,13 @@ public function actionSuccess()
     $query = OpdVisit::find()
         ->joinWith(['patient' => function (ActiveQuery $query) {
             return $query;
-        }])->andWhere(['checkout' => 'Y', 'med_accept' => '1', 'med_arrange' => '1','med_check' => '1','med_success' => '0']);
+        }])->andWhere([
+            'checkout' => 'Y',
+            'med_accept' => '1',
+            'med_arrange' => '1',
+            'med_check' => '1',
+            'med_success' => '0'
+            ]);
     $dataProvider = new ActiveDataProvider([
         'query' => $query,
         'pagination' => [

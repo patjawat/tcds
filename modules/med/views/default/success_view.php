@@ -43,7 +43,7 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
     color: #000;
 }
 </style>
-<br>
+<h3 class="text-center">จ่ายยา</h3>
 <br>
 <?php $form = ActiveForm::begin(['id' => 'form-med-success','method' => 'post']);?>
 
@@ -75,7 +75,7 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
         [
             // 'content' => Html::submitButton('<i class="fas fa-undo"></i> ยกเลิก', ['class' => "btn btn-warning"]),
             // 'content' => Html::a('ยกเลิก',['/med/default/med-cancel','id'=> $model->vn],['class' => 'btn btn-warning',	'data-confirm' => "Want to submit?",
-            'content' =>'<span class="btn btn-warning" url="index.php?r=med/default/med-cancel&id='.$model->vn.'" id="med_cancel">ยกเลิก</span>',
+            'content' =>'<span class="btn btn-warning" url="index.php?r=med/default/med-cancel&id='.$model->vn.'" id="med_cancel"><i class="fas fa-exclamation"></i> ยกเลิก</span>',
             
         ],
     ],
@@ -99,6 +99,16 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
         'after' => '<i class="fas fa-check"></i>  <span class="label label-success">รายการที่ใช้งาน </span>&nbsp |  <i class="fas fa-times"></i>  <span class="label label-default">รายการที่ถูกยกเลิก</span>',
         'showFooter' => false,
     ],
+    // 'krajeeDialogSettings' => [
+    //     'id' => 'a22',
+    //     'libName' => 'krajeeDialogAccept', // ตั้งชื่อของ Dialog
+    //     'overrideYiiConfirm' => false,
+    //     'options' => [
+    //         'title' => '<i class="fas fa-edit"></i> รับทราบ',
+    //         'size' => Dialog::SIZE_LARGE,
+    //         'type' => Dialog::TYPE_DANGER,
+    //     ],
+    // ],
     'columns' => [
         [
             'class' => 'kartik\grid\SerialColumn',
@@ -167,7 +177,13 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 
 echo Dialog::widget([
     'libName' => 'krajeeDialogCust',
-    'options' => ['draggable' => true, 'closable' => true],
+    'options' => [
+        'title' => '<i class="fas fa-exclamation"></i> ยืนยัน',
+        'size' => Dialog::SIZE_SMALL,
+        'type' => Dialog::TYPE_WARNING,
+        'draggable' => true,
+        'closable' => true,
+    ],
 ]);
 
 $request = Yii::$app->request;
@@ -176,10 +192,9 @@ $js = <<< JS
 $("#med_cancel").on("click", function() {
     console.log($(this).attr('url'));
     // var url = $(this).attr('url');
-    krajeeDialog.confirm("ยกเลิกรายการ?", function (result) {
+    krajeeDialogCust.confirm("<h4 class='text-center'>ยกเลิกรายการ?</h4>", function (result) {
         var url = $('#med_cancel').attr('url');
         if (result) {
-            alert(url);
             $.post(url, {vn:"$model->vn"} );
         } 
     });

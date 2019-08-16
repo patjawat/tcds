@@ -83,6 +83,7 @@ public $no_med;
             'no_med' => 'ไม่มียา',
             'qty_adjust' => 'ปรับจำนวนยา',
             'med_note' => 'หมายเหตุ',
+            'med_check_note' => 'หมายเหตุตรวจสอบยา',
             'med_cancel' => 'ยกเลิกยา'
         ];
     }

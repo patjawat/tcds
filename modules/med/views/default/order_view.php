@@ -47,11 +47,12 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
     }
 
 </style>
-
-
+<h3 class="text-center">คีย์ยา</h3>
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title"><i class="fas fa-user-tag"></i> NAME : <?=$model->patient($model->hn);?></h3>
+
+    
     </div>
     <div class="panel-body">
     <?php $form = ActiveForm::begin(['id' => 'form-med-order']); ?>
@@ -118,6 +119,14 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
                 [
                     'name' => 'qty_adjust',
                     'title' => 'ปรับจำนวนยา',
+                    'enableError' => true,
+                    'options' => [
+                        'class' => 'input-priority',
+                    ],
+                ],
+                [
+                    'name' => 'med_note',
+                    'title' => 'หมายเหตุ',
                     'enableError' => true,
                     'options' => [
                         'class' => 'input-priority',

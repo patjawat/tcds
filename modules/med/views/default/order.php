@@ -61,9 +61,10 @@ use yii\web\JsExpression;
                 [
                     'class' => 'kartik\grid\ActionColumn',
                     'template' => '{accept}',
+                    'width' => '120px',
                     'buttons' => [
                         'accept' => function ($url,$model) {
-                            return Html::a('<i class="fas fa-edit"></i>',['/med/default/order-view','id' => $model->vn ], [
+                            return Html::a('รับทราบข้อมูล',['/med/default/order-view','id' => $model->vn ], [
                                 'title' => Yii::t('yii', 'Delete'),
                                 'class' => '',
                                 'aria-label' => Yii::t('yii', 'Delete'),

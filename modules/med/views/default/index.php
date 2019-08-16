@@ -55,10 +55,10 @@ $tab = Yii::$app->request->get('active') ?  Yii::$app->request->get('active') : 
 <?php
 $js  = <<< JS
 
-loadMedOrder()
-loadMedSuccess()
-loadMedArrange()
-loadMedCheck()
+loadMedOrder() // ใบสั้งยา
+loadMedArrange() // จัดยา
+loadMedCheck() // ตรวจสอบยา
+loadMedSuccess() // จ่ายยา
 
 function loadMedOrder(){
     $.ajax({

@@ -57,7 +57,7 @@ class DefaultController extends Controller
                     $medication->icode = $val['icode'];
                     $medication->druguse = $val['druguse'];
                     $medication->qty_adjust = $val['qty_adjust'];
-                    //$medication->med_note = $val['med_note'];
+                    $medication->med_note = $val['med_note'];
                     $medication->med_cancel = $val['med_cancel'];
                     $medication->save(false);
                 }
@@ -265,24 +265,73 @@ public function actionCheck()
 // แสดงรายการตรวจสอบ
 public function actionCheckView($id)
 {
-    $model = OpdVisit::findOne(['vn' => $id]);
-    $searchModel = new MedicationSearch();
-    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    // $model = OpdVisit::findOne(['vn' => $id]);
+    // $searchModel = new MedicationSearch();
+    // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-    if ($model->load(Yii::$app->request->post())) {
-        $model->med_check = '1';
-        $model->med_check_time = DateTimeHelper::getDbNow();
-        $model->save();
-        return $this->redirect(['index', 'active' => 'tab3']);
-    } else {
-        $model->med_check_requester = '';
+    // if ($model->load(Yii::$app->request->post())) {
+    //     $model->med_check = '1';
+    //     $model->med_check_time = DateTimeHelper::getDbNow();
+    //     $model->save();
+    //     return $this->redirect(['index', 'active' => 'tab3']);
+    // } else {
+    //     $model->med_check_requester = '';
+    //     return $this->render('check_view', [
+    //         'searchModel' => $searchModel,
+    //         'dataProvider' => $dataProvider,
+    //         'model' => $model,
+    //         'id' => $id
+    //     ]);
+    // }
+
+    $model = OpdVisit::findOne(['vn' => $id]); //เลือกใบ Order
+        $model->items = Medication::find()->where(['vn' => $model->vn])->all();
+
+        // Set session เพื่อใช้ behaviors บันทึกใน model => Medication;
+        \Yii::$app->session->set('hn', $model->hn);
+        \Yii::$app->session->set('vn', $model->vn);
+        \Yii::$app->session->set('pcc_vn', $model->pcc_vn);
+        // end #####
+        if ($model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $transaction = Yii::$app->tcds->beginTransaction();
+            try {
+                $items = Yii::$app->request->post();
+                foreach ($items['OpdVisit']['items'] as $key => $val) { //นำรายการสินค้าที่เลือกมา loop บันทึก
+                    if (empty($val['id'])) {
+                        $medication = new Medication;
+                    } else {
+                        $medication = Medication::findOne(['id' => $val['id']]);
+                    }
+                    $medication->hn = $model->hn;
+                    $medication->vn = $model->vn;
+                    $medication->pcc_vn = $model->pcc_vn;
+                    $medication->icode = $val['icode'];
+                    $medication->druguse = $val['druguse'];
+                    $medication->qty_adjust = $val['qty_adjust'];
+                    //$medication->med_note = $val['med_note'];
+                    $medication->med_check_note = $val['med_check_note'];
+                    $medication->med_cancel = $val['med_cancel'];
+                    $medication->save(false);
+                }
+                $transaction->commit();
+                $model->med_check = '1';
+                $model->med_check_time = DateTimeHelper::getDbNow();
+                $model->save();
+                Yii::$app->session->setFlash('success', 'บันทึกข้อมูลเรียบร้อย');
+                return $this->redirect(['index', 'active' => 'tab3']);
+            } catch (Exception $e) {
+                $transaction->rollBack();
+                Yii::$app->session->setFlash('error', 'มีข้อผิดพลาดในการบันทึก');
+                return $this->redirect(['index', 'active' => 'tab3']);
+            }
+        } else {
+            $model->med_check_requester = '';
+        }
+
         return $this->render('check_view', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
             'model' => $model,
-            'id' => $id
         ]);
-    }
 }
 
 
@@ -340,23 +389,36 @@ public function actionSuccessView($id)
     }
 }
     
-    public function actionMedCancel($type)
-    {
-        if (Yii::$app->request->isAjax) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            $id = Yii::$app->request->post('id');
-            $model = Medication::findOne($id);
-            if (Yii::$app->request->post()) {
-                if ($model) {
-                    $model->med_cancel = $type;
-                    $model->save(false);
-                    return [
-                        'forceReload' => '#grid-med-accept-pjax'
-                    ];
-                }
-            }
+public function actionMedCancel($id)
+{
+    $model = OpdVisit::findOne(['vn' => $id]);
+    // if ($model->load(Yii::$app->request->post())) {
+        $model->med_accept = '0';
+        $model->med_arrange = '0';
+        $model->med_check = '0';
+        $model->med_success = '0';
+        if($model->save()){
+            return $this->redirect(['index', 'active' => 'tab4']);
         }
-    }
+    // }
+}
+    // public function actionMedCancel($type)
+    // {
+    //     if (Yii::$app->request->isAjax) {
+    //         Yii::$app->response->format = Response::FORMAT_JSON;
+    //         $id = Yii::$app->request->post('id');
+    //         $model = Medication::findOne($id);
+    //         if (Yii::$app->request->post()) {
+    //             if ($model) {
+    //                 $model->med_cancel = $type;
+    //                 $model->save(false);
+    //                 return [
+    //                     'forceReload' => '#grid-med-accept-pjax'
+    //                 ];
+    //             }
+    //         }
+    //     }
+    // }
 
     protected function findVisitModel($id)
     {

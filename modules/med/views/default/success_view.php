@@ -48,7 +48,6 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 <?php $form = ActiveForm::begin(['id' => 'form-med-success','method' => 'post']);?>
 
 <?=$form->field($model, 'med_success_requester')->hiddenInput(['class' => 'requester'])->label(false)?>
-   
    <?=GridView::widget([
     'dataProvider' => $dataProvider,
     'id' => 'grid-med-accept',
@@ -74,7 +73,9 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
             'toolbarContainerOptions' => ['class' => 'btn-toolbar pull-right'],
         ],
         [
-            'content' => Html::submitButton('<i class="fas fa-power-off"></i> ยกเลิก', ['class' => "btn btn-danger"]),
+            // 'content' => Html::submitButton('<i class="fas fa-undo"></i> ยกเลิก', ['class' => "btn btn-warning"]),
+            // 'content' => Html::a('ยกเลิก',['/med/default/med-cancel','id'=> $model->vn],['class' => 'btn btn-warning',	'data-confirm' => "Want to submit?",
+            'content' =>'<span class="btn btn-warning" url="index.php?r=med/default/med-cancel&id='.$model->vn.'" id="med_cancel">ยกเลิก</span>',
             
         ],
     ],
@@ -171,6 +172,18 @@ echo Dialog::widget([
 
 $request = Yii::$app->request;
 $js = <<< JS
+
+$("#med_cancel").on("click", function() {
+    console.log($(this).attr('url'));
+    // var url = $(this).attr('url');
+    krajeeDialog.confirm("ยกเลิกรายการ?", function (result) {
+        var url = $('#med_cancel').attr('url');
+        if (result) {
+            alert(url);
+            $.post(url, {vn:"$model->vn"} );
+        } 
+    });
+});
 
 $("#form-med-success").on('beforeSubmit', function (e) {
   e.preventDefault();

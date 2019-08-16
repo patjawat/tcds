@@ -43,8 +43,8 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
     color: #000;
 }
 </style>
-<br>
-<br>
+<h3 class="text-center">จัดยา</h3>
+
 <?php $form = ActiveForm::begin(['id' => 'form-med-arrange','method' => 'post']);?>
 
 <?=$form->field($model, 'med_arrange_requester')->hiddenInput(['class' => 'requester'])->label(false)?>

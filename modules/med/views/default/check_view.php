@@ -1,164 +1,189 @@
 <?php
+
 use app\components\PatientHelper;
-use kartik\dialog\Dialog;
-use kartik\grid\GridView;
+use app\modules\doctorworkbench\models\HisDrug;
+use unclead\multipleinput\MultipleInput;
+use unclead\multipleinput\MultipleInputColumn;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\helpers\Url;
+use yii\web\JsExpression;
+use yii\widgets\ActiveForm;
 use yii\web\View;
-use yii\bootstrap\ActiveForm;
 
 $hn = PatientHelper::getCurrentHn();
 $vn = PatientHelper::getCurrentVn();
 $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 ?>
 <style>
-.panel-default>.panel-heading {
+    /* .panel-default>.panel-heading {
+        color: #05867a !important;
+        background-color: #fff !important;
+        border-color: #ddd !important;
+        text-shadow: -1px 0px white, 0 1px white, 1px 0 white, 0 -1px white;
+    }
+     */
+    .panel-default>.panel-heading {
     color: #348ca7 !important;
 }
 
-.form-control-static {
-    min-height: 34px;
-    padding-top: 0px;
-    padding-bottom: 7px;
-    margin-bottom: 0;
-}
+    .form-control-static {
+        min-height: 34px;
+        padding-top: 0px;
+        padding-bottom: 7px;
+        margin-bottom: 0;
+    }
 
-.help-block {
-    margin-top: -18px !important;
-    margin-bottom: -18px !important;
-}
+    .help-block {
+        margin-top: -18px !important;
+        margin-bottom: -18px !important;
+    }
 
-.list-cell__med_cancel{
-    width: 100px;
-}
-.list-cell__icode{
-    width: 250px;
-}
-.med-cancel{
-    background-color: #ccc;
-    color: #555555;
-}
-.med-cancel:hover{
-    background-color: #eee!important;
-    color: #000;
-}
+    .list-cell__med_cancel {
+        width: 100px;
+    }
+
+    .list-cell__icode {
+        width: 250px;
+    }
+
 </style>
-<br>
-<br>
-<?php $form = ActiveForm::begin(['id' => 'form-med-check','method' => 'post']);?>
 
-<?=$form->field($model, 'med_check_requester')->hiddenInput(['class' => 'requester'])->label(false)?>
-   
-   <?=GridView::widget([
-    'dataProvider' => $dataProvider,
-    'id' => 'grid-med-accept',
-    'pjax' => true,
-    'bordered' => true,
-    'striped' => false,
-    'condensed' => false,
-    'responsive' => true,
-    'hover' => true,
-    'floatHeader' => true,
-    'floatHeader' => true,
-    'floatHeaderOptions' => ['scrollingTop' => '10'],
-    'perfectScrollbar' => true,
-    'footerRowOptions' => ['style' => 'font-weight:bold;text-decoration: underline; position: absolute'],
-    'rowOptions' => function ($model) {
-        if ($model->med_cancel == '1') {
-            return ['class' => 'med-cancel'];
-        }
-    },
-    'toolbar' => [
-        [
-            'content' => Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => "btn btn-success"]),
-            'toolbarContainerOptions' => ['class' => 'btn-toolbar pull-right'],
-        ],
-    ],
-    'panel' => [
-        'heading' => '<h3 class="panel-title"><i class="fas fa-user-tag"></i> NAME : ' . $model->patient($model->hn) . '</h3>',
-        'type' => GridView::TYPE_DEFAULT,
-        'before' => '
-            <div class="row">
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> <h5> HN : <code>' . $model->hn . '</code> </h5> </div>
+<h3 class="text-center">ตรวจสอบยา</h3>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fas fa-user-tag"></i> NAME : <?=$model->patient($model->hn);?></h3>
+    </div>
+    <div class="panel-body">
+    <?php $form = ActiveForm::begin(['id' => 'form-med-check']); ?>
+    <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> <h5> HN : <code><?=$model->hn?></code> </h5> </div>
                 <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3"> <h5> Physician : <code>1234</code></h5> </div>
                 <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5"> <h5> ผล LAB eGFR : <code>1234</code></h5> </div>
-            </div>',
-        'after' => '<i class="fas fa-check"></i>  <span class="label label-success">รายการที่ใช้งาน </span>&nbsp |  <i class="fas fa-times"></i>  <span class="label label-default">รายการที่ถูกยกเลิก</span>',
-        'showFooter' => false,
-    ],
-    'columns' => [
-        [
-            'class' => 'kartik\grid\SerialColumn',
-            'contentOptions' => ['class' => 'kartik-sheet-style'],
-            'width' => '36px',
-            'pageSummary' => 'Total',
-            'pageSummaryOptions' => ['colspan' => 6],
-            'header' => '',
-            'headerOptions' => ['class' => 'kartik-sheet-style'],
-        ],
-        [
-            'attribute' => 'icode',
-            'header' => 'รายการ',
-            'vAlign' => 'middle',
-            'hAlign' => 'right',
-            'width' => '5%',
-        ],
-        [
-            'attribute' => 'druguse',
-            'vAlign' => 'middle',
-            'hAlign' => 'left',
-            'width' => '35%',
-            'value' => function ($model) {
-                return $model->Drugitems($model->icode);
-            },
-        ],
-        [
-            'attribute' => 'qty',
-            'vAlign' => 'middle',
-            'hAlign' => 'center',
-            'width' => '5%',
-        ],
-        [
-            'attribute' => 'qty_adjust',
-            'vAlign' => 'middle',
-            'hAlign' => 'center',
-            'width' => '5%',
-            'format' => 'raw',
-            'value' => function ($model) {
-                return $model->qty_adjust;
-            },
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"><?= Html::submitButton('<i class="far fa-save"></i> บันทึก', ['class' => 'btn btn-success pull-right']); ?></div>
+            </div>
+            <br>
+        
 
-        ],
-        'med_note',
-        [
-            'class' => 'kartik\grid\ActionColumn',
-            'header' => 'ยกเลิกยา',
-            'width' => '100px',
-            'template' => '{med-canel}',
-            'buttons' => [
-                'med-canel' => function ($url, $model, $key) {
-                    return $model->med_cancel == '0' ? '<i class="fas fa-check med-active"></i> <span class="label label-success">ใช้ </span>' : '<i class="fas fa-times med-cancel-text"></i> <span class="label label-default">ยกเลิก </span>';
-                },
+<hr>
+        
+        <?= $form->field($model, 'med_check_requester')->hiddenInput(['class' => 'requester'])->label(false) ?>
+        <?= $form->field($model, 'items')->widget(MultipleInput::className(), [
+            'cloneButton' => true,
+            'allowEmptyList' => false,
+            'enableGuessTitle' => true,
+            'allowEmptyList' => true,
+            'columns' => [
+                [
+                    'name' => 'id',
+                    'title' => 'ID',
+                    'enableError' => true,
+                    'type' => MultipleInputColumn::TYPE_HIDDEN_INPUT,
+                ],
+                [
+                    'type' => \kartik\select2\Select2::class,
+                    'name' => 'icode',
+                    'title' => 'รายการยา',
+                    'options' => [
+                        'data' => ArrayHelper::map(HisDrug::find()->all(), 'id', 'trade_name'),
+                        'pluginOptions' => [
+                            'allowClear' => true,
+                            'minimumInputLength' => 3, //ต้องพิมพ์อย่างน้อย 3 อักษร ajax จึงจะทำงาน
+                            'ajax' => [
+                                'url' => \yii\helpers\Url::to(['/doctorworkbench/medication/drug-items-list']),
+                                'dataType' => 'json', //รูปแบบการอ่านคือ json
+                                'data' => new JsExpression('function(params) { return {q:params.term};}'),
+                            ],
+                        ],
+                    ],
+                    'enableError' => true,
+                ],
+                [
+                    'name' => 'druguse',
+                    'title' => 'วิธีการใช้',
+                    'enableError' => true,
+                    'options' => [
+                        'class' => 'input-priority',
+                    ],
+                ],
+                [
+                    'name' => 'qty',
+                    'title' => 'จำนวน',
+                    'type' => MultipleInputColumn::TYPE_STATIC,
+                    'enableError' => true,
+                    'options' => ['class' => 'input-priority','style' => 'width:60px'],
+                    'value' => function ($data) {
+                        return Html::textInput($data['qty'], $data['qty'], ['class' => 'form-control', 'disabled' => 'true']);
+                    },
+                ],
+                [
+                    'name' => 'qty_adjust',
+                    'title' => 'ปรับจำนวนยา',
+                    'enableError' => true,
+                    'options' => [
+                        'class' => 'input-priority',
+                        'style' => 'width:80px'
+                    ],
+                ],
+                [
+                    'name' => 'med_note',
+                    'title' => 'หมายเหตุ1',
+                    'type' => MultipleInputColumn::TYPE_STATIC,
+                    'enableError' => true,
+                    'options' => [
+                        'class' => 'input-priority',
+                    ],
+                    'value' => function ($data) {
+                        return Html::textInput($data['med_note'], $data['med_note'], ['class' => 'form-control', 'disabled' => 'true']);
+                    },
+                ],
+                [
+                    'name' => 'med_check_note',
+                    'title' => 'หมายเหตุ',
+                    'enableError' => true,
+                    'options' => [
+                        'class' => 'input-priority',
+                    ],
+                ],
+                [
+                    'name' => 'med_cancel',
+                    'type'  => MultipleInputColumn::TYPE_DROPDOWN,
+                    'title' => 'ยกลเลิกยา',
+                    'defaultValue' => 1,
+                    'items' => [
+                        0 => 'ใช้',
+                        1 => 'ยกเลิก'
+                    ],
+                    'enableError' => true,
+                    'options' => [
+                        'class' => 'new_class',
+                        'onchange' => '$(this).init_change();' //ส่งค่าไปเรียก Ajax
+                    ]
+                ],
             ],
-            'dropdownOptions' => ['class' => 'float-right'],
-            'urlCreator' => function ($action, $model, $key, $index) {return '#';},
-            'viewOptions' => ['title' => 'This will launch the book details page. Disabled for this demo!', 'data-toggle' => 'tooltip'],
-            'updateOptions' => ['title' => 'This will launch the book update page. Disabled for this demo!', 'data-toggle' => 'tooltip'],
-            'deleteOptions' => ['title' => 'This will launch the book delete action. Disabled for this demo!', 'data-toggle' => 'tooltip'],
-            'headerOptions' => ['class' => 'kartik-sheet-style'],
-        ],
-    ],
-]);?>
- <?php ActiveForm::end();?>
-<?php
+        ])->label(false);
+        ?>
+        <br>
+        <?php ActiveForm::end(); ?>
 
-echo Dialog::widget([
-    'libName' => 'krajeeDialogCust',
-    'options' => ['draggable' => true, 'closable' => true],
-]);
+        <?php
+        $js = <<< JS
 
-$request = Yii::$app->request;
-$js = <<< JS
+// $.fn.init_change = function(){
+                
+//                 var id = $(this).val();
+//                 var result = $(this).attr('id').split("-");
+//                 // var result = data.split("-");
+
+//                 console.log(result[2]);
+//                 // console.log(data);
+//                 $('#opdvisit-items-'+result[2]+'-med_note').prop('readonly', true);
+//                 $('#opdvisit-items-'+result[2]+'-qty_adjust').prop('readonly', true);
+//                 $('#opdvisit-items-'+result[2]+'-druguse').prop('readonly', true);
+//                 $('#opdvisit-items-'+result[2]+'-icode').prop("readonly", true);
+            
+//             };
+
+
 
 $("#form-med-check").on('beforeSubmit', function (e) {
   e.preventDefault();

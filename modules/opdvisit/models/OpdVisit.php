@@ -17,12 +17,8 @@ class OpdVisit extends \yii\db\ActiveRecord {
         return Yii::$app->get('tcds');
     }
 
-<<<<<<< HEAD
-    public static function tableName()
-    {
-=======
+
     public static function tableName() {
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
         return 'opd_visit';
     }
 
@@ -46,11 +42,7 @@ class OpdVisit extends \yii\db\ActiveRecord {
                     'checkout_time',
                     'items',
                     'med_accept',
-<<<<<<< HEAD
-                    'med_accept_time',
-=======
                     'med_accetp_time',
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
                     'med_accept_requester',
                     'med_arrange',
                     'med_arrange_time',
@@ -63,10 +55,7 @@ class OpdVisit extends \yii\db\ActiveRecord {
                     'med_success_requester',
                 ],
                 'safe'],
-<<<<<<< HEAD
 
-=======
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
             [['data_json'], 'string'],
             [['id', 'requester', 'created_by', 'updated_by', 'service_department', 'department'], 'string', 'max' => 255],
             [['vn', 'pcc_vn'], 'string', 'max' => 12],
@@ -116,117 +105,62 @@ class OpdVisit extends \yii\db\ActiveRecord {
             'med_success_requester' => 'ผู้จ่ายยา',
         ];
     }
-<<<<<<< HEAD
-    public function behaviors()
-    {
-=======
 
     public function behaviors() {
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
         return [
             [
                 'class' => AttributeBehavior::className(),
                 'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['id']],
-<<<<<<< HEAD
-                'value' => function () {
-                    return DateTimeHelper::getDbDateTimeNow();
-                },
-=======
                 'value' => function() {
                     return DateTimeHelper::getDbDateTimeNow();
                 }
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
             ],
             [
                 'class' => AttributeBehavior::className(),
                 'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['vn']],
-<<<<<<< HEAD
-                'value' => function () {
-                    return DateTimeHelper::getDbDateTimeNow();
-                },
-=======
                 'value' => function() {
                     return DateTimeHelper::getDbDateTimeNow();
                 }
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
             ],
             [
                 'class' => AttributeBehavior::className(),
                 'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['service_start_date']],
-<<<<<<< HEAD
-                'value' => function () {
-                    return DateTimeHelper::getDbNow();
-                },
-=======
                 'value' => function() {
                     return DateTimeHelper::getDbNow();
                 }
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
             ],
             [
                 'class' => AttributeBehavior::className(),
                 'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['service_start_time']],
-<<<<<<< HEAD
-                'value' => function () {
-                    return DateTimeHelper::getDbNow();
-                },
-=======
                 'value' => function() {
                     return DateTimeHelper::getDbNow();
                 }
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
             ],
             [
                 'class' => AttributeBehavior::className(),
                 'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at']],
-<<<<<<< HEAD
-                'value' => DateTimeHelper::getDbNow(),
-
-=======
                 'value' => DateTimeHelper::getDbNow()
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
             ],
             [
                 'class' => AttributeBehavior::className(),
                 'attributes' => [ActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at'],
-<<<<<<< HEAD
-                'value' => DateTimeHelper::getDbNow(),
-
-=======
                 'value' => DateTimeHelper::getDbNow()
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
             ],
             // [
             //     'class' => AttributeBehavior::className(),
             //     'attributes' => [ActiveRecord::EVENT_BEFORE_UPDATE => 'data_json'],
             //     'value' => DateTimeHelper::getDbTimestramp()
-<<<<<<< HEAD
-
             // ],
-
-=======
-            // ],
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
             [
                 'class' => BlameableBehavior::className(),
                 'createdByAttribute' => 'created_by',
                 'updatedByAttribute' => 'updated_by',
-<<<<<<< HEAD
-            ],
-
-=======
             ]
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
         ];
     }
 
 // relation ข้อมูลผู้ป่วย
-<<<<<<< HEAD
-    public function getPatient()
-    {
-=======
     public function getPatient() {
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
         return $this->hasOne(HisPatient::className(), ['hn' => 'hn']);
     }
 
@@ -235,12 +169,7 @@ class OpdVisit extends \yii\db\ActiveRecord {
     }
 
 //ดึงชื่อ นามสกุลมาแสดง
-<<<<<<< HEAD
-    public function Patient($hn)
-    {
-=======
     public function Patient($hn) {
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
         $model = HisPatient::findOne(['hn' => $hn]);
         if ($model) { // ถ้ามีข้อมูง
             return $model->prefix . $model->fname . ' ' . $model->lname;
@@ -249,10 +178,6 @@ class OpdVisit extends \yii\db\ActiveRecord {
         }
     }
 
-<<<<<<< HEAD
-    public function DoctorName($doctor_id)
-    {
-=======
     /**
      * แพทย์ที่ส่งตรวจ ตามรหัสแพทย์
      * @todo ให้แสดงตามรหัสแพทย์ HIS ก่อน เพื่อใช้ตรวจสอบรหัสแพทย์ระหว่างทดสอบ
@@ -261,15 +186,13 @@ class OpdVisit extends \yii\db\ActiveRecord {
      */
     public function DoctorName($doctor_id) {
         return $doctor_id;
-        /**
->>>>>>> 1d51af811ef7222d83dbc0c7356808c45bf67e48
         $model = User::findOne(['doctor_id' => $doctor_id]);
         if ($model) {
             return $model->fullname;
         } else {
             return '-';
         }
-        **/
+ 
     }
 
 }

@@ -76,9 +76,7 @@ class LabResult extends \yii\db\ActiveRecord {
     }
 
     public function checkinCustom($patient_id, $lis_code, $checkin_date, $checkin_time) {
-        $data = LabResult::find()
-                        ->where(['patient_id' => $patient_id, 'lis_code' => $lis_code, 'checkin_date' => $checkin_date, 'checkin_time' => $checkin_time])
-                        ->orderBy(['checkin_time' => SORT_DESC])->one();
+        $data = LabResult::find()->where(['patient_id' => $patient_id, 'lis_code' => $lis_code, 'checkin_date' => $checkin_date, 'checkin_time' => $checkin_time])->one();
         return $data ? $data->result : '-';
 
         // return $patient_id.'-'.$lis_code.'-'.$checkin_date;

@@ -87,8 +87,8 @@ class DefaultController extends Controller {
     }
     
     /**
-     * รายการผลแลปที่เคยตรวจทั้งหมด
-     * @return mix
+     * รายงานผลแลปตามผู้ป่วย
+     * @return void
      */
     public function actionLabResultCustom() {
 
@@ -100,8 +100,6 @@ class DefaultController extends Controller {
         $hn == "" ? $dataProvider->query->andFilterWhere(['patient_id' => '0']) : $dataProvider->query->andFilterWhere(['patient_id' => $hn]);
         $dataProvider->query->andFilterWhere(['lis_code' => $searchModel->lis_code]);
         $dataProvider->query->groupBy(['lis_code']);
-        // $dataProvider->query->orderBy(['lis_code' => SORT_ASC]);
-        //$dataProvider->setSort(['defaultOrder' => ['lis_code'=>SORT_ASC],]);
         $dataProvider->setPagination(['pageSize' => $pageSize]);
 
         return $this->render('lab_result_custom', [

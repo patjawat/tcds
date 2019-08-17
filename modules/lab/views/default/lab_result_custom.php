@@ -1,151 +1,123 @@
 <?php
-use yii\helpers\Html;
-use yii\helpers\Url;
-use kartik\grid\GridView;
+
 use app\modules\lab\models\LabResult;
 use app\components\FormatYear;
-use yii\helpers\ArrayHelper;
 use app\components\PatientHelper;
-use lo\widgets\modal\ModalAjax;
-// $hn = PatientHelper::getCurrentHn();
-$limit = $searchModel->limit ? $searchModel->limit : 4;
+
+//$limit = $searchModel->limit ? $searchModel->limit : 4;
 $sql = "SELECT DISTINCT `checkin_date`, `checkin_time` FROM `theptarin`.`lab_result` AS `lab_result` WHERE `patient_id` = :patient_id ORDER BY `checkin_date` DESC, `checkin_time` DESC";
-//$sql  = "SELECT lis_code,checkin_date,checkin_time FROM lab_result
-//WHERE  patient_id = :patient_id;
-//AND checkin_date BETWEEN (SELECT MIN(checkin_date) as checkin1 FROM lab_result WHERE  patient_id = :patient_id) 
-//AND (SELECT MAX(checkin_date) as checkin1 FROM lab_result WHERE  patient_id = :patient_id)";
-
-
-$loop = Yii::$app->theptarin->createCommand($sql)
-->bindValue(':patient_id', $hn)
-->queryAll();
-
-// $loop = LabResult::find()->where(['patient_id' => $hn])->groupby(['checkin_date','checkin_time'])->orderBy(['checkin_date' => SORT_DESC])->limit($limit)->all();
+$checkin_cols = Yii::$app->theptarin->createCommand($sql)->bindValue(':patient_id', $hn)->queryAll();
 $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
-// echo $hn;
-// $data =  LabResult::find()
-// ->where(['patient_id' => $hn])
-// ->where(['lis_code' => '10020','checkin_date' => '2019-01-22','checkin_time' => '06:58:00'])
-// ->orderBy(['checkin_time' => SORT_DESC])->one();
-// echo $data->result;
 ?>
 
 <style media="screen">
-.pagination {
-    display: inline-block;
-    padding-left: 0;
-    margin: 0px 0;
-    border-radius: 4px;
-}
-#labview-container{
-  height: 500px;
-  border-bottom: .25rem solid #36b9cc!important;
-}
+    .pagination {
+        display: inline-block;
+        padding-left: 0;
+        margin: 0px 0;
+        border-radius: 4px;
+    }
+    #labview-container{
+        height: 500px;
+        border-bottom: .25rem solid #36b9cc!important;
+    }
 
-.table-scroll {
-	position:relative;
-	max-width:99%;
-	margin:auto;
-	overflow:hidden;
-	border:1px solid #000;
-}
-.table-wrap {
-	width:100%;
-	overflow:auto;
-}
-.table-scroll table {
-	width:100%;
-	margin:auto;
-	border-collapse:separate;
-	border-spacing:0;
-}
-.table-scroll th, .table-scroll td {
-	padding:5px 10px;
-	border:1px solid #000;
-	background:#fff;
-	white-space:nowrap;
-	vertical-align:top;
-}
-.table-scroll thead, .table-scroll tfoot {
-	background:#f9f9f9;
-}
-.clone {
-	position:absolute;
-	top:0;
-	left:0;
-	pointer-events:none;
-}
-.clone th, .clone td {
-	visibility:hidden
-}
-.clone td, .clone th {
-	border-color:transparent
-}
-.clone tbody th {
-	visibility:visible;
-	color:red;
-}
-.clone .fixed-side {
-	border:1px solid #000;
-	background:#eee;
-	visibility:visible;
-}
-.clone thead, .clone tfoot{background:transparent;}
+    .table-scroll {
+        position:relative;
+        max-width:99%;
+        margin:auto;
+        overflow:hidden;
+        border:1px solid #000;
+    }
+    .table-wrap {
+        width:100%;
+        overflow:auto;
+    }
+    .table-scroll table {
+        width:100%;
+        margin:auto;
+        border-collapse:separate;
+        border-spacing:0;
+    }
+    .table-scroll th, .table-scroll td {
+        padding:5px 10px;
+        border:1px solid #000;
+        background:#fff;
+        white-space:nowrap;
+        vertical-align:top;
+    }
+    .table-scroll thead, .table-scroll tfoot {
+        background:#f9f9f9;
+    }
+    .clone {
+        position:absolute;
+        top:0;
+        left:0;
+        pointer-events:none;
+    }
+    .clone th, .clone td {
+        visibility:hidden
+    }
+    .clone td, .clone th {
+        border-color:transparent
+    }
+    .clone tbody th {
+        visibility:visible;
+        color:red;
+    }
+    .clone .fixed-side {
+        border:1px solid #000;
+        background:#eee;
+        visibility:visible;
+    }
+    .clone thead, .clone tfoot{background:transparent;}
 
 
 </style>
 
-    <?php  echo $this->render('_search_custom', ['model' => $searchModel]); ?>
+<?php echo $this->render('_search_custom', ['model' => $searchModel]); ?>
     <!-- <table class="table table-bordered table-hover"> -->
-    <div id="table-scroll" class="table-scroll">
-  <div class="table-wrap">
-    <table class="main-table table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th class="fixed-side">รหัสผลตรวจ*orr</th>
-            <th class="fixed-side" width="400">Parameter</th>
-            <th class="fixed-side" width="400">Normal Range</th>
-            <th class="fixed-side">Unit</th>
-            <?php $num =1 ;foreach ($loop as $key => $value):?>
-            <th><?=FormatYear::toThai($value['checkin_date']).' : '.$value['checkin_time']?></th>
-            <?php endforeach;?>
-        </tr>
-    </thead>
-    <tbody>
-    <?php // ?>
-    <?php  foreach ($dataProvider->getModels() as $key => $model):?>
-        <tr>
-        <td class="fixed-side"><?php  echo $model['lis_code'];?></td>
-            <td class="fixed-side"><?php  echo $model['test'];?></td>
-            <td class="fixed-side"><?php  echo $model['normal_range'];?></td>
-            <td class="fixed-side"><?php  echo $model['unit'];?></td>
-            <?php foreach ($loop as $key => $value):?>
-            <td align="center">
-           <code> 
-           <?php 
-            $lr = new LabResult();
-            echo $lr->checkinCustom($model['patient_id'],$model['lis_code'],$value['checkin_date'],$value['checkin_time']);
-        // $rs = LabResult::find()
-        // ->where(['patient_id' => $model['patient_id']])
-        // ->andWhere(['between', 'checkin_date', $value->checkin_date, $value->checkin_date ])
-        // ->andWhere(['between', 'checkin_time', $value->checkin_time, $value->checkin_time ])
-        // ->andWhere(['lis_code' => $model['lis_code']])
-        // ->one();
-       
-        // if($rs){
-        //     echo $rs->result;
-        // }
-           
-           ?>
-           </code>
-           </td>
-            <?php endforeach;?>
-        </tr>
-    <?php  endforeach;?>
-
-    </tbody>
-</table>
-</div>
+<div id="table-scroll" class="table-scroll">
+    <div class="table-wrap">
+        <table class="main-table table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="fixed-side">รหัสผลตรวจ*orr</th>
+                    <th class="fixed-side" width="400">Parameter</th>
+                    <th class="fixed-side" width="400">Normal Range</th>
+                    <th class="fixed-side">Unit</th>
+                    <?php
+                    $num = 1;
+                    foreach ($checkin_cols as $key => $value):
+                        ?>
+                        <th><?= FormatYear::toThai($value['checkin_date']) . ' : ' . $value['checkin_time'] ?></th>
+                    <?php endforeach; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($dataProvider->getModels() as $key => $model): ?>
+                    <tr>
+                        <td class="fixed-side"><?php echo $model['lis_code']; ?></td>
+                        <td class="fixed-side"><?php echo $model['test']; ?></td>
+                        <td class="fixed-side"><?php echo $model['normal_range']; ?></td>
+                        <td class="fixed-side"><?php echo $model['unit']; ?></td>
+                        <?php foreach ($checkin_cols as $key => $value): ?>
+                            <td align="center">
+                                <code> 
+                                    <?php
+                                    $cell_val = new LabResult();
+                                    echo $cell_val->checkinCustom($model['patient_id'], $model['lis_code'], $value['checkin_date'], $value['checkin_time']);
+                                    ?>
+                                </code>
+                            </td>
+                        <?php endforeach;
+                        ?>
+                    </tr>
+                <?php endforeach;
+                ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 <?php
 $js = <<< JS

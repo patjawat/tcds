@@ -16,7 +16,6 @@ $tab = Yii::$app->request->get('active') ?  Yii::$app->request->get('active') : 
     text-shadow: -1px 0px white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 </style>
-
 <ul class="nav nav-tabs">
     <li class="<?=$tab == 'tab1' ? 'active' : ''?>"><a data-toggle="tab" href="#tabs1">คีย์ยา</a></li>
     <li class="<?=$tab == 'tab2' ? 'active' : ''?>"><a data-toggle="tab" href="#tabs2">จัดยา</a></li>
@@ -45,8 +44,7 @@ $tab = Yii::$app->request->get('active') ?  Yii::$app->request->get('active') : 
     </div>
     <!-- End Tabs4 -->
     <div id="tabs5" class="<?=$tab == 'tab5' ? 'tab-pane fade in active' : 'tab-pane fade'?>">
-      <h3>Menu 3</h3>
-      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    <div id="medReport"></div>
     </div>
     <!-- End Tabs5 -->
   </div>
@@ -59,6 +57,7 @@ loadMedOrder() // ใบสั้งยา
 loadMedArrange() // จัดยา
 loadMedCheck() // ตรวจสอบยา
 loadMedSuccess() // จ่ายยา
+loadMedReport() // รายงาน
 
 function loadMedOrder(){
     $.ajax({
@@ -112,6 +111,17 @@ function loadMedSuccess(){
         dataType: "json",
         success: function (response) {
             $('#medSuccess').html(response)
+        }
+    });
+}
+
+function loadMedReport(){
+  $.ajax({
+        type: "get",
+        url: "index.php?r=med/default/report",
+        dataType: "json",
+        success: function (response) {
+            $('#medReport').html(response)
         }
     });
 }

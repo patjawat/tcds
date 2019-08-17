@@ -23,8 +23,9 @@ use yii\web\JsExpression;
                 ],
                 [
                     'class'=>'\kartik\grid\DataColumn',
-                    'attribute'=>'hn',
+                    'attribute'=>'checkout_time',
                     'header' => 'เวลาสั่งยา',
+                    'width' => '30px',
                 ],
                 [
                     'class'=>'\kartik\grid\DataColumn',

@@ -5,6 +5,7 @@ namespace app\modules\med\controllers;
 use app\modules\doctorworkbench\models\Medication;
 use app\modules\doctorworkbench\models\MedicationSearch;
 use app\modules\opdvisit\models\OpdVisit;
+use app\modules\opdvisit\models\OpdVisitSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
@@ -14,6 +15,7 @@ use yii\helpers\Json;
 use app\components\DateTimeHelper;
 use yii\web\JsExpression;
 use yii\db\JsonExpression;
+use app\components\PatientHelper;
 
 class DefaultController extends Controller
 {
@@ -22,17 +24,6 @@ class DefaultController extends Controller
     {
         return $this->render('index');
     }
-
-    // public function actionRequester()
-    // {
-    //     Yii::$app->response->format = Response::FORMAT_JSON;
-    //     return [
-    //         'title' => 'xx',
-    //         'content' => $this->renderAjax('requester'),
-    //         'footer' => 'eee'
-    //     ];
-    // }
-
 
     public function actionOrder()
     {
@@ -48,7 +39,7 @@ class DefaultController extends Controller
             ->joinWith(['patient' => function (ActiveQuery $query) {
                 return $query;
                 // ->andWhere(['=', 'his_patient.hn', 460028]);
-            }])->andWhere(['checkout' => 'Y', 'med_accept' => '0']);
+            }])->andWhere(['department' => PatientHelper::getDepartment(),'checkout' => 'Y', 'med_accept' => '0']);
         //->andWhere(['between', 'checkout_date', $date, $date]);
         // ->joinWith(['availability' => function (ActiveQuery $query) {
         //     return $query
@@ -113,7 +104,7 @@ class DefaultController extends Controller
 
                 ];
                 $model->med_accept = '1';
-               $model->med_accetp_time = DateTimeHelper::getDbNow();
+               $model->med_accept_time = DateTimeHelper::getDbNow();
                 $model->save(false);
                 Yii::$app->session->setFlash('success', 'บันทึกข้อมูลเรียบร้อย');
                 return $this->redirect(['index']);
@@ -138,7 +129,7 @@ class DefaultController extends Controller
         $query = OpdVisit::find()
             ->joinWith(['patient' => function (ActiveQuery $query) {
                 return $query;
-            }])->andWhere(['checkout' => 'Y','med_arrange' => '0']);
+            }])->andWhere(['department' => PatientHelper::getDepartment(),'checkout' => 'Y','med_accept' => '1','med_arrange' => '0']);
             // ->andWhere(['json_column->med_accept' => ['mail1@example.com', 'mail2@example.com']]);
             //  ->andWhere(['med_accept' => ['"med_accept_status":"0"']]);
 
@@ -186,8 +177,6 @@ class DefaultController extends Controller
         }
     }
 
-
-
 // ตรวจสอบ
 public function actionCheck()
 {
@@ -195,7 +184,7 @@ public function actionCheck()
     $query = OpdVisit::find()
         ->joinWith(['patient' => function (ActiveQuery $query) {
             return $query;
-        }])->andWhere(['checkout' => 'Y', 'med_accept' => '1', 'med_arrange' => '1','med_check' => '0']);
+        }])->andWhere(['department' => PatientHelper::getDepartment(),'checkout' => 'Y', 'med_accept' => '1', 'med_arrange' => '1','med_check' => '0']);
     $dataProvider = new ActiveDataProvider([
         'query' => $query,
         'pagination' => [
@@ -281,6 +270,7 @@ public function actionSuccess()
         ->joinWith(['patient' => function (ActiveQuery $query) {
             return $query;
         }])->andWhere([
+            'department' => PatientHelper::getDepartment(),
             'checkout' => 'Y',
             'med_accept' => '1',
             'med_arrange' => '1',
@@ -336,9 +326,16 @@ public function actionMedCancel($id)
     $model = OpdVisit::findOne(['vn' => $id]);
     // if ($model->load(Yii::$app->request->post())) {
         $model->med_accept = '0';
+        $model->med_accept_requester = null;
+        $model->med_accept_time = null;
+
         $model->med_arrange = '0';
+        $model->med_arrange = '0';
+        $model->med_arrange_time = null;
         $model->med_check = '0';
+        $model->med_check_time = null;
         $model->med_success = '0';
+        $model->med_success_time = null;
         if($model->save()){
             return $this->redirect(['index', 'active' => 'tab4']);
         }
@@ -361,6 +358,44 @@ public function actionMedCancel($id)
     //         }
     //     }
     // }
+
+
+    // จัดยา
+    public function actionReport()
+    {
+        $searchModel = new OpdVisitSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        // $dataProvider->query->joinWith(['patient' => function (ActiveQuery $query) {
+        //             return $query;
+        //         }]);
+        $dataProvider->query->andWhere(['checkout' => 'Y']);
+        // $dataProvider->query->andWhere(['opd_visit.doctor_id' => $searchModel->attributes['doctor_id']]);
+
+        // $hn = $searchModel->attributes->hn;
+        //     $dataProvider = new ActiveDataProvider([
+        //     'query' => $query,
+        //     'sort' =>false,
+        //     'pagination' => [
+        //         'pageSize' => 20,
+        //     ],
+        // ]);
+
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return $this->renderAjax('report', [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+            ]);
+        } else {
+            return $this->render('report', [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+                'xhn' => $searchModel->attributes['hn']
+            ]);
+        }
+    }
+
+
 
     protected function findVisitModel($id)
     {

@@ -2,16 +2,12 @@
 
 namespace app\modules\opdvisit\models;
 
-use Yii;
-use yii\behaviors\TimestampBehavior;
-use yii\behaviors\BlameableBehavior;
-use yii\behaviors\AttributeBehavior;
-use yii\db\Expression;
-use yii\db\ActiveRecord;
 use app\components\DateTimeHelper;
-use app\components\PatientHelper;
-use yii\helpers\Json;
 use app\modules\usermanager\models\User;
+use Yii;
+use yii\behaviors\AttributeBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\db\ActiveRecord;
 
 class OpdVisit extends \yii\db\ActiveRecord
 {
@@ -21,7 +17,7 @@ class OpdVisit extends \yii\db\ActiveRecord
     {
         return Yii::$app->get('tcds');
     }
-    
+
     public static function tableName()
     {
         return 'opd_visit';
@@ -36,31 +32,31 @@ class OpdVisit extends \yii\db\ActiveRecord
             [['id', 'vn', 'hn', 'service_start_date', 'service_start_time'], 'required'],
             [
                 [
-                'created_at',
-                'updated_at',
-                'service_start_date',
-                'service_start_time',
-                'service_end_date',
-                'service_end_time',
-                'visit_date','print',
-                'checkout','no_med',
-                'checkout_date',
-                'checkout_time',
-                'items',
-                'med_accept',
-                'med_accetp_time',
-                'med_accept_requester',
-                'med_arrange',
-                'med_arrange_time',
-                'med_arrange_requester',
-                'med_check',
-                'med_check_time',
-                'med_check_requester',
-                'med_success',
-                'med_success_time',
-                'med_success_requester',
-                ], 
-            'safe'],
+                    'created_at',
+                    'updated_at',
+                    'service_start_date',
+                    'service_start_time',
+                    'service_end_date',
+                    'service_end_time',
+                    'visit_date', 'print',
+                    'checkout', 'no_med',
+                    'checkout_date',
+                    'checkout_time',
+                    'items',
+                    'med_accept',
+                    'med_accept_time',
+                    'med_accept_requester',
+                    'med_arrange',
+                    'med_arrange_time',
+                    'med_arrange_requester',
+                    'med_check',
+                    'med_check_time',
+                    'med_check_requester',
+                    'med_success',
+                    'med_success_time',
+                    'med_success_requester',
+                ],
+                'safe'],
 
             [['data_json'], 'string'],
             [['id', 'requester', 'created_by', 'updated_by', 'service_department', 'department'], 'string', 'max' => 255],
@@ -98,70 +94,81 @@ class OpdVisit extends \yii\db\ActiveRecord
             'data_json' => 'Data Json',
             'visit_date' => 'visit_date',
             'checkout_date' => 'วันที่ Checkout',
-            'checkout_time' => 'เวลา checkout'
+            'checkout_time' => 'เวลา checkout',
+            'med_accept_time' => 'เวลาคีย์',
+            'med_accept_requester' => 'ผู้คีย์ยา',
+            'med_arrange' => 'สถานะจัดยา',
+            'med_arrange_time' => 'เวลาจัดยา',
+            'med_arrange_requester' => 'ผู้จัดยา',
+            'med_check' => 'สถานะตรวจสอบยา',
+            'med_check_time' => 'เวลาตรวจสอบยา',
+            'med_check_requester' => 'ผู้ตรวจสอบยา',
+            'med_success' => 'สถานะจ่ายยา',
+            'med_success_time' => 'เวลาจ่ายยา',
+            'med_success_requester' => 'ผู้จ่ายยา',
         ];
     }
     public function behaviors()
-{
-    return [
-        [
-            'class' => AttributeBehavior::className(),
-            'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['id']],
-            'value' => function(){
-                return DateTimeHelper::getDbDateTimeNow();
-            }
-        ],
-        [
-            'class' => AttributeBehavior::className(),
-            'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['vn']],
-            'value' => function(){
-                return DateTimeHelper::getDbDateTimeNow();
-            }
-        ],
-        [
-            'class' => AttributeBehavior::className(),
-            'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['service_start_date']],
-            'value' => function(){
-                return DateTimeHelper::getDbNow();
-            }
-        ],
-        [
-            'class' => AttributeBehavior::className(),
-            'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['service_start_time']],
-            'value' => function(){
-                return DateTimeHelper::getDbNow();
-            }
-        ],
-        [
-            'class' => AttributeBehavior::className(),
-            'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['created_at','updated_at']],
-            'value' => DateTimeHelper::getDbNow()
+    {
+        return [
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['id']],
+                'value' => function () {
+                    return DateTimeHelper::getDbDateTimeNow();
+                },
+            ],
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['vn']],
+                'value' => function () {
+                    return DateTimeHelper::getDbDateTimeNow();
+                },
+            ],
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['service_start_date']],
+                'value' => function () {
+                    return DateTimeHelper::getDbNow();
+                },
+            ],
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['service_start_time']],
+                'value' => function () {
+                    return DateTimeHelper::getDbNow();
+                },
+            ],
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at']],
+                'value' => DateTimeHelper::getDbNow(),
 
-        ],
-        [
-            'class' => AttributeBehavior::className(),
-            'attributes' => [ActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at'],
-            'value' => DateTimeHelper::getDbNow()
+            ],
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at'],
+                'value' => DateTimeHelper::getDbNow(),
 
-        ],
-        // [
-        //     'class' => AttributeBehavior::className(),
-        //     'attributes' => [ActiveRecord::EVENT_BEFORE_UPDATE => 'data_json'],
-        //     'value' => DateTimeHelper::getDbTimestramp()
+            ],
+            // [
+            //     'class' => AttributeBehavior::className(),
+            //     'attributes' => [ActiveRecord::EVENT_BEFORE_UPDATE => 'data_json'],
+            //     'value' => DateTimeHelper::getDbTimestramp()
 
-        // ],
+            // ],
 
-        [
-            'class' => BlameableBehavior::className(),
-            'createdByAttribute'=>'created_by',
-            'updatedByAttribute' => 'updated_by',
-        ]
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
 
-    ];
-}
+        ];
+    }
 
 // relation ข้อมูลผู้ป่วย
-public function getPatient()
+    public function getPatient()
     {
         return $this->hasOne(HisPatient::className(), ['hn' => 'hn']);
     }
@@ -172,20 +179,22 @@ public function getPatient()
     }
 
 //ดึงชื่อ นามสกุลมาแสดง
-    public function Patient($hn){
+    public function Patient($hn)
+    {
         $model = HisPatient::findOne(['hn' => $hn]);
-        if($model){ // ถ้ามีข้อมูง
-            return $model->prefix.$model->fname.' '.$model->lname;
-        }else { // ถ้าำม่มีขจ้อมูลแสดงเป็น -
+        if ($model) { // ถ้ามีข้อมูง
+            return $model->prefix . $model->fname . ' ' . $model->lname;
+        } else { // ถ้าำม่มีขจ้อมูลแสดงเป็น -
             return '';
         }
     }
 
-    public function DoctorName($doctor_id){
+    public function DoctorName($doctor_id)
+    {
         $model = User::findOne(['doctor_id' => $doctor_id]);
-        if($model){
+        if ($model) {
             return $model->fullname;
-        }else {
+        } else {
             return '-';
         }
 

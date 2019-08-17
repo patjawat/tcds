@@ -5,29 +5,26 @@ namespace app\modules\lab\models;
 use Yii;
 use app\components\PatientHelper;
 
-class LabResult extends \yii\db\ActiveRecord
-{
+class LabResult extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'lab_result';
     }
 
     /**
      * @return \yii\db\Connection the database connection used by this AR class.
      */
-    public static function getDb()
-    {
+    public static function getDb() {
         return Yii::$app->get('theptarin');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['lis_number', 'reference_number', 'patient_id', 'checkin_time', 'eat_time', 'accept_time', 'request_div', 'lis_code', 'test', 'lab_code', 'result_code', 'result', 'unit', 'normal_range', 'result_date', 'user_id'], 'required'],
             [['patient_id'], 'integer'],
@@ -44,8 +41,7 @@ class LabResult extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'lis_number' => 'Lis Number',
             'reference_number' => 'Reference Number',
@@ -69,45 +65,41 @@ class LabResult extends \yii\db\ActiveRecord
         ];
     }
 
-
-    public function checkin($patient_id,$lis_code,$checkin_date,$checkin_time){
+    public function checkin($patient_id, $lis_code, $checkin_date, $checkin_time) {
         $hn = PatientHelper::getCurrentHn();
-        $data =  LabResult::find()
-          ->where(['patient_id' => $hn,'lis_code' => $lis_code,'checkin_date' => $checkin_date,'checkin_time' => $checkin_time])
-          ->orderBy(['checkin_time' => SORT_DESC])->one();
-              return $data ? $data->result : '-';
-  
-      // return $patient_id.'-'.$lis_code.'-'.$checkin_date;
-      }
+        $data = LabResult::find()
+                        ->where(['patient_id' => $hn, 'lis_code' => $lis_code, 'checkin_date' => $checkin_date, 'checkin_time' => $checkin_time])
+                        ->orderBy(['checkin_time' => SORT_DESC])->one();
+        return $data ? $data->result : '-';
 
-      public function checkinCustom($patient_id,$lis_code,$checkin_date,$checkin_time){
-        $data =  LabResult::find()
-          ->where(['patient_id' => $patient_id,'lis_code' => $lis_code,'checkin_date' => $checkin_date,'checkin_time' => $checkin_time])
-          ->orderBy(['checkin_time' => SORT_DESC])->one();
-              return $data ? $data->result : '-';
-  
-      // return $patient_id.'-'.$lis_code.'-'.$checkin_date;
-      }
+        // return $patient_id.'-'.$lis_code.'-'.$checkin_date;
+    }
 
-      
-      public function ResultReport($patient_id,$checkin_date,$checkin_time,$lis_code){
-          $model = LabResult::find()
-          ->where(['patient_id' => $patient_id])
-          ->andWhere(['between', 'checkin_date', $checkin_date, $checkin_date ])
-          ->andWhere(['between', 'checkin_time', $checkin_time, $checkin_time ])
-          ->andWhere(['lis_code' => $lis_code])
-          ->one();
-          if($model){
-              return $model->result;
-          }
+    public function checkinCustom($patient_id, $lis_code, $checkin_date, $checkin_time) {
+        $data = LabResult::find()->where(['patient_id' => $patient_id, 'lis_code' => $lis_code, 'checkin_date' => $checkin_date, 'checkin_time' => $checkin_time])->one();
+        return $data ? $data->result : '-';
 
-      }
+        // return $patient_id.'-'.$lis_code.'-'.$checkin_date;
+    }
+
+    public function ResultReport($patient_id, $checkin_date, $checkin_time, $lis_code) {
+        $model = LabResult::find()
+                ->where(['patient_id' => $patient_id])
+                ->andWhere(['between', 'checkin_date', $checkin_date, $checkin_date])
+                ->andWhere(['between', 'checkin_time', $checkin_time, $checkin_time])
+                ->andWhere(['lis_code' => $lis_code])
+                ->one();
+        if ($model) {
+            return $model->result;
+        }
+    }
+
     /**
      * {@inheritdoc}
      * @return LabQuery the active query used by this AR class.
      */
-    public static function find()
-    {
+    public static function find() {
         return new LabQuery(get_called_class());
     }
+
 }

@@ -1,19 +1,18 @@
 <?php
 
 use app\components\PatientHelper;
-use app\components\DateTimeHelper;
 use app\modules\doctorworkbench\models\HisPatient;
 use cenotia\components\modal\RemoteModal;
+use kartik\dialog\Dialog;
 use kartik\widgets\FileInput;
 use lo\widgets\modal\ModalAjax;
-use yii\db\Expression;
 $hn = PatientHelper::getCurrentHn();
 $vn = PatientHelper::getCurrentVn();
-$prefix = PatientHelper::getCurrentVn();
+$prefix = PatientHelper::getCurrentPrefix();
 $fname = PatientHelper::getCurrentFname();
 $lname = PatientHelper::getCurrentLname();
 $cid = PatientHelper::getCurrentCid();
-
+$fullname = $prefix . $fname . ' ' . $lname;
 $patient = HisPatient::findOne(['hn' => $hn]);
 
 if ($patient) {
@@ -31,6 +30,7 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 $this->registerCss($this->render('../../dist/css/style.css'));
 
 $url = \yii\helpers\Url::to(['order/icd10-list']); //กำหนด URL ที่จะไปโหลดข้อมูล
+
 ?>
 
 
@@ -93,6 +93,11 @@ li.dropdown:hover>.dropdown-menu {
 }
 </style>
 
+
+
+
+
+
 <div class="view-process">
     <div class="row">
         <div
@@ -110,17 +115,16 @@ li.dropdown:hover>.dropdown-menu {
 </div>
 <!-- new Row -->
 <div class="row view-container" style="margin-top: -27px;">
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
         <h3 class=""><i class="fas fa-user-md pull-left"></i> ห้องตรวจแพทย์
-            <!-- <span class="doctor_of"><i class="fas fa-edit"></i></span> -->
             <?=Html::a('<i class="fas fa-edit"></i>', '#', ['class' => 'doctor_of', 'onClick' => 'doctorOf()'])?>
         </h3>
-        <br>
     </div>
 
-    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <?php if ($hn): ?>
         <div class="pull-right" style="padding-top:14px;">
+       
             <?=Html::a('<i class="fas fa-external-link-alt"></i> cv risk (thai)', 'http://10.1.99.6/Thai-CV-Risk-Score/index.php?hn="' . $hn . '"&prefix="' . $patient->prefix . '"&fname="' . $patient->fname . '"&lname="' . $patient->lname . '"sex="' . $sex . '"&birthday_date="' . $patient->birthday_date . '"', ['class' => 'btn btn-primary', 'target' => '_blank'])?>
             <?=Html::a('<i class="fas fa-external-link-alt"></i> cv risk (acc)', null, ['class' => 'btn btn-primary'])?>
             <?=Html::a('<i class="fas fa-external-link-alt"></i> dm risk', 'http://10.1.99.6/diabetes_risk_score/?hn="' . $hn . '"&prefix="' . $patient->prefix . '"&fname="' . $patient->fname . '"&lname="' . $patient->lname . '"sex="' . $sex . '"&birthday_date="' . $patient->birthday_date . '"', ['class' => 'btn btn-primary', 'target' => '_blank'])?>
@@ -201,21 +205,21 @@ li.dropdown:hover>.dropdown-menu {
                                 </div>
                                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                                     <?php
-                                    echo ModalAjax::widget([
-                                        'id' => 'createCompany',
-                                        'header' => '<i class="fas fa-history"></i> ประวัติการจ่ายยา',
-                                        'toggleButton' => [
-                                            'label' => '<i class="fas fa-history"></i> ประวัติการจ่ายยา',
-                                            'class' => 'btn btn-danger pull-left',
-                                        ],
-                                        'url' => Url::to(['/doctorworkbench/medication/drug-history']), // Ajax view with form to load
-                                        'ajaxSubmit' => true, // Submit the contained form as ajax, true by default
-                                        'size' => ModalAjax::SIZE_LARGE,
-                                        'options' => ['class' => 'header-primary'],
-                                        'autoClose' => true,
-                                        'pjaxContainer' => '#grid-company-pjax',
-                                    ])
-                                    ?>
+echo ModalAjax::widget([
+    'id' => 'createCompany',
+    'header' => '<i class="fas fa-history"></i> ประวัติการจ่ายยา',
+    'toggleButton' => [
+        'label' => '<i class="fas fa-history"></i> ประวัติการจ่ายยา',
+        'class' => 'btn btn-danger pull-left',
+    ],
+    'url' => Url::to(['/doctorworkbench/medication/drug-history']), // Ajax view with form to load
+    'ajaxSubmit' => true, // Submit the contained form as ajax, true by default
+    'size' => ModalAjax::SIZE_LARGE,
+    'options' => ['class' => 'header-primary'],
+    'autoClose' => true,
+    'pjaxContainer' => '#grid-company-pjax',
+])
+?>
 
                                 </div>
                             </div>
@@ -260,21 +264,21 @@ li.dropdown:hover>.dropdown-menu {
                             <div class="panel-body shadow">
 
                                 <?php
-                                echo FileInput::widget([
-                                    'name' => 'attachment_48[]',
-                                    'options' => [
-                                        'multiple' => true,
-                                    ],
-                                    'pluginOptions' => [
-                                        'uploadUrl' => Url::to(['/site/file-upload']),
-                                        'uploadExtraData' => [
-                                            'album_id' => 20,
-                                            'cat_id' => 'Nature',
-                                        ],
-                                        'maxFileCount' => 10,
-                                    ],
-                                ]);
-                                ?>
+echo FileInput::widget([
+    'name' => 'attachment_48[]',
+    'options' => [
+        'multiple' => true,
+    ],
+    'pluginOptions' => [
+        'uploadUrl' => Url::to(['/site/file-upload']),
+        'uploadExtraData' => [
+            'album_id' => 20,
+            'cat_id' => 'Nature',
+        ],
+        'maxFileCount' => 10,
+    ],
+]);
+?>
 
                             </div>
                         </div> <!-- End panel-->
@@ -289,10 +293,10 @@ li.dropdown:hover>.dropdown-menu {
         <?php if ($hn): ?>
         <div class="form-group pull-right">
             <?=Html::a('<i class="fas fa-sign-out-alt"></i> Check Out', ['/doctorworkbench/default/check-out-confirm'], [
-                    'class' => 'btn btn-danger',
-                    'id' => 'checkout',
-                ])
-                ?>
+    'class' => 'btn btn-danger',
+    'id' => 'checkout',
+])
+?>
             <?php // Html::submitButton('<i class="fas fa-sign-out-alt"></i> Check Out', ['class' => 'btn btn-danger','id' => 'check-out',])  ?>
             <?=Html::submitButton('<i class="far fa-save"></i> บันทึก', ['class' => 'btn btn-success', 'id' => 'diag-save'])?>
             <?=Html::a('<i class="fas fa-power-off"></i> ยกเลิก', ['/doctorworkbench/default/clear-helper'], ['class' => 'btn btn-default', 'id' => 'cancel'])?>
@@ -308,6 +312,38 @@ li.dropdown:hover>.dropdown-menu {
 <!-- End New Row -->
 
 <?php
+echo Dialog::widget([
+    'libName' => 'krajeeDialogSave',
+    'options' => [
+        'size' => Dialog::SIZE_SMALL,
+        'type' => Dialog::TYPE_SUCCESS,
+        'title' => 'บันทึก HN : ' . PatientHelper::getCurrentHn(),
+        'draggable' => true,
+        'closable' => true,
+    ],
+]);
+
+echo Dialog::widget([
+    'libName' => 'krajeeDialogAlert',
+    'options' => [
+        'size' => Dialog::SIZE_SMALL,
+        'type' => Dialog::TYPE_WARNING,
+        'title' => 'แจ้งเตืออน',
+        'draggable' => true,
+        'closable' => true,
+    ],
+]);
+echo Dialog::widget([
+    'libName' => 'krajeeDialogCheckout',
+    'options' => [
+        'size' => Dialog::SIZE_SMALL,
+        'type' => Dialog::TYPE_DANGER,
+        'title' => 'แจ้งเตืออน',
+        'draggable' => true,
+        'closable' => true,
+    ],
+]);
+
 $js = <<< JS
 
 $(".view-process").hide();
@@ -322,7 +358,7 @@ $(".view-process").hide();
     loadFormEyeExamToday();
 
 
-    
+
 function loadDrugHistory(){
     $.ajax({
         type: "get",
@@ -418,30 +454,23 @@ function loadDiagnosisForm(){
             dataType: "json",
             success: function (response) {
                 if(response.status == false){
-                    $.alert({
-                    theme:'modern',
-                    title: 'แจ้งเตือน!',
-                    content: response.msg,
-                    backgroundDismiss: false,
-                    backgroundDismissAnimation: 'glow',
-                    animation: 'zoom',
-                    closeAnimation: 'scale'
-                    // animationSpeed: 900,
-                });
+                //     $.alert({
+                //     theme:'modern',
+                //     title: 'แจ้งเตือน!',
+                //     content: response.msg,
+                //     backgroundDismiss: false,
+                //     backgroundDismissAnimation: 'glow',
+                //     animation: 'zoom',
+                //     closeAnimation: 'scale'
+                //     // animationSpeed: 900,
+                // });
+                krajeeDialogAlert.alert(response.msg);
 
                 }else{
-                    $.confirm({
-                        title: 'ยืนยันกร Ckeckout!',
-                        content: 'บันทึกเพื่อจบการรักษา',
-                        type: 'red',
-                        typeAnimated: true,
-                        buttons: {
-                            tryAgain: {
-                                text: 'บันทึก',
-                                btnClass: 'btn-red',
-                                action: function(){
-                                    // console.log('xx');
-                                    $.ajax({
+                    var msgCheckout = "<h3 class='text-center'>Checkout HN : $hn</h3>";
+                    krajeeDialogCheckout.confirm(msgCheckout, function (result) {
+                        if (result) {
+                            $.ajax({
                                         type: "get",
                                         url: 'index.php?r=doctorworkbench/default/check-out',
                                         dataType: "json",
@@ -450,12 +479,37 @@ function loadDiagnosisForm(){
                                         }
 
                                     });
-                                }
-                            },
-                            close: function () {
-                            }
+                        } else {
+
                         }
                     });
+
+                    // $.confirm({
+                    //     title: 'ยืนยันกร Ckeckout!',
+                    //     content: 'บันทึกเพื่อจบการรักษา',
+                    //     type: 'red',
+                    //     typeAnimated: true,
+                    //     buttons: {
+                    //         tryAgain: {
+                    //             text: 'บันทึก',
+                    //             btnClass: 'btn-red',
+                    //             action: function(){
+                    //                 // console.log('xx');
+                    //                 $.ajax({
+                    //                     type: "get",
+                    //                     url: 'index.php?r=doctorworkbench/default/check-out',
+                    //                     dataType: "json",
+                    //                     success: function (response) {
+
+                    //                     }
+
+                    //                 });
+                    //             }
+                    //         },
+                    //         close: function () {
+                    //         }
+                    //     }
+                    // });
                 }
 
             }
@@ -538,21 +592,28 @@ $('#diag-save').click(function(){
 //     });
 
 // }
-
-
-$.confirm({
-    title: 'ยืนยัน!',
-    content: 'บันทึกข้อมูล!',
-    theme:'modern',
-    buttons: {
-        confirm: function () {
+var hh = "<h3 class='text-center'>$fullname</h3>";
+krajeeDialogSave.confirm(hh, function (result) {
+        if (result) {
             $('#form-diagnosis').submit();
-        },
-        cancel: function () {
-            $.alert('Canceled!');
-        },
-    }
-});
+        } else {
+
+        }
+    });
+
+// $.confirm({
+//     title: 'ยืนยัน!',
+//     content: 'บันทึกข้อมูล!',
+//     theme:'modern',
+//     buttons: {
+//         confirm: function () {
+//             $('#form-diagnosis').submit();
+//         },
+//         cancel: function () {
+//             $.alert('Canceled!');
+//         },
+//     }
+// });
 
 
 });

@@ -427,7 +427,7 @@ $hn = PatientHelper::getCurrentHn();
                         echo Html::a('<i class="faa-horizontal animated fa fa-bell"  style="font-size:20px;color:white;">
                         </i>', null, ['role' => 'alert-remotex','class' => 'patient-alert'])
                         ?>
-                        <!-- <span class="badge" style="background-color: #ff5722;">'.PatientHelper::getCurrentCountDrugAllergy().'</span> -->
+                     
                         </a>
                     </li>
                     <?php  endif; ?>
@@ -441,7 +441,7 @@ $hn = PatientHelper::getCurrentHn();
                     </li>
                     <?php endif; ?>
 
-                    <!-- <li><img src="img\profile.png" height="40px" class="img-circle" style="padding-top: 6px;" /></li> -->
+                    
                     <li><i class="fas fa-fingerprint" style="font-size: 25px;margin-top: 12px;color: #ffffff;"></i></li>
                     <li style="padding-top: 5px;padding-left: 5px;">
                         <h4>
@@ -462,8 +462,6 @@ $hn = PatientHelper::getCurrentHn();
         </div>
     </nav>
 
-
-    <!-- <div style="width: 100%; margin-top: 50px;position:fixed;z-index: 10;" > -->
     <div style="width: 100%; margin-top: 50px;">
 
         <nav class="navbar navbar-default" role="navigation"
@@ -478,14 +476,10 @@ $hn = PatientHelper::getCurrentHn();
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <!-- <a class="navbar-brand" href="#" style="color: #ffffff;"><?php //$this->title;?></a> -->
                 </div>
-                <!-- Group the nav links, forms, drop-down menus and other elements for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-left:10px;">
                     <?=$this->render('@app/components/_toolbar'); ?>
                     </ul>
-
-
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>

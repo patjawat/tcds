@@ -351,7 +351,7 @@ class PatientHelper extends Component {
         $department = self::getDepartment();
         $doctor = UserHelper::getUser('doctor_id');
         return OpdVisit::find()
-                        ->where(['doctor_id' => $doctor, 'department' => $department])
+                        ->where(['doctor_id' => $doctor, 'department' => $department, 'checkout' => 'N'])
                         ->andWhere(['between', 'service_start_date', $date_start, $date_end])
                         ->count();
     }

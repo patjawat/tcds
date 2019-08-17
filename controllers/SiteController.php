@@ -202,11 +202,9 @@ class SiteController extends Controller
         $searchModel = new OpdVisitSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        $dataProvider->query->where(['department' => $department, 'doctor_id' => UserHelper::getUser('doctor_id'), 'checkout' => 'N']);
-        // $dataProvider->query->where(['department' => $department]);
-        // $dataProvider->query->andFilterWhere(['>=', 'service_start_date', $date_start]);
-        // $dataProvider->query->andFilterWhere(['<=', 'service_start_date', $date_end]);
-        // $dataProvider->query->andFilterWhere(['like', 'hn', $keys]);
+        $dataProvider->query->andWhere(['department' => $department, 'doctor_id' => UserHelper::getUser('doctor_id'), 'checkout' => 'N']);
+        $dataProvider->query->andWhere(['between', 'service_start_date', $date_start, $date_end]);
+        $dataProvider->query->andFilterWhere(['like', 'hn', $keys]);
 
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;

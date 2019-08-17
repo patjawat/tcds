@@ -9,11 +9,12 @@ use app\components\PatientHelper;
 use lo\widgets\modal\ModalAjax;
 // $hn = PatientHelper::getCurrentHn();
 $limit = $searchModel->limit ? $searchModel->limit : 4;
+$sql = "SELECT DISTINCT `checkin_date`, `checkin_time` FROM `theptarin`.`lab_result` AS `lab_result` WHERE `patient_id` = :patient_id ORDER BY `checkin_date` DESC, `checkin_time` DESC";
+//$sql  = "SELECT lis_code,checkin_date,checkin_time FROM lab_result
+//WHERE  patient_id = :patient_id;
+//AND checkin_date BETWEEN (SELECT MIN(checkin_date) as checkin1 FROM lab_result WHERE  patient_id = :patient_id) 
+//AND (SELECT MAX(checkin_date) as checkin1 FROM lab_result WHERE  patient_id = :patient_id)";
 
-$sql  = "SELECT lis_code,checkin_date,checkin_time FROM lab_result
-WHERE  patient_id = :patient_id
-AND checkin_date BETWEEN (SELECT MIN(checkin_date) as checkin1 FROM lab_result WHERE  patient_id = :patient_id) 
-AND (SELECT MAX(checkin_date) as checkin1 FROM lab_result WHERE  patient_id = :patient_id)";
 
 $loop = Yii::$app->theptarin->createCommand($sql)
 ->bindValue(':patient_id', $hn)
@@ -101,7 +102,7 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
     <table class="main-table table table-bordered table-hover">
     <thead>
         <tr>
-            <th class="fixed-side">รหัสผลตรวจ</th>
+            <th class="fixed-side">รหัสผลตรวจ*orr</th>
             <th class="fixed-side" width="400">Parameter</th>
             <th class="fixed-side" width="400">Normal Range</th>
             <th class="fixed-side">Unit</th>

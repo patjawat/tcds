@@ -3,14 +3,16 @@
 namespace app\components;
 
 use yii\base\Component;
-use app\modules_share\newpatient\models\mPatient;
+use yii\helpers\Json;
 //use app\models\lookup\CPrename;
 //use yii\base\UserException;
 use lavrentiev\widgets\toastr\Notification;
 use JsonRpc;
-use yii\helpers\Json;
+
 use app\components\DbHelper;
 use app\components\UserHelper;
+
+use app\modules_share\newpatient\models\mPatient;
 use app\modules\opdvisit\models\OpdVisit;
 use app\modules\opdvisit\models\HisPatient;
 use app\modules\systems\models\SystemData;
@@ -32,7 +34,7 @@ class PatientHelper extends Component {
         if (empty($hn)) {
             $title = '<i class="fa fa-wheelchair" aria-hidden="true"></i> กรุณาเลือกผู้เข้ารับบริการ';
         } else {
-            $title = "HN " . self::getCurrentHn() . " " . self::getCurrentPrefix(). self::getCurrentFname() . " " . self::getCurrentLname() . " เพศ " . self::getCurrentSex() . " อายุ " .
+            $title = "HN " . self::getCurrentHn() . " " . self::getCurrentPrefix() . self::getCurrentFname() . " " . self::getCurrentLname() . " เพศ " . self::getCurrentSex() . " อายุ " .
                     self::getCurrentAgeY() . '-' . self::getCurrentAgeM() . '-' . self::getCurrentAgeD() . ' <i class="fas fa-user-md"></i> ' . self::getCurrentDoctorPrefix() . self::getCurrentDoctorName();
         }
         return $title;
@@ -46,6 +48,7 @@ class PatientHelper extends Component {
     public static function getCurrentCid() {
         return \Yii::$app->session->get('cid');
     }
+
     // public static function genNextHn()
     // {
     //     $prev_hn = mPatient::find()->orderBy(['hn' => SORT_DESC])->one();
@@ -312,8 +315,12 @@ class PatientHelper extends Component {
         $sql = "select hn from s_opd_visit where pcc_vn = '$vn' limit 1";
         return \Yii::$app->db->createCommand($sql)->queryScalar();
     }
-
-    public static function GetPatient($hn) {
+    /**
+     * @todo ทดสอบยกเลิกใช้งาน
+     * @param type $hn
+     * @return string
+     */
+    public static function GetPatient_($hn) {
         $url = self::getUrl() . 'PatientRpcS';
         $Client = new JsonRpc\Client($url);
         $success = false;

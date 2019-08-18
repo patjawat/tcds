@@ -121,7 +121,7 @@ $this->title = 'รายการผู้รับบริการ';
 
             ],
             [
-                'header' => 'แพทย์ที่รักษา',
+                'header' => 'แพทย์ที่รักษา*orr',
                 'mergeHeader' => true,
                 'value' => function ($model) {
                     return $model->DoctorName($model->doctor_id);

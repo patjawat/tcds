@@ -2,6 +2,7 @@
 
 namespace app\modules\opdvisit\controllers;
 
+use app\components\HISHelper;
 use app\components\PatientHelper;
 use app\modules\opdvisit\models\OpdVisit;
 use app\modules\opdvisit\models\OpdVisitSearch;
@@ -20,13 +21,12 @@ use yii\helpers\Json;
 /**
  * OpdVisitController implements the CRUD actions for OpdVisit model.
  */
-class OpdVisitController extends Controller
-{
+class OpdVisitController extends Controller {
+
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -41,14 +41,13 @@ class OpdVisitController extends Controller
      * Lists all OpdVisit models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new OpdVisitSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -58,10 +57,9 @@ class OpdVisitController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -70,8 +68,7 @@ class OpdVisitController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new OpdVisit();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -79,12 +76,11 @@ class OpdVisitController extends Controller
         }
 
         return $this->render('create', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -92,19 +88,17 @@ class OpdVisitController extends Controller
         }
 
         return $this->render('update', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = OpdVisit::findOne($id)) !== null) {
             return $model;
         }
@@ -112,8 +106,7 @@ class OpdVisitController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    public function actionSetPrintStatus()
-    {
+    public function actionSetPrintStatus() {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $vn = PatientHelper::getCurrentVn();
         $hn = PatientHelper::getCurrentHn();
@@ -125,11 +118,9 @@ class OpdVisitController extends Controller
                 return $model;
             }
         }
-
     }
 
-    public function actionCheckPrintStatus()
-    {
+    public function actionCheckPrintStatus() {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $vn = PatientHelper::getCurrentVn();
         $hn = PatientHelper::getCurrentHn();
@@ -141,8 +132,7 @@ class OpdVisitController extends Controller
         }
     }
 
-    public function actionHn()
-    {
+    public function actionHn() {
         if (!UserHelper::isUserReadyLogin()) {
             return $this->redirect(['/site/landing']);
         }
@@ -158,73 +148,64 @@ class OpdVisitController extends Controller
         PatientHelper::setCurrentHn($hn);
         return $this->redirect(['/chiefcomplaint']);
     }
-
-    public function actionApi()
-    {
+    /**
+     * ขั้นตอนเมื่อค้นหาผู้ป่วยด้วย HN.
+     */
+    public function actionApi() {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $hn = \Yii::$app->request->post('hn');
-        $department = \Yii::$app->request->post('dep');
-        $url = PatientHelper::getUrl().'OpdVisitRpcS';
-
-        $Client = new Rpc\Client($url);
-        $success = false;
-        $success = $Client->call('getByHnDiv', [$hn,$department]);
-        //  ถ้ามีข้อมูลไม่้ท่ากับค่าวาง
-        if ($Client->result) {
-            $Client_patient = new Rpc\Client(PatientHelper::getUrl().'PatientRpcS');
-            $success_patient = false;
-            $success_patient = $Client_patient->call('getByHn', [$hn]);
-            $patient = $Client_patient->result[0];
-            PatientHelper::DrugAllergy();
-
-            $count = count($Client->result);
-            if ($count > 1) { //ถ้ามีการ visit มากกว่า 1 รายการ
-                return [
-                    'error' => true,
-                    'title' => '<i class="fas fa-user"></i> '.
-                    $patient->prefix.$patient->fname.' '.$patient->lname,
-                    'content' => $this->renderAjax('2vn', [
-                        'hn' => $hn,
-                        'department' => $department,
-                        'data' => $Client->result
-                    ])
-                ];
-            } else {
-                $data = $Client->result[0];
-                $hn = $data->hn;
-                $vn = $data->vn;
-                $div_id = $data->div_id;
-                $doctor_fname = $data->doctor_fname;
-                $doctor_lname = $data->doctor_lname;
-                $doctor_prefix = $data->doctor_prefix;
-                $doctor_id = $data->doctor_id;
-                $visit_date = $data->visit_date;
-
-                $this->OpdVisit($hn, $vn, $div_id, $doctor_id, $visit_date);
-                $this->GetPatient($hn);
-                PatientHelper::setCurrentHn($hn);
-                PatientHelper::setCurrentDoctorName($doctor_fname, $doctor_lname);
-                PatientHelper::setCurrentDoctorPrefix($doctor_prefix);
-
-                if (Yii::$app->user->can('doctor')) {
-                    return $this->redirect(['/doctorworkbench']);
-                }else{
-                    return $this->redirect(['/chiefcomplaint']);
-        
-                }
-            }
-        } else {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            // MessageHelper::setFlashDanger('ไม่พบ HN นี้ ในระบบ');
-            return [
-        'error' => true,
-        'content' => 'ไม่พบการเข้ารับบริการ'
-    ];
+        $reg_ = HISHelper::getPatientByHn($hn); //ข้อมูลทะเบียนประวัติ
+        if (!$reg_) {
+            $content = '! ไม่มีข้อมูล HN. ' . $hn . ' กรุณาติดต่อเวชระเบียน';
+            return ['error' => true, 'content' => $content];
         }
+        $patient = $reg_[0];
+        $div = \Yii::$app->request->post('dep');
+        $visit_ = HISHelper::getVisitByHnDiv($hn, $div); //ข้อมูลรับบริการของผู้ป่วยตามหน่วยงาน
+        if (!$visit_) {
+            $content = '! ไม่มีส่งตรวจ ' . $patient->prefix . $patient->fname . ' ' . $patient->lname . ' ที่หน่วยงานนี้ กรุณาติดต่อต้อนรับ';
+            return ['error' => true, 'content' => $content];
+        }
+        //PatientHelper::DrugAllergy(); //ตรวจสอบข้อมูลการแพ้ยาของผู้ป่วย รอสอบถามผู้ใช้ระบบ
+        if (count($visit_) > 1) { //ถ้ามีส่งตรวจที่หน่วยงานเดียวกันมากว่า 1 VN ให้ถามว่าใช้ VN ไหน?
+            $content = $this->renderAjax('2vn', ['hn' => $hn, 'department' => $div, 'data' => $visit_]);
+            $title = '<i class="fas fa-user"></i> ' . $patient->prefix . $patient->fname . ' ' . $patient->lname;
+            return ['error' => true, 'title' => $title, 'content' => $content];
+        }
+        /**
+         * extract($visit_[0]);
+         * แปลง Array เป็นตัวแปร
+         * $data = $visit_[0];
+         * $hn = $data->hn;
+         * $vn = $data->vn;
+         * $div_id = $data->div_id;
+         * $doctor_fname = $data->doctor_fname;
+         * $doctor_lname = $data->doctor_lname;
+         * $doctor_prefix = $data->doctor_prefix;
+         * $doctor_id = $data->doctor_id;
+         * $visit_date = $data->visit_date;
+         */
+        $vn = $visit_[0];
+        $this->OpdVisit($hn, $vn->vn, $vn->div_id, $vn->doctor_id, $vn->visit_date);
+        PatientHelper::setCurrentFname($patient->fname);
+        PatientHelper::setCurrentLname($patient->lname);
+        PatientHelper::setCurrentPrefix($patient->prefix);
+        PatientHelper::setCurrentSex($patient->sex);
+        PatientHelper::setCurrentAge($patient->birthday_date, $hn);
+        //$this->setCurrentPatient($hn); รอตรวจสอบบรรทัดนี้ใช้บรรทัดก่อนหน้าแทนก่อน
+        PatientHelper::setCurrentHn($hn);
+        PatientHelper::setCurrentDoctorName($vn->doctor_fname, $vn->doctor_lname);
+        PatientHelper::setCurrentDoctorPrefix($vn->doctor_prefix);
+
+        if (Yii::$app->user->can('doctor')) {
+            return $this->redirect(['/doctorworkbench']);
+        } else {
+            return $this->redirect(['/chiefcomplaint']);
+        }
+        //return ['error' => true, 'content' => '! กำลังแก้ไขโปรแกรม กรุณาติดต่อโปรแกรมเมอร์'];
     }
 
-    public function actionChangeVisit()
-    {
+    public function actionChangeVisit() {
         // Yii::$app->response->format = Response::FORMAT_JSON;
         $hn = \Yii::$app->request->get('hn');
         $vn = \Yii::$app->request->get('vn');
@@ -236,8 +217,8 @@ class OpdVisitController extends Controller
         $visit_date = \Yii::$app->request->get('visit_date');
 
 
-        $this->OpdVisit($hn, $vn, $div_id,$doctor_id, $visit_date);
-        $this->GetPatient($hn);
+        $this->OpdVisit($hn, $vn, $div_id, $doctor_id, $visit_date);
+        $this->setCurrentPatient($hn);
         PatientHelper::setCurrentHn($hn);
         PatientHelper::setCurrentDoctorName($doctor_fname, $doctor_lname);
         PatientHelper::setCurrentDoctorPrefix($doctor_prefix);
@@ -245,16 +226,15 @@ class OpdVisitController extends Controller
         return $this->redirect(['/chiefcomplaint/chiefcomplaint/show-form']);
     }
 
-    private function OpdVisit($hn, $vn, $div_id,$doctor_id, $visit_date)
-    {
+    private function OpdVisit($hn, $vn, $div_id, $doctor_id, $visit_date) {
         //  แปลงให้อยู่ในรุปแบบ สากล
         $y = substr($visit_date, 0, 4);
         $m = substr($visit_date, 4, 2);
         $d = substr($visit_date, 6, 2);
-        $v_date = $y.'-'.$m.'-'.$d;
+        $v_date = $y . '-' . $m . '-' . $d;
 
-        $url = PatientHelper::getUrl().'PatientRpcS';
-        $check_vn = OpdVisit::findOne(['hn' => $hn,'pcc_vn' => $vn,'visit_date' => $v_date]);
+        //$url = PatientHelper::getUrl() . 'PatientRpcS';
+        $check_vn = OpdVisit::findOne(['hn' => $hn, 'pcc_vn' => $vn, 'visit_date' => $v_date]);
         //    //return $check_vn;
         if ($check_vn == null) { //ถ้ายังไม่มีข้อมูลให้สร้าง vn ใหม่
             $model = new OpdVisit();
@@ -262,9 +242,9 @@ class OpdVisitController extends Controller
             $model->pcc_vn = $vn;
             $model->visit_date = $v_date;
             $addon = [
-                  'vdate' => DateTimeHelper::getDbDate(),
-                  'vtime' => DateTimeHelper::getDbTime()
-                ];
+                'vdate' => DateTimeHelper::getDbDate(),
+                'vtime' => DateTimeHelper::getDbTime()
+            ];
             $model->data_json = Json::encode($addon);
             $model->department = $div_id;
             $model->doctor_id = $doctor_id;
@@ -277,19 +257,16 @@ class OpdVisitController extends Controller
             // PatientHelper::setCurrentVn($check_vn->vn);
         } else {
             // ดึง vn
-              // $vn = $check_vn->pcc_vn;
-              // return 'old';
-              PatientHelper::setCurrentPccVn($check_vn->pcc_vn);
-              PatientHelper::setCurrentVn($check_vn->vn);
+            // $vn = $check_vn->pcc_vn;
+            // return 'old';
+            PatientHelper::setCurrentPccVn($check_vn->pcc_vn);
+            PatientHelper::setCurrentVn($check_vn->vn);
         }
         //       //PatientHelper::setCurrentPccVn($check_vn->pcc_vn);
-      //       // PatientHelper::setCurrentVn($check_vn->vn);
+        //       // PatientHelper::setCurrentVn($check_vn->vn);
     }
 
-
-
-    public function actionRevisit($pcc_vn, $hn, $vn)
-    {
+    public function actionRevisit($pcc_vn, $hn, $vn) {
         $check_hn = HisPatient::findOne(['hn' => $hn]);
         if ($check_hn) {
             $fname = $check_hn->fname;
@@ -329,15 +306,11 @@ class OpdVisitController extends Controller
             return $this->redirect(['/doctorworkbench']);
         } else {
             return $this->redirect(['/chiefcomplaint/chiefcomplaint/show-form']);
-
         }
-
     }
 
-
-    private function GetPatient($hn)
-    {
-        $url = PatientHelper::getUrl().'PatientRpcS';
+    private function setCurrentPatient($hn) {
+        $url = PatientHelper::getUrl() . 'PatientRpcS';
         $Client = new Rpc\Client($url);
         $success = false;
         $success = $Client->call('getByHn', [$hn]);
@@ -347,10 +320,7 @@ class OpdVisitController extends Controller
         PatientHelper::setCurrentLname($data->lname);
         PatientHelper::setCurrentPrefix($data->prefix);
         PatientHelper::setCurrentSex($data->sex);
-        PatientHelper::setCurrentAge($data->birthday_date,$hn);
+        PatientHelper::setCurrentAge($data->birthday_date, $hn);
     }
-
-
-    
 
 }

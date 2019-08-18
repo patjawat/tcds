@@ -22,17 +22,13 @@ if ($patient) {
 }
 
 use yii\helpers\Html;
-// PatientHelper::DrugAlert();
 use yii\helpers\Url;
-
 $this->title = '<i class="fas fa-user-md pull-left"></i> ห้องตรวจแพทย์';
 $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 $this->registerCss($this->render('../../dist/css/style.css'));
-
 $url = \yii\helpers\Url::to(['order/icd10-list']); //กำหนด URL ที่จะไปโหลดข้อมูล
 
 ?>
-
 
 <style>
 .btn-patient-alert {
@@ -43,7 +39,6 @@ $url = \yii\helpers\Url::to(['order/icd10-list']); //กำหนด URL ที�
     color: #017bfe;
 }
 </style>
-
 
 
 <?php

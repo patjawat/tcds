@@ -101,8 +101,8 @@ class ChiefcomplaintController extends Controller
         if (empty($hn)) {
             return $this->redirect(['/site/index']);
         }
-        
-        $checkvn = Chiefcomplaint::findOne(['pcc_vn' => $pcc_vn, 'vn' => $vn]);
+
+        $checkvn = Chiefcomplaint::findOne(['hn' => $hn, 'pcc_vn' => $pcc_vn, 'vn' => $vn]);
         if ($checkvn) {
             $last = Chiefcomplaint::find()->orderby(['date_service' => SORT_DESC])->where(['hn' => $hn])->one();
             $requester = $checkvn->requester;
@@ -110,7 +110,6 @@ class ChiefcomplaintController extends Controller
             $model->ht = $last->ht;
             $model->requester = "";
             $model->nursing_assessment = Json::decode($model->nursing_assessment);
-
         } else {
             $model = new Chiefcomplaint();
             $requester = null;
@@ -123,38 +122,38 @@ class ChiefcomplaintController extends Controller
             // $model->doctor_id  =  PatientHelper::getCurrentDoctorID();
 
         }
-        if(Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())){
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             // return ActiveForm::validate($model);
             //    return $this->redirect(['view', 'id' => $model->id]);
-      
 
-            if(ActiveForm::validate($model)){
-            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            if (ActiveForm::validate($model)) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
-            }else{
+            } else {
                 $model->pcc_vn = $pcc_vn;
-            $nursing_assessment = [
-                'type_of_patient' => $model->nursing_assessment['type_of_patient'],
-                'triage' => $model->nursing_assessment['triage'],
-                'access' => $model->nursing_assessment['access'],
-                'loc' => $model->nursing_assessment['loc'],
-                'pain_score_adult' => $model->nursing_assessment['pain_score_adult'] == '' ? '' : number_format($model->nursing_assessment['pain_score_adult'], 2, '.', ''),
-                'pain_score_child' => $model->nursing_assessment['pain_score_child'] == '' ? '' : number_format($model->nursing_assessment['pain_score_child'], 2, '.', ''),
-                'pain_score_child_items' => $model->nursing_assessment['pain_score_child_items'],
-                'fall_risk' => $model->nursing_assessment['fall_risk'],
-                'risk_precaution' => $model->nursing_assessment['risk_precaution'],
-                'dm_type' => $model->nursing_assessment['dm_type'],
-                'thyroid_type' => $model->nursing_assessment['thyroid_type'],
-                'fall_risk_yes' => $model->nursing_assessment['fall_risk_yes'],
+                $nursing_assessment = [
+                    'type_of_patient' => $model->nursing_assessment['type_of_patient'],
+                    'triage' => $model->nursing_assessment['triage'],
+                    'access' => $model->nursing_assessment['access'],
+                    'loc' => $model->nursing_assessment['loc'],
+                    'pain_score_adult' => $model->nursing_assessment['pain_score_adult'] == '' ? '' : number_format($model->nursing_assessment['pain_score_adult'], 2, '.', ''),
+                    'pain_score_child' => $model->nursing_assessment['pain_score_child'] == '' ? '' : number_format($model->nursing_assessment['pain_score_child'], 2, '.', ''),
+                    'pain_score_child_items' => $model->nursing_assessment['pain_score_child_items'],
+                    'fall_risk' => $model->nursing_assessment['fall_risk'],
+                    'risk_precaution' => $model->nursing_assessment['risk_precaution'],
+                    'dm_type' => $model->nursing_assessment['dm_type'],
+                    'thyroid_type' => $model->nursing_assessment['thyroid_type'],
+                    'fall_risk_yes' => $model->nursing_assessment['fall_risk_yes'],
 
-            ];
-            $model->nursing_assessment = Json::encode($nursing_assessment);
+                ];
+                $model->nursing_assessment = Json::encode($nursing_assessment);
 
-            if ($model->requester) {
-                $model->save(false);
-                return $this->redirect(['/']);
-            }
+                if ($model->requester) {
+                    $model->save(false);
+                    return $this->redirect(['/']);
+                }
             }
         } else {
             if (Yii::$app->request->isAjax) {
@@ -170,10 +169,10 @@ class ChiefcomplaintController extends Controller
                 ]);
             }
         }
-
     }
 
-    public function actionAjaxValidation(){
+    public function actionAjaxValidation()
+    {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $pcc_vn = PatientHelper::getCurrentPccVn();
         $vn = PatientHelper::getCurrentVn();
@@ -184,7 +183,6 @@ class ChiefcomplaintController extends Controller
             $model = $checkvn;
             $model->ht = $last->ht;
             $model->nursing_assessment = Json::decode($model->nursing_assessment);
-
         } else {
             $model = new Chiefcomplaint();
             // $model->id = substr(Yii::$app->getSecurity()->generateRandomString(),10);
@@ -194,7 +192,7 @@ class ChiefcomplaintController extends Controller
             // $model->doctor_id  =  PatientHelper::getCurrentDoctorID();
 
         }
-        if(ActiveForm::validate($model)){
+        if (ActiveForm::validate($model)) {
             return ActiveForm::validate($model);
         }
     }
@@ -235,7 +233,7 @@ class ChiefcomplaintController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->save();
-        Yii::$app->response->format = Response::FORMAT_JSON;
+            Yii::$app->response->format = Response::FORMAT_JSON;
 
             // return Yii::$app->request->post();
             return ['output' => '', 'message' => ''];
@@ -246,43 +244,41 @@ class ChiefcomplaintController extends Controller
                 'model' => $model,
                 'unit' => $unit,
             ]);
-
         }
-
     }
 
-    public function actionGetcf(){
+    public function actionGetcf()
+    {
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $pcc_vn = PatientHelper::getCurrentPccVn();
         $vn = PatientHelper::getCurrentVn();
         $hn = PatientHelper::getCurrentHn();
-        $model =  Chiefcomplaint::findOne(['hn' => $hn,'pcc_vn' => $pcc_vn, 'vn' => $vn]);
+        $model =  Chiefcomplaint::findOne(['hn' => $hn, 'pcc_vn' => $pcc_vn, 'vn' => $vn]);
         return [
             'bt' => UnitHelper::getCToF($model->bt),
-            'bw' => round(UnitHelper::getKgToLb($model->bw),2),
+            'bw' => round(UnitHelper::getKgToLb($model->bw), 2),
             'ht' => UnitHelper::getCmToFt($model->ht),
             'wc' => UnitHelper::getCmToIn($model->wc),
             'ic' => UnitHelper::getCmToIn($model->ic),
             'ec' => UnitHelper::getCmToIn($model->ec),
             'hc' => UnitHelper::getCmToIn($model->hc),
             'bmi' => $model->bmi
-            
+
         ];
     }
 
-    public function actionRequester(){
-        if(Yii::$app->request->isAjax){
-        Yii::$app->response->format = Response::FORMAT_JSON;
+    public function actionRequester()
+    {
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
 
-        return [
-            'title' => 'ระบุ Requester',
-            'content' =>  $this->renderAjax('confirm_requester'),
-        ];
-    }else{
-        return $this->render('confirm_requester');
+            return [
+                'title' => 'ระบุ Requester',
+                'content' =>  $this->renderAjax('confirm_requester'),
+            ];
+        } else {
+            return $this->render('confirm_requester');
+        }
     }
-}
-
-
 }

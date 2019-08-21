@@ -88,11 +88,6 @@ li.dropdown:hover>.dropdown-menu {
 }
 </style>
 
-
-
-
-
-
 <div class="view-process">
     <div class="row">
         <div

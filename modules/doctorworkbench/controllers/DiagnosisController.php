@@ -130,13 +130,13 @@ class DiagnosisController extends Controller
         $hn = PatientHelper::getCurrentHn();
         $pcc_vn = PatientHelper::getCurrentPccVn();
         $vn = PatientHelper::getCurrentVn();
-         $chiefcomplaint  =  Chiefcomplaint::findOne(['hn' => $hn,'pcc_vn' => $pcc_vn]);
+        $chiefcomplaint  =  Chiefcomplaint::findOne(['hn' => $hn,'vn' => $vn,'pcc_vn' => $pcc_vn]);
         $check_visit = Diagnosis::find()->where(['hn' => $hn,'vn' => $vn,'pcc_vn' => $pcc_vn])->one();
         if($check_visit){
           $model = $check_visit;
         }else {
             $model = new Diagnosis();
-            $model->diag_text = $chiefcomplaint->cc_text =="" ? '' : $chiefcomplaint->cc_text;           
+            $model->diag_text = $chiefcomplaint->cc_text == "" ? '' : $chiefcomplaint->cc_text;           
         }
 
         if ($model->load(Yii::$app->request->post()) ) {

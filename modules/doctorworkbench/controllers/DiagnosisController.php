@@ -136,7 +136,7 @@ class DiagnosisController extends Controller
           $model = $check_visit;
         }else {
             $model = new Diagnosis();
-            $model->diag_text = $chiefcomplaint->cc_text == "" ? '' : $chiefcomplaint->cc_text;           
+            $model->diag_text = $chiefcomplaint  ?  $chiefcomplaint->cc_text : '';           
         }
 
         if ($model->load(Yii::$app->request->post()) ) {

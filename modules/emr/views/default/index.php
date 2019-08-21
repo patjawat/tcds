@@ -45,35 +45,40 @@ li.dropdown:hover>.dropdown-menu {
 <h2 style="margin-top: -7px;"><i class="fas fa-procedures"></i> Patient EMR</h2>
 <?php
 
-$items = [
-    [
-        'label'=>'<i class="fas fa-home"></i> Dashbroad',
-        // 'linkOptions' => ['data-url' => Url::to(['/emr/defaulst/dashbroad'])],
-        'content'=>$this->render('dashbroad'),
-        'active'=>true,
-        'options' => ['id' => 'home'],
-    ],
-    [
-        'label' => '<i class="far fa-folder-open"></i> Document',
-        'options' => ['id' => 'main-document','style' => 'margin-top: -10px;'],
-        'content' => $this->render('./document',[
-            'initialPreview'=> $initialPreview,
-             'initialPreviewConfig'=> $initialPreviewConfig,
-        ])  
-    ],
-];
+// $items = [
+//     [
+//         'label' => '<i class="far fa-folder-open"></i> Document',
+//         // 'linkOptions' => ['data-url' => Url::to(['/emr/defaulst/dashbroad'])],
+//         'options' => ['id' => 'main-document','style' => 'margin-top: -10px;'],
+//         'active'=>true,
+//         'content' => $this->render('./document',[
+//             'initialPreview'=> $initialPreview,
+//             'initialPreviewConfig'=> $initialPreviewConfig,
+//             ])  
+//     ],
+//     [
+//         'label'=>'<i class="fas fa-home"></i> Dashbroad',
+//         'options' => ['id' => 'home'],
+//             'content'=>$this->render('dashbroad'),
+//     ],
+// ];
 
 
 
 // Left
-echo TabsX::widget([
-    'items'=>$items,
-    'position'=>TabsX::POS_LEFT,
-    'encodeLabels'=>false,
-    'enableStickyTabs' => true,
-    'stickyTabsOptions' => [
-        'selectorAttribute' => 'data-target',
-        'backToTop' => true,
-    ],
-]);
+// echo TabsX::widget([
+//     'items'=>$items,
+//     'position'=>TabsX::POS_LEFT,
+//     'encodeLabels'=>false,
+//     'enableStickyTabs' => true,
+//     'stickyTabsOptions' => [
+//         'selectorAttribute' => 'data-target',
+//         'backToTop' => true,
+//     ],
+// ]);
+
+echo $this->render('./document',[
+    'initialPreview'=> $initialPreview,
+    'initialPreviewConfig'=> $initialPreviewConfig,
+    ])  
 ?>

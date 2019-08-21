@@ -333,15 +333,7 @@ $hn = PatientHelper::getCurrentHn();
         ]);
         Modal::end();
         ?>
-    <?php //Modal::begin([
-        // 'id' => 'drug-alert-modal',
-        // 'header' => '<h4 class="modal-title"></h4>',
-        // 'size'=>'modal-lg',
-        // 'footer' => '',
-        // 'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
-        // ]);
-        // Modal::end();
-        ?>
+        
     <?php RemoteModal::begin([
         "id"=>"alert-remote",
         "options"=> [ "class"=>"fade"],
@@ -518,6 +510,7 @@ $("#form-search").submit(function(event) {
         type: 'post',
         // dataType: 'json',
         beforeSend: function(){
+            $('.modal-dialog').addClass('modal-sm').removeClass('modal-lg');
             $('#main-modal').modal('show');
             $('.modal-title').html('กรุณารอสักครู่...');
             $('.modal-body').html('<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar"aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:100%"></div></div>')
@@ -526,6 +519,8 @@ $("#form-search").submit(function(event) {
     })
     .done(function(response) {
         if (response.error == true) {
+            // $("#main-modal").removeClass("modal-sm");
+            $('.modal-dialog').addClass('modal-lg').removeClass('modal-sm');
             $('.modal-title').html('การแจ้งเตือน');
             $('#main-modal').modal('show');
             $('.modal-body').html(response.content)

@@ -35,6 +35,7 @@ class DefaultController extends Controller
             $searchModel = new DocumentSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
             $dataProvider->query->where(['hn' => $hn]);
+            $dataProvider->pagination->pageSize = false;
             $request = Yii::$app->request;
             if ($request->isAjax) {
                 Yii::$app->response->format = Response::FORMAT_JSON;

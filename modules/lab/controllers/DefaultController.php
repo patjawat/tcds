@@ -5,13 +5,14 @@ namespace app\modules\lab\controllers;
 use Yii;
 use yii\web\Controller;
 use app\components\DbHelper;
-use app\modules\lab\models\LabResult;
-use app\modules\lab\models\LabResultSearch;
+use app\components\HISHelper;
 use app\components\FormatYear;
 use app\components\PatientHelper;
-// use yii\data\Pagination;
+use app\modules\lab\models\LabResult;
+use app\modules\lab\models\LabResultSearch;
 use yii\web\Response;
-use yii\data\ActiveDataProvider;
+
+//use yii\data\ActiveDataProvider;
 
 /**
  * Default controller for the `lab` module
@@ -85,25 +86,26 @@ class DefaultController extends Controller {
         $data = Yii::$app->request->post('keys');
         return $this->renderAjax('lab_select', ['data' => $data]);
     }
-    
+
     /**
      * รายงานผลแลปตามผู้ป่วย
      * @return void
      */
     public function actionLabResultCustom() {
-
         $perPage = Yii::$app->request->get('per-page');
         $pageSize = $perPage ? intval($perPage) : 50;
         $searchModel = new LabResultSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $hn = $searchModel->patient_id;
-        $hn == "" ? $dataProvider->query->andFilterWhere(['patient_id' => '0']) : $dataProvider->query->andFilterWhere(['patient_id' => $hn]);
-        $dataProvider->query->andFilterWhere(['lis_code' => $searchModel->lis_code]);
-        $dataProvider->query->groupBy(['lis_code']);
-        $dataProvider->setPagination(['pageSize' => $pageSize]);
-
+        if ($searchModel->patient_id > 0) {
+            HISHelper::getLabByHn($searchModel->patient_id);//ปรับปรุงข้อมูลการส่งตรวจแลปของ HIS
+            $dataProvider->query->andFilterWhere(['patient_id' => $searchModel->patient_id])
+            ->andFilterWhere(['lis_code' => $searchModel->lis_code])->groupBy(['lis_code']);
+            $dataProvider->setPagination(['pageSize' => $pageSize]);
+        } else {
+            $dataProvider->query->andFilterWhere(['patient_id' => '0']);
+        }
         return $this->render('lab_result_custom', [
-                    'hn' => $hn,
+                    'hn' => $searchModel->patient_id,
                     'dataProvider' => $dataProvider,
                     'searchModel' => $searchModel,
                     'pagination' => ['pageSize' => $pageSize,],

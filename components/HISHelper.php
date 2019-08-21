@@ -1,4 +1,5 @@
 <?php
+
 namespace app\components;
 
 use JsonRpc;
@@ -26,7 +27,7 @@ class HISHelper extends Component {
      * @param string $remote
      * @param string $method
      * @param array $parm
-     * @return object array
+     * @return void
      */
     public static function getApiResult($remote, $method, $parm) {
         $url = self::getUrl() . $remote;
@@ -38,7 +39,7 @@ class HISHelper extends Component {
     /**
      * ข้อมูลส่วนตัวตามรหัสผู้รับบริการ
      * @param string $hn
-     * @return object array
+     * @return void
      */
     public static function getPatientByHn($hn) {
         return self::getApiResult('PatientRpcS', 'getByHn', [$hn]);
@@ -48,10 +49,19 @@ class HISHelper extends Component {
      * ข้อมูลการรับบริการ OpdVisitRpcS->getByHnDiv()
      * @param string $hn รหัสผู้รับบริการ
      * @param string $div รหัสคลินิก/หน่วยงาน
-     * @return object
+     * @return void
      */
     public static function getVisitByHnDiv($hn, $div) {
         return self::getApiResult('OpdVisitRpcS', 'getByHnDiv', [$hn, $div]);
+    }
+
+    /**
+     * ข้อมูลสั่งตรวจตามรหัสผู้รับบริการ
+     * @param type $hn
+     * @return void
+     */
+    public static function getLabByHn($hn) {
+        return self::getApiResult('LabRequestRpcS', 'getByHn', [$hn]);
     }
 
 }

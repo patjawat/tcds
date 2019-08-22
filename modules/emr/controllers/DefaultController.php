@@ -174,6 +174,16 @@ private function getTemplatePreview(Documentqr $model){
         return $this->redirect(['/emr']);
     }
 
+    public function actionFormSelectType(){
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return $this->renderAjax('_formSelectType');
+        }else{
+            return $this->render('_formSelectType');
+
+        }
+    }
+
     public function actionTest(){
         Yii::$app->response->format = Response::FORMAT_JSON;
         // $shell = shell_exec('python3 /Users/patjawat/dev/scriptsoft/medicong-dev/web/script/readDocumentBarcode.py 460028');

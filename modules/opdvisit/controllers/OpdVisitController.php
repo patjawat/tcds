@@ -200,7 +200,7 @@ class OpdVisitController extends Controller {
         if (Yii::$app->user->can('doctor')) {
             return $this->redirect(['/doctorworkbench']);
         } else {
-            return $this->redirect(['/chiefcomplaint']);
+            return $this->redirect(['/chiefcomplaint/chiefcomplaint/show-form']);
         }
         //return ['error' => true, 'content' => '! กำลังแก้ไขโปรแกรม กรุณาติดต่อโปรแกรมเมอร์'];
     }

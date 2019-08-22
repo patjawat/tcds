@@ -88,7 +88,7 @@ $module = \Yii::$app->controller->module->id;
     <?php endif;?>
     <ul class="nav navbar-nav navbar-right">
 <?php if (\Yii::$app->user->can('lab')):?>
-    <li><a class="<?=$module == 'lab' ? 'on-active' : 'non-active' ?>" href="<?= Url::to(['/lab/default/lab-result-custom']) ?>"><i class="fas fa-microscope"></i> LAB</a></li>
+    <li><a target="_blank" class="<?=$module == 'lab' ? 'on-active' : 'non-active' ?>" href="<?= Url::to(['/lab/default/lab-result-custom']) ?>"><i class="fas fa-microscope"></i> LAB</a></li>
     <?php endif;?>
 <?php if (\Yii::$app->user->can('emr')):?>
     <li><a class="<?=$module == 'emr' ? 'on-active' : 'non-active' ?>" href="<?= Url::to(['/emr']) ?>"><i class="fa fa-book"></i> EMR</a></li>

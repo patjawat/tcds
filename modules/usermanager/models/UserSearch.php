@@ -71,18 +71,18 @@ class UserSearch extends User
             'pos_id' => $this->pos_id,
         ]);
 
-        $query->andFilterWhere(['ilike', 'username', $this->username])
-            ->andFilterWhere(['ilike', 'email', $this->email])
-            ->andFilterWhere(['ilike', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['ilike', 'auth_key', $this->auth_key])
-            ->andFilterWhere(['ilike', 'unconfirmed_email', $this->unconfirmed_email])
-            ->andFilterWhere(['ilike', 'registration_ip', $this->registration_ip])
-            ->andFilterWhere(['ilike', 'password_reset_token', $this->password_reset_token])
-            ->andFilterWhere(['ilike', 'pname', $this->pname])
-            ->andFilterWhere(['ilike', 'fullname', $this->fullname])
-            ->andFilterWhere(['ilike', 'occ_no', $this->occ_no])
-            ->andFilterWhere(['ilike', 'pos_no', $this->pos_no])
-            ->andFilterWhere(['ilike', 'role', $this->role]);
+        $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
+            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
+            ->andFilterWhere(['like', 'unconfirmed_email', $this->unconfirmed_email])
+            ->andFilterWhere(['like', 'registration_ip', $this->registration_ip])
+            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
+            ->andFilterWhere(['like', 'pname', $this->pname])
+            ->andFilterWhere(['like', 'fullname', $this->fullname])
+            ->andFilterWhere(['like', 'occ_no', $this->occ_no])
+            ->andFilterWhere(['like', 'pos_no', $this->pos_no])
+            ->andFilterWhere(['like', 'role', $this->role]);
 
         return $dataProvider;
     }

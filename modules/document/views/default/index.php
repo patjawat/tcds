@@ -104,9 +104,12 @@ endforeach;
 ?>
 
         <div align="center">
-            <button class="btn btn-default filter-button" data-filter="all">All</button>
+            <button class="btn btn-default filter-button" data-filter="all">All  <span class="badge"><?=Document::find()->where(['hn' => $hn])->count();?></span> </button>
             <?php foreach (DocumentType::find()->andWhere(['IN','id',$data])->all() as $type):?>
-            <button class="btn btn-default filter-button" data-filter="<?=$type->id?>"><?=$type->name;?></button>
+            <button class="btn btn-default filter-button" data-filter="<?=$type->id?>">
+            <?=$type->name;?>
+            <span class="badge"><?=$type->countTypeOfHn($type->id,$hn)?></span>
+        </button>
             <?php endforeach;?>
 
 

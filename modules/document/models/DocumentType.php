@@ -4,12 +4,6 @@ namespace app\modules\document\models;
 
 use Yii;
 
-/**
- * This is the model class for table "document_type".
- *
- * @property string $id รหัส
- * @property string $name ชื่อรายการ
- */
 class DocumentType extends \yii\db\ActiveRecord
 {
     public static function getDb()
@@ -22,9 +16,6 @@ class DocumentType extends \yii\db\ActiveRecord
         return 'document_type';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -35,14 +26,15 @@ class DocumentType extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function attributeLabels()
     {
         return [
             'id' => 'รหัส',
             'name' => 'ชื่อรายการ',
         ];
+    }
+
+    public function countTypeOfHn($type,$hn){
+        return Document::find()->where(['hn' => $hn,'sub_dir' => $type])->count();
     }
 }

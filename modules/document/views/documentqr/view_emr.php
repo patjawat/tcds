@@ -112,7 +112,7 @@ endforeach;
 
             <?php foreach ($dataProvider->getModels() as $model): ?>
             <?php
-$img = Documentqr::getUploadUrl() . '/' . $hn . '/' . $model->real_filename;
+$img = Documentqr::getUploadUrl() . '/' . $model->hn . '/' . $model->real_filename;
 // $img = 'REG/'.$model->hn.'/'.$model->sub_dir.'/'.$model->filename.'.jpg';
 echo Html::img($img, ['width' => '100%', 'class' => "img-responsive filter-qr $model->type_id"]);
 ?>

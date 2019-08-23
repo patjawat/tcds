@@ -37,5 +37,4 @@ tests/_support/_generated
 
 DB/mysql/
 /python_api_local
-/mount
 /var

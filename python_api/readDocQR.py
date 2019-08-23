@@ -26,7 +26,9 @@ root_dir = Path(SOURCE_PATH)
 
 def ReadQR(item):
     img = cv2.imread(str(item))
-    barcodes = pyzbar.decode(img)
+
+    image = Image.open(item)
+    barcodes = pyzbar.decode(image)
     for barcode in barcodes:
         (x, y, w, h) = barcode.rect
         barcodeData = barcode.data.decode("utf-8")
@@ -52,7 +54,13 @@ def ReadQR(item):
                 }
                 r = requests.post(
                     "http://10.1.88.8/tcds/web/index.php?r=api/add-qr", data=payload)
+                    # "http://127.0.0.1:81/index.php?r=api/add-qr", data=payload)
                 if(r.text != 'null'):
+                    dir_path = DIST_PATH+'/'+hn+'/'
+                    if not os.path.exists(dir_path):
+                        os.makedirs(dir_path)
+
+                    image.convert('L').save(dir_path+barcodeData+'.jpg')
                     print('Scan '+fileName+' To database Success')
                     # os.remove(item)
                 #     moveFile(hn, data, dataText)
@@ -60,10 +68,6 @@ def ReadQR(item):
                 else:
                     print('skip => '+fileName)
                     print(item)
-                dir_path = DIST_PATH+'/'+hn+'/'
-                if not os.path.exists(dir_path):
-                    os.makedirs(dir_path)
-                cv2.imwrite(dir_path+barcodeData+'.jpg', img)
     os.remove(item)
 
 

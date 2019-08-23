@@ -36,6 +36,6 @@ tests/_support/_generated
 /config/ttr_him.php.php
 
 DB/mysql/
-python_api_local
+/python_api_local
 /mount
 /var

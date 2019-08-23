@@ -95,8 +95,8 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
             <th class="fixed-side" width="400">Parameter</th>
             <th class="fixed-side" width="400">Normal Range</th>
             <th class="fixed-side">Unit</th>
-            <?php $num =1 ;foreach ($loop as $key => $value):?>
-            <th><?=FormatYear::toThai($value->checkin_date).' : '.$value->checkin_time?></th>
+            <?php $num =1 ;foreach ($loop as $key => $val_):?>
+            <th><?=FormatYear::toThai($val_->checkin_date).' : '.$val_->checkin_time?></th>
             <?php endforeach;?>
         </tr>
     </thead>
@@ -108,11 +108,11 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
             <td class="fixed-side"><?php  echo $model['test'];?></td>
             <td class="fixed-side"><?php  echo $model['normal_range'];?></td>
             <td class="fixed-side"><?php  echo $model['unit'];?></td>
-            <?php foreach ($loop as $key => $value):?>
+            <?php foreach ($loop as $key => $val_):?>
             <td align="center">
            <code> 
            <?php 
-            echo $value->checkinCustom($model['patient_id'],$model['lis_code'],$value->checkin_date,$value->checkin_time);
+            echo $val_->checkinCustom($model['patient_id'],$model['lis_code'],$val_->checkin_date,$val_->checkin_time);
         // $rs = LabResult::find()
         // ->where(['patient_id' => $model['patient_id']])
         // ->andWhere(['between', 'checkin_date', $value->checkin_date, $value->checkin_date ])

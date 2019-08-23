@@ -87,8 +87,8 @@ h1 {
           <tr>
             <th scope="row">รหัสผลตรวจ</th>
             <th scope="col">รหัสการตรวจของ LIS</th>
-            <?php foreach ($loop as $key => $value):?>
-            <th scope="col"><?=FormatYear::toThai($value->checkin_date);?></th>
+            <?php foreach ($loop as $key => $val_):?>
+            <th scope="col"><?=FormatYear::toThai($val_->checkin_date);?></th>
             <?php endforeach;?>
           </tr>
          
@@ -98,8 +98,8 @@ h1 {
           <tr>
             <th scope="row"><?=$model['lis_code'];?></th>
             <th scope="row"><?=$model['test'];?></th>
-            <?php foreach ($loop as $key => $value):?>
-            <td width="300"><?=$value->result;?></td>
+            <?php foreach ($loop as $key => $val_):?>
+            <td width="300"><?=$val_->result;?></td>
             <?php endforeach;?>
            
           </tr>

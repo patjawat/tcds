@@ -33,8 +33,8 @@ $q = 'CRD';
         
 $data = [];
 
-foreach ($useMed  as $key => $value):
-$data[]=$value->icode;
+foreach ($useMed  as $key => $val_):
+$data[]=$val_->icode;
 endforeach;
 
 // print_r($data);

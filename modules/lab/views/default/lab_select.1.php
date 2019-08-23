@@ -16,8 +16,8 @@ $loop = LabResult::find()->where(['patient_id' => $hn])->all();
             <th>รหัสการตรวจของ LIS</th>
             <th width="70%">Normal Range</th>
             <th>Unit</th>
-            <?php foreach ($loop as $key => $value):?>
-            <th><?=FormatYear::toThai($value->checkin_date);?></th>
+            <?php foreach ($loop as $key => $val_):?>
+            <th><?=FormatYear::toThai($val_->checkin_date);?></th>
             <?php endforeach;?>
         </tr>
     </thead>
@@ -28,8 +28,8 @@ $loop = LabResult::find()->where(['patient_id' => $hn])->all();
             <td><?php  echo $model['test'];?></td>
             <td><?php  echo $model['normal_range'];?></td>
             <td><?php  //echo $model['unit'];?></td>
-            <?php foreach ($loop as $key => $value):?>
-            <td><?=$value->result;?></td>
+            <?php foreach ($loop as $key => $val_):?>
+            <td><?=$val_->result;?></td>
             <?php endforeach;?>
         </tr>
     <?php  endforeach;?>

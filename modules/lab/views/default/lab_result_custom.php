@@ -1,8 +1,8 @@
 <?php
 
-use app\components\FormatYear;
+//use app\components\FormatYear;
 use app\components\HISHelper;
-use app\components\PatientHelper;
+//use app\components\PatientHelper;
 
 //use app\components\PatientHelper;
 //$limit = $searchModel->limit ? $searchModel->limit : 4;
@@ -11,7 +11,9 @@ $result_ = [];
 $checkin_col_ = [];
 
 if (!is_null($hn)) {
-    $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
+    //$this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
+    $patient_ = HISHelper::getPatientProfile($hn);
+    $this->params['pt_title'] = "HN. ".$hn . " " . $patient_->fname . " " . $patient_->lname . " เพศ " . $patient_->sex;
     $lab_request_ = HISHelper::getLabByHn($hn); //ปรับปรุงข้อมูลการส่งตรวจแลปของ HIS
     foreach ($lab_request_ as $key => $val_) {
         if (trim($val_->request_lab_id) !== "GLUS") {
@@ -27,7 +29,7 @@ if (!is_null($hn)) {
         $lab_result_ = HISHelper::getLabResultByHn($hn);
         foreach ($lab_result_ as $key => $val_) {
             $remark = NUll;
-            if ($val_['lis_code'] == "10020" || $val_['lis_code'] == "10080" ) {
+            if ($val_['lis_code'] == "10020" || $val_['lis_code'] == "10080") {
                 $remark = "(" .
                         HISHelper::getLabEatRemark(new DateTime($val_['checkin_date'] . " " . $val_['checkin_time']), new DateTime($val_['eat_date'] . " " . $val_['eat_time'])) .
                         ")";

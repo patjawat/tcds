@@ -45,6 +45,16 @@ class HISHelper extends Component {
     public static function getPatientByHn($hn) {
         return $hn > 0 ? self::getApiResult('PatientRpcS', 'getByHn', [$hn]) : [];
     }
+    
+    /**
+     * 
+     * @param string $hn
+     * @return void
+     */
+    public static function getPatientProfile(string $hn){
+        $profile_ = self::getPatientByHn($hn);
+        return $profile_[0];
+    }
 
     /**
      * ข้อมูลการรับบริการ OpdVisitRpcS->getByHnDiv()

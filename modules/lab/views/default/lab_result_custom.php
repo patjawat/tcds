@@ -2,7 +2,7 @@
 
 //use app\components\FormatYear;
 use app\components\HISHelper;
-//use app\components\PatientHelper;
+use app\components\PatientHelper;
 
 //use app\components\PatientHelper;
 //$limit = $searchModel->limit ? $searchModel->limit : 4;
@@ -12,8 +12,7 @@ $checkin_col_ = [];
 
 if (!is_null($hn)) {
     //$this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
-    $patient_ = HISHelper::getPatientProfile($hn);
-    $this->params['pt_title'] = "HN. ".$hn . " " . $patient_->fname . " " . $patient_->lname . " เพศ " . $patient_->sex;
+    $this->params['pt_title'] = HISHelper::getPatientProfile($hn);
     $lab_request_ = HISHelper::getLabByHn($hn); //ปรับปรุงข้อมูลการส่งตรวจแลปของ HIS
     foreach ($lab_request_ as $key => $val_) {
         if (trim($val_->request_lab_id) !== "GLUS") {

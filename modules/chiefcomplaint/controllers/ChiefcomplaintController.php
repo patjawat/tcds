@@ -102,7 +102,7 @@ class ChiefcomplaintController extends Controller
             return $this->redirect(['/site/index']);
         }
 
-        $checkvn = Chiefcomplaint::findOne(['hn' => $hn,'vn' => $vn]);
+        $checkvn = Chiefcomplaint::findOne(['hn' => $hn,'vn' => $vn,'pcc_vn' => $pcc_vn]);
         if ($checkvn) {
             $last = Chiefcomplaint::find()->orderby(['date_service' => SORT_DESC])->where(['hn' => $hn])->one();
             $requester = $checkvn->requester;
@@ -151,6 +151,7 @@ class ChiefcomplaintController extends Controller
                 $model->nursing_assessment = Json::encode($nursing_assessment);
 
                 if ($model->requester) {
+                    $model->hn = $hn;
                     $model->vn = $vn;
                     $model->pcc_vn = $pcc_vn;
                     $model->save(false);

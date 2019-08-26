@@ -146,7 +146,6 @@ class ChiefcomplaintController extends Controller
                     'dm_type' => $model->nursing_assessment['dm_type'],
                     'thyroid_type' => $model->nursing_assessment['thyroid_type'],
                     'fall_risk_yes' => $model->nursing_assessment['fall_risk_yes'],
-
                 ];
                 $model->nursing_assessment = Json::encode($nursing_assessment);
 

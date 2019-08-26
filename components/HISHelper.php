@@ -45,15 +45,36 @@ class HISHelper extends Component {
     public static function getPatientByHn($hn) {
         return $hn > 0 ? self::getApiResult('PatientRpcS', 'getByHn', [$hn]) : [];
     }
+
+    /**
+     * ข้อมูลส่วนตัวผู้รับบริการ hn+prefix+fname+lname+sex+age
+     * @param string $hn
+     * @return string
+     */
+    public static function getPatientProfile(string $hn) {
+        $patient_ = self::getPatientByHn($hn);
+        $profile = empty($patient_) ? "! ไม่พบข้อมูล HN. " . $hn . " กรุณาติดต่อเวชระเบียน" :
+                "HN. " . $patient_[0]->hn . " " . $patient_[0]->prefix . $patient_[0]->fname . " " . $patient_[0]->lname . " " 
+                . self::getSex($patient_[0]->sex) ." อายุ " . $patient_[0]->birthday_date;
+        return $profile;
+    }
+
+    /**
+     * คำอธิบายเพศ
+     * @param string $sex
+     * @return string
+     */
+    public static function getSex(string $sex) {
+        return "เพศ" . ($sex === "M" ? "ชาย" : ($sex === "F" ? "หญิง" : "---"));
+    }
     
     /**
-     * 
-     * @param string $hn
-     * @return void
+     * คำนวนอายุ
+     * @param \DateTime $birthday
+     * @return type
      */
-    public static function getPatientProfile(string $hn){
-        $profile_ = self::getPatientByHn($hn);
-        return $profile_[0];
+    public static function getAge(\DateTime $birthday){
+        return $birthday->format("Y-m-d");
     }
 
     /**
@@ -98,8 +119,8 @@ class HISHelper extends Component {
         $eat_remark = ($eat_hours < 1 ? "<1 h" :
                 ($eat_hours < 2 ? "1-2 h" :
                 ($eat_hours < 3 ? "2-3 h" :
-                ($eat_hours < 4 ? "3-4 h" : 
-                ($eat_hours < 5 ? "4-5 h" : 
+                ($eat_hours < 4 ? "3-4 h" :
+                ($eat_hours < 5 ? "4-5 h" :
                 ($eat_hours < 6 ? "5-6 h" :
                 ($eat_hours < 7 ? "6-7 h" :
                 ($eat_hours < 8 ? "7-8 h" :

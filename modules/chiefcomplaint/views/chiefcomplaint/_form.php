@@ -204,7 +204,12 @@ $this->registerCss("
                         ]); ?>
                     </div>
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <?= $form->field($model, 'med_express')->checkbox(['uncheck' => '0', 'checked' => '1'])->label(true); ?>
+                        <?= $form->field($model, 'med_express', [
+                            'horizontalCssClasses' => [
+                                'label' => 'col-xs-1 col-sm-1 col-md-1 col-lg-1',
+                                'wrapper' => 'col-lg-10 col-md-10 col-sm-10',
+                            ],
+                        ])->checkbox(['uncheck' => '0', 'checked' => '1'])->label(true); ?>
                     </div>
 
                     <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -240,14 +245,14 @@ $this->registerCss("
                 <div class="row">
                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                         <p style="margin: 0px;">
-                            <?= Html::a('<i class="far fa-check-square"></i> cv risk (thai)', 'http://10.1.99.6/Thai-CV-Risk-Score/index.php?hn="' . $hn . '"&prefix="' . $patient->prefix . '"&fname="' . $patient->fname . '"&lname="' . $patient->lname . '"sex="' . $sex . '"&birthday_date="' . $patient->birthday_date . '"', [ 'target' => '_blank']) ?>
+                            <?= Html::a('<i class="far fa-check-square"></i> cv risk (thai)', 'http://10.1.99.6/Thai-CV-Risk-Score/index.php?hn="' . $hn . '"&prefix="' . $patient->prefix . '"&fname="' . $patient->fname . '"&lname="' . $patient->lname . '"sex="' . $sex . '"&birthday_date="' . $patient->birthday_date . '"', ['target' => '_blank']) ?>
                         </p>
                         <p style="margin: 0px;">
                             <?= Html::a('<i class="far fa-check-square"></i> cv risk (acc)', null, ['']); ?>
                         </p>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                        <?= Html::a('<i class="far fa-check-square"></i> dm risk', 'http://10.1.99.6/diabetes_risk_score/?hn="' . $hn . '"&prefix="' . $patient->prefix . '"&fname="' . $patient->fname . '"&lname="' . $patient->lname . '"sex="' . $sex . '"&birthday_date="' . $patient->birthday_date . '"', [ 'target' => '_blank']) ?>
+                        <?= Html::a('<i class="far fa-check-square"></i> dm risk', 'http://10.1.99.6/diabetes_risk_score/?hn="' . $hn . '"&prefix="' . $patient->prefix . '"&fname="' . $patient->fname . '"&lname="' . $patient->lname . '"sex="' . $sex . '"&birthday_date="' . $patient->birthday_date . '"', ['target' => '_blank']) ?>
                     </div>
                 </div>
                 <!-- End Row -->
@@ -727,7 +732,7 @@ $this->registerCss("
                                     </div>
                                     <?php endfor; ?>
                                 </div>
-<hr>
+                                <hr>
                                 <h4 class="text-primary"><i class="fas fa-calendar-alt"></i>15/08/2562</h4>
                                 <div class="row">
                                     <?php for ($x = 0; $x <= 3; $x++) : ?>

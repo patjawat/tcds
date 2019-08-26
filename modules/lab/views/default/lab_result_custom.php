@@ -1,13 +1,43 @@
 <?php
 
-use app\modules\lab\models\LabResult;
-use app\components\FormatYear;
-use app\components\PatientHelper;
+//use app\components\FormatYear;
+use app\components\HISHelper;
+//use app\components\PatientHelper;
 
+//use app\components\PatientHelper;
 //$limit = $searchModel->limit ? $searchModel->limit : 4;
-$sql = "SELECT DISTINCT `checkin_date`, `checkin_time` FROM `theptarin`.`lab_result` AS `lab_result` WHERE `patient_id` = :patient_id ORDER BY `checkin_date` DESC, `checkin_time` DESC";
-$checkin_cols = Yii::$app->theptarin->createCommand($sql)->bindValue(':patient_id', $hn)->queryAll();
-$this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
+$lab_request_ = [];
+$result_ = [];
+$checkin_col_ = [];
+
+if (!is_null($hn)) {
+    //$this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
+    $patient_ = HISHelper::getPatientProfile($hn);
+    $this->params['pt_title'] = "HN. ".$hn . " " . $patient_->fname . " " . $patient_->lname . " เพศ " . $patient_->sex;
+    $lab_request_ = HISHelper::getLabByHn($hn); //ปรับปรุงข้อมูลการส่งตรวจแลปของ HIS
+    foreach ($lab_request_ as $key => $val_) {
+        if (trim($val_->request_lab_id) !== "GLUS") {
+            $checkin_date = date("Y-m-d", strtotime($val_->checkin_date));
+            $checkin_time = date("H:i", strtotime(sprintf("%06s", $val_->checkin_time)));
+            $checkin_col_[$val_->checkin_date . $val_->file_no] = ['file_no' => $val_->file_no,
+                'checkin_date' => $checkin_date, 'checkin_time' => $checkin_time,
+                'checkin_datetime' => $checkin_date . " " . $checkin_time];
+        }
+    }
+    if (!is_null($checkin_col_)) {
+        krsort($checkin_col_);
+        $lab_result_ = HISHelper::getLabResultByHn($hn);
+        foreach ($lab_result_ as $key => $val_) {
+            $remark = NUll;
+            if ($val_['lis_code'] == "10020" || $val_['lis_code'] == "10080") {
+                $remark = "(" .
+                        HISHelper::getLabEatRemark(new DateTime($val_['checkin_date'] . " " . $val_['checkin_time']), new DateTime($val_['eat_date'] . " " . $val_['eat_time'])) .
+                        ")";
+            }
+            $result_[$val_['lis_code'] . $val_['reference_number']] = $val_['result'] . " " . $remark;
+        }
+    }
+}
 ?>
 
 <style media="screen">
@@ -88,9 +118,9 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
                     <th class="fixed-side">Unit</th>
                     <?php
                     $num = 1;
-                    foreach ($checkin_cols as $key => $value):
+                    foreach ($checkin_col_ as $key => $val_):
                         ?>
-                        <th><?= FormatYear::toThai($value['checkin_date']) . ' : ' . $value['checkin_time'] ?></th>
+                        <th><?= $val_['checkin_datetime'] ?></th>
                     <?php endforeach; ?>
                 </tr>
             </thead>
@@ -101,12 +131,12 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
                         <td class="fixed-side"><?php echo $model['test']; ?></td>
                         <td class="fixed-side"><?php echo $model['normal_range']; ?></td>
                         <td class="fixed-side"><?php echo $model['unit']; ?></td>
-                        <?php foreach ($checkin_cols as $key => $value): ?>
+                        <?php foreach ($checkin_col_ as $key => $val_): ?>
                             <td align="center">
                                 <code> 
                                     <?php
-                                    $cell_val = new LabResult();
-                                    echo $cell_val->checkinCustom($model['patient_id'], $model['lis_code'], $value['checkin_date'], $value['checkin_time']);
+                                    $key = $model['lis_code'] . $val_['file_no'];
+                                    echo array_key_exists($key, $result_) ? $result_[$key] : "";
                                     ?>
                                 </code>
                             </td>

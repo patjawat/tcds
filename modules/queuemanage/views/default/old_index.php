@@ -57,16 +57,16 @@ DataTableAsset::register($this);
                         </thead>
                         <tbody>
 
-                            <?php foreach ($raw as $key => $value): ?>
-                                <tr data-cid="<?= $value['cid'] ?>" class="tr-vn">
+                            <?php foreach ($raw as $key => $val_): ?>
+                                <tr data-cid="<?= $val_['cid'] ?>" class="tr-vn">
                                     <td>
-                                        <input class="chk_pt" type="checkbox" name="pt[]" value="<?= $value['pcc_vn'] ?>" />
+                                        <input class="chk_pt" type="checkbox" name="pt[]" value="<?= $val_['pcc_vn'] ?>" />
                                     </td>
 
-                                    <td><?= $value['hn'] ?></td>
+                                    <td><?= $val_['hn'] ?></td>
                                     <td><div class="send_no"></div></td>
-                                    <td><?= $value['visit_date_begin'] . ' ' . $value['visit_time_begin'] ?></td>                                    
-                                    <td><?= $value['fullname'] ?></td>
+                                    <td><?= $val_['visit_date_begin'] . ' ' . $val_['visit_time_begin'] ?></td>                                    
+                                    <td><?= $val_['fullname'] ?></td>
 
                                 </tr>                                
                             <?php endforeach; ?>

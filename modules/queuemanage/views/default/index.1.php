@@ -130,22 +130,22 @@ $send = 0;
                         </thead>
                         <tbody>
 
-                            <?php foreach ($rows as $key => $value): ?>
+                            <?php foreach ($rows as $key => $val_): ?>
                             <?php
                             //$data = PatientHelper::getApi($value['hn']);
                             ?>
                                 <tr data-cid="<?php // $value['cid'] ?>" class="tr-vn">
                                     <td style="width:1%">
-                                        <input class="chk_pt" type="checkbox" name="pt[]" value="<?= $value['pcc_vn'] ?>" />
+                                        <input class="chk_pt" type="checkbox" name="pt[]" value="<?= $val_['pcc_vn'] ?>" />
                                     </td>
                                     <td style="width:2.7%"><?php //echo $data['hn']; ?></td>
                                     <td data-num=2 style="width:1%">
-                                    <input type="hidden" name="num[]" value="" id="input<?=$value['pcc_vn']?>"/>
-                                    <input type="hidden" name="sendtime[]" value="" id="time<?=$value['pcc_vn']?>"/>
+                                    <input type="hidden" name="num[]" value="" id="input<?=$val_['pcc_vn']?>"/>
+                                    <input type="hidden" name="sendtime[]" value="" id="time<?=$val_['pcc_vn']?>"/>
                                     <input type="hidden" name="cid[]" value="<?php // $value['cid'] ?>"/>
                                     
-                                    <div  id="<?=$value['pcc_vn']?>" class="send_no"></div>
-                                    <div id="time<?=$value['pcc_vn']?>"></div>
+                                    <div  id="<?=$val_['pcc_vn']?>" class="send_no"></div>
+                                    <div id="time<?=$val_['pcc_vn']?>"></div>
                                     </td>
                                     <td style="width:2%">
                                         <?php

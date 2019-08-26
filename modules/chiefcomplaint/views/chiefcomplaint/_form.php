@@ -4,8 +4,12 @@ use kartik\widgets\Select2;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
-$hn = PatientHelper::getCurrentHn();
+// $hn = PatientHelper::getCurrentHn();
+// $vn = PatientHelper::getCurrentVn();
+
+$pcc_vn = PatientHelper::getCurrentPccVn();
 $vn = PatientHelper::getCurrentVn();
+$hn = PatientHelper::getCurrentHn();
 $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 
 ?>

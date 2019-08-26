@@ -4,20 +4,14 @@ use app\components\PatientHelper;
 use app\components\DateTimeHelper;
 use app\modules\document\models\Documentqr;
 use app\modules\document\models\Document;
-use app\modules\document\models\DocumentQrType;
 use app\modules\systems\models\SystemData;
-use kartik\select2\Select2;
-use kartik\widgets\ActiveForm;
-use yii\bootstrap\Modal;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
 use yii\helpers\Html;
 
 $this->title = 'Documents';
 $hn = PatientHelper::getCurrentHn();
-$this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
-// $this->registerCss($÷this->render(''));
+// $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 $this->registerCssFile('@web/viewer/viewer.min.css');
 $this->registerJsFile('@web/viewer/viewer.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 

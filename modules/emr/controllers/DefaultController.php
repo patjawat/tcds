@@ -9,8 +9,8 @@ use app\modules\doctorworkbench\models\MedicationSearch;
 use app\modules\document\models\DocumentSearch;
 use app\modules\document\models\Documentqr;
 use Yii;
-// use yii\web\Controller;
-use app\components\VisitController as Controller;
+use yii\web\Controller;
+// use app\components\VisitController as Controller;
 use yii\web\Response;
 use yii\helpers\Url;
 use yii\helpers\Html;
@@ -20,6 +20,8 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
+        $this->layout = '@app/themes/dev/views/layouts/emr';
+
         $hn = PatientHelper::getCurrentHn();
         $doc_qr = Documentqr::findOne(['hn' => $hn]);
         list($initialPreview,$initialPreviewConfig) = $this->getInitialPreview($hn);

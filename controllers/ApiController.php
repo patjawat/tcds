@@ -7,8 +7,9 @@ use yii\rest\ActiveController;
 use yii\web\Response;
 use app\modules\document\models\Documentqr;
 use app\modules\document\models\Document;
-use app\components\DateTimeHelper;
-use app\modules\chiefcomplaint\models\Chiefcomplaint;
+use JsonRpc as Rpc;
+use app\components\HISHelper;
+
 
 class ApiController extends ActiveController
 {
@@ -93,5 +94,29 @@ class ApiController extends ActiveController
            
         }    
         // return $request->post('hn');
+    }
+
+    public function actionPatient(){
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $hn = \Yii::$app->request->post('hn');
+        $reg_ = HISHelper::getPatientByHn($hn); //ข้อมูลทะเบียนประวัติ
+        if (!$reg_) {
+            $content = '! ไม่มีข้อมูล HN. ' . $hn . ' กรุณาติดต่อเวชระเบียน';
+            return ['error' => true, 'content' => $content];
+        }
+        $patient = $reg_[0];
+        // $div = \Yii::$app->request->post('dep');
+        // $visit_ = HISHelper::getVisitByHnDiv($hn, $div); //ข้อมูลรับบริการของผู้ป่วยตามหน่วยงาน
+        // if (!$visit_) {
+        //     $content = '! ไม่มีส่งตรวจ ' . $patient->prefix . $patient->fname . ' ' . $patient->lname . ' ที่หน่วยงานนี้ กรุณาติดต่อต้อนรับ';
+        //     return ['error' => true, 'content' => $content];
+        // }
+        // //PatientHelper::DrugAllergy(); //ตรวจสอบข้อมูลการแพ้ยาของผู้ป่วย รอสอบถามผู้ใช้ระบบ
+        // if (count($visit_) > 1) { //ถ้ามีส่งตรวจที่หน่วยงานเดียวกันมากว่า 1 VN ให้ถามว่าใช้ VN ไหน?
+        //     $content = $this->renderAjax('2vn', ['hn' => $hn, 'department' => $div, 'data' => $visit_]);
+        //     $title = '<i class="fas fa-user"></i> ' . $patient->prefix . $patient->fname . ' ' . $patient->lname;
+        //     return ['error' => true, 'title' => $title, 'content' => $content];
+        // }
+     
     }
 }

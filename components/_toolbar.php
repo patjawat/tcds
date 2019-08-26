@@ -91,6 +91,6 @@ $module = \Yii::$app->controller->module->id;
     <li><a target="_blank" class="<?=$module == 'lab' ? 'on-active' : 'non-active' ?>" href="<?= Url::to(['/lab/default/lab-result-custom']) ?>"><i class="fas fa-microscope"></i> LAB</a></li>
     <?php endif;?>
 <?php if (\Yii::$app->user->can('emr')):?>
-    <li><a class="<?=$module == 'emr' ? 'on-active' : 'non-active' ?>" href="<?= Url::to(['/emr']) ?>"><i class="fa fa-book"></i> EMR</a></li>
+    <li><a target="_blank" class="<?=$module == 'emr' ? 'on-active' : 'non-active' ?>" href="<?= Url::to(['/emr']) ?>"><i class="fa fa-book"></i> EMR</a></li>
 
     <?php endif;?>

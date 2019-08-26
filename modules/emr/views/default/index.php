@@ -11,7 +11,7 @@ $hn = PatientHelper::getCurrentHn() ? PatientHelper::getCurrentHn()  : "";
 $hnEmr = PatientHelper::getCurrentHnEmr();
 // PatientHelper::DrugAlert();
 
-$this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
+// $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 ?>
 <style>
 .navbar-default .navbar-nav>li.dropdown:hover>a,
@@ -42,7 +42,7 @@ li.dropdown:hover>.dropdown-menu {
     text-shadow: -1px 0px white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 </style>
-<h2 style="margin-top: -7px;"><i class="fas fa-procedures"></i> Patient EMR</h2>
+<!-- <h2 style="margin-top: -7px;"><i class="fas fa-procedures"></i> Patient EMR</h2> -->
 <?php
 
 // $items = [

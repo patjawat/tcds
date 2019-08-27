@@ -54,8 +54,8 @@ class HISHelper extends Component {
     public static function getPatientProfile(string $hn) {
         $patient_ = self::getPatientByHn($hn);
         $profile = empty($patient_) ? "! ไม่พบข้อมูล HN. " . $hn . " กรุณาติดต่อเวชระเบียน" :
-                "HN. " . $patient_[0]->hn . " " . $patient_[0]->prefix . $patient_[0]->fname . " " . $patient_[0]->lname . " " 
-                . self::getSex($patient_[0]->sex) ." อายุ " . $patient_[0]->birthday_date;
+                "HN. " . $patient_[0]->hn . " " . $patient_[0]->prefix . $patient_[0]->fname . " " . $patient_[0]->lname . " "
+                . self::getSex($patient_[0]->sex) . " อายุ " . $patient_[0]->birthday_date;
         return $profile;
     }
 
@@ -67,8 +67,8 @@ class HISHelper extends Component {
     public static function getSex(string $sex) {
         return "เพศ" . ($sex === "M" ? "ชาย" : ($sex === "F" ? "หญิง" : "---"));
     }
-    
-    public static function getDateByInt(){
+
+    public static function getDateByInt() {
         return;
     }
 
@@ -77,7 +77,7 @@ class HISHelper extends Component {
      * @param \DateTime $birthday
      * @return type
      */
-    public static function getAge(\DateTime $birthday){
+    public static function getAge(\DateTime $birthday) {
         return $birthday->format("Y-m-d");
     }
 
@@ -96,7 +96,7 @@ class HISHelper extends Component {
      * @param string $hn
      * @return void
      */
-    public static function getLabByHn(string $hn) {
+    public static function getLabRequestByHn(string $hn) {
         return $hn > 0 ? self::getApiResult('LabRequestRpcS', 'getByHn', [$hn]) : [];
     }
 
@@ -131,6 +131,49 @@ class HISHelper extends Component {
                 ($eat_hours < 48 ? ">8 h" :
                 $eat_hours)))))))));
         return $eat_remark;
+    }
+
+    /**
+     * ผลแลปตามเลขอ้างอิงการส่งตรวจ HIS
+     * @param string $hn
+     * @return array
+     */
+    public static function getLabResultRows(string $hn) {
+        $row_ = [];
+        $lab_result_ = HISHelper::getLabResultByHn($hn);
+        $lab_code_hide_ = ["HIVAB", "HIVABS", "HIVAG", "HIL", "HIQ", "DRH", "CD4", "CD48"];
+        foreach ($lab_result_ as $key => $val_) {
+            $remark = NUll;
+            if ($val_['lis_code'] == "10020" || $val_['lis_code'] == "10080") {
+                $remark = "(" .
+                        HISHelper::getLabEatRemark(new \DateTime($val_['checkin_date'] . " " . $val_['checkin_time']), new \DateTime($val_['eat_date'] . " " . $val_['eat_time'])) .
+                        ")";
+            } else if (in_array($val_['lab_code'], $lab_code_hide_)) {
+                $val_['result'] = "***";
+            }
+            $row_[$val_['lis_code'] . $val_['reference_number']] = $val_['result'] . " " . $remark;
+        }
+        return $row_;
+    }
+
+    /**
+     * วันที่ เวลาที่ ส่งตรวจแลป HIS
+     * @param string $hn
+     * @return array
+     */
+    public static function getLabCheckinCols(string $hn) {
+        $col_ = [];
+        $lab_request_ = HISHelper::getLabRequestByHn($hn); //ปรับปรุงข้อมูลการส่งตรวจแลปของ HIS
+        foreach ($lab_request_ as $val_) {
+            if (trim($val_->request_lab_id) !== "GLUS") {
+                $checkin_date = date("Y-m-d", strtotime($val_->checkin_date));
+                $checkin_time = date("H:i", strtotime(sprintf("%06s", $val_->checkin_time)));
+                $col_[$val_->checkin_date . $val_->file_no] = ['file_no' => $val_->file_no,
+                    'checkin_date' => $checkin_date, 'checkin_time' => $checkin_time,
+                    'checkin_datetime' => $checkin_date . " " . $checkin_time];
+            }
+        }
+        return $col_;
     }
 
 }

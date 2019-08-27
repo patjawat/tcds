@@ -91,22 +91,24 @@ class DefaultController extends Controller {
      * @return void
      */
     public function actionLabResultCustom() {
-        $perPage = Yii::$app->request->get('per-page');
-        $pageSize = $perPage ? intval($perPage) : 500;
+        //$perPage = Yii::$app->request->get('per-page');
+        //$pageSize = $perPage ? intval($perPage) : 500;
         $searchModel = new LabResultSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        if ($searchModel->patient_id > 0) {
-            $dataProvider->query->andFilterWhere(['patient_id' => $searchModel->patient_id])
-                    ->andFilterWhere(['lis_code' => $searchModel->lis_code])->groupBy(['lis_code']);
-            $dataProvider->setPagination(['pageSize' => $pageSize]);
+        if (empty($searchModel->patient_id) && empty(PatientHelper::getCurrentHn())) {
+            $patient_id = "0";
+        } else if (empty($searchModel->patient_id) && !empty(PatientHelper::getCurrentHn())) {
+            $searchModel->patient_id = PatientHelper::getCurrentHn();
+            $patient_id = $searchModel->patient_id;
         } else {
-            $dataProvider->query->andFilterWhere(['patient_id' => '0']);
+            $patient_id = $searchModel->patient_id;
         }
+        $dataProvider->query->andFilterWhere(['patient_id' => $patient_id])->andFilterWhere(['lis_code' => $searchModel->lis_code])->groupBy(['lis_code']);
         return $this->render('lab_result_custom', [
                     'hn' => $searchModel->patient_id,
                     'dataProvider' => $dataProvider,
                     'searchModel' => $searchModel,
-                    'pagination' => ['pageSize' => $pageSize,],
+                    'pagination' => ['pageSize' => 500,],
         ]);
     }
 

@@ -2,6 +2,8 @@
 
 use app\components\HISHelper;
 
+$col_ = [];
+$row_ = [];
 if (!is_null($hn)) {
     $this->params['pt_title'] = HISHelper::getPatientProfile($hn);
     $col_ = HISHelper::getLabCheckinCols($hn);
@@ -93,17 +95,17 @@ if (!is_null($hn)) {
                     foreach ($col_ as $key => $val_):
                         ?>
                         <th><?= $val_['checkin_datetime'] ?></th>
-                    <?php endforeach; ?>
+<?php endforeach; ?>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($dataProvider->getModels() as $key => $model): ?>
+<?php foreach ($dataProvider->getModels() as $key => $model): ?>
                     <tr>
                         <td class="fixed-side"><?php echo $model['lis_code']; ?></td>
                         <td class="fixed-side"><?php echo $model['test']; ?></td>
                         <td class="fixed-side"><?php echo $model['normal_range']; ?></td>
                         <td class="fixed-side"><?php echo $model['unit']; ?></td>
-                        <?php foreach ($col_ as $key => $val_): ?>
+    <?php foreach ($col_ as $key => $val_): ?>
                             <td align="center">
                                 <code> 
                                     <?php

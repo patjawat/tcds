@@ -190,6 +190,17 @@ $this->registerCss("
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fas fa-clipboard-check"></i> Patient Data Panel</h3>
+            <!-- <button class="">add</button> -->
+            <h3 class="panel-title text-right">
+    <div class="">
+        <a class="btn btn-warning btn-xs" data-toggle="collapse" data-parent="#DataRow" href="#CollapseData" aria-expanded="true" aria-controls="CollapseData">
+            <span class="glyphicon glyphicon-collapse-down"></span>
+        </a>
+        Data               
+
+        <button class="btn btn-danger btn-xs disabled" id="DownloadBtn" type="button" title="Download all data"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>&nbspDownload</button>
+    </div>                
+</h3>
             </div>
             <div class="panel-body">
                 <!-- Start Row -->

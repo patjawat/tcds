@@ -26,6 +26,15 @@ $this->params['pt_title'] = '<i class="fa fa-wheelchair" aria-hidden="true"></i>
 </div>
 </div>
 
+
+
+<ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+  </body>
+
+
 <?php
 $url = Url::to(['/opdvisit/default/list']);
 $js = <<< JS
@@ -66,5 +75,23 @@ $js = <<< JS
                 }
             });
     }
+
+
+
+    $(function () {
+    var socket = io('http://127.0.0.1:3000');
+    $('form').submit(function(e){
+      e.preventDefault(); // prevents page reloading
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+    socket.on('chat message', function(msg){
+      $('#messages').append($('<li>').text(msg));
+        console.log(msg);
+    });
+  });
+
+
 JS;
 $this->registerJs($js);

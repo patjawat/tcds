@@ -80,24 +80,6 @@ function loadMedOrder(){
     });
 }
 
-// function loadMedAccept(){
-//     var div =  $('#medAccept');
-//     var label_tabs = $('#t_tabs1');
-//     $.ajax({
-//         type: "get",
-//                beforeSend: function () {
-//         div.html('$loadImg');
-//         label_tabs.html('Loading...');
-//     },
-//         url: "index.php?r=med/default/accept",
-//         dataType: "json",
-//         success: function (response) {
-//             $('#medAccept').html(response)
-//             label_tabs.html('คีย์ยา');
-//         }
-//     });
-// }
-
 function loadMedArrange(){
     var div =  $('#medArrange');
     var label_tabs = $('#t_tabs2');

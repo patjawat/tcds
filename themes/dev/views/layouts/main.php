@@ -31,7 +31,8 @@ $hn = PatientHelper::getCurrentHn();
     <link rel="icon" href="./img/medico.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="./img/medico.ico" type="image/x-icon" />
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
-    <style>
+   <script src="http://127.0.0.1:3000/socket.io/socket.io.js"></script>
+   <style>
 
     #main-remote>.modal-dialog {
         width: 65%;

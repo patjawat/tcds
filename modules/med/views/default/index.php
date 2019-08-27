@@ -2,13 +2,21 @@
 
 use app\components\PatientHelper;
 use yii\helpers\Html;
+use kartik\dialog\Dialog;
 
 $hn = PatientHelper::getCurrentHn();
 $vn = PatientHelper::getCurrentVn();
 $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 $tab = Yii::$app->request->get('active') ?  Yii::$app->request->get('active') : 'tab1';
 
+
+echo Dialog::widget([
+    'libName' => 'krajeeDialog1', // optional if not set will default to `krajeeDialog`
+    'options' => ['draggable' => true, 'closable' => true], // custom options
+ ]);
+
 ?>
+
 <style>
     .panel-default>.panel-heading {
         color: #05867a !important;
@@ -17,6 +25,7 @@ $tab = Yii::$app->request->get('active') ?  Yii::$app->request->get('active') : 
         text-shadow: -1px 0px white, 0 1px white, 1px 0 white, 0 -1px white;
     }
 </style>
+
 <ul class="nav nav-tabs">
     <li class="<?= $tab == 'tab1' ? 'active' : '' ?>"><a data-toggle="tab" href="#tabs1" id="t_tabs1">คีย์ยา</a></li>
     <li class="<?= $tab == 'tab2' ? 'active' : '' ?>"><a data-toggle="tab" href="#tabs2" id="t_tabs2">จัดยา</a></li>
@@ -53,6 +62,7 @@ $tab = Yii::$app->request->get('active') ?  Yii::$app->request->get('active') : 
 
 <?php
 
+
 $loadImg = Html::img('@web/img/loading.gif', ['style' => 'margin-left: 600px;margin-top: 50px;padding-bottom: 18px;']);
 $js  = <<< JS
 
@@ -61,6 +71,34 @@ loadMedArrange() // จัดยา
 loadMedCheck() // ตรวจสอบยา
 loadMedSuccess() // จ่ายยา
 loadMedReport() // รายงาน
+
+
+$('#btn-1').on('click', function() {
+    krajeeDialog1.alert('An alert');
+    // or show a confirm
+    krajeeDialog1.confirm('Are you sure', function(out){
+        if(out) {
+            alert('Yes'); // or do something on confirmation
+        }
+    });
+});
+
+
+
+$(function () {
+    var socket = io('http://127.0.0.1:3000');
+    $('form').submit(function(e){
+      e.preventDefault(); // prevents page reloading
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+    socket.on('chat message', function(msg){
+      $('#messages').append($('<li>').text(msg));
+        // console.log(msg);
+        krajeeDialog1.alert(msg);
+    });
+  });
 
 function loadMedOrder(){
     var div =  $('#medOrder');

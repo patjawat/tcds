@@ -2,14 +2,15 @@
 
 //use app\components\FormatYear;
 use app\components\HISHelper;
-use app\components\PatientHelper;
+//use app\components\PatientHelper;
 
 //use app\components\PatientHelper;
 //$limit = $searchModel->limit ? $searchModel->limit : 4;
 $lab_request_ = [];
 $result_ = [];
 $checkin_col_ = [];
-
+//$hn = "365656";
+//$hn = PatientHelper::getCurrentHn();
 if (!is_null($hn)) {
     //$this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
     $this->params['pt_title'] = HISHelper::getPatientProfile($hn);

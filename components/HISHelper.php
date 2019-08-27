@@ -68,6 +68,10 @@ class HISHelper extends Component {
         return "เพศ" . ($sex === "M" ? "ชาย" : ($sex === "F" ? "หญิง" : "---"));
     }
     
+    public static function getDateByInt(){
+        return;
+    }
+
     /**
      * คำนวนอายุ
      * @param \DateTime $birthday

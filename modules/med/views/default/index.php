@@ -13,6 +13,41 @@ $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 $tab = Yii::$app->request->get('active') ?  Yii::$app->request->get('active') : 'tab1';
 
 
+
+use lo\modules\noty\Wrapper;
+
+echo Wrapper::widget([
+    // 'layerClass' => 'lo\modules\noty\layers\Noty',
+    'layerClass' => 'lo\modules\noty\layers\Growl',
+    'layerOptions'=>[
+        // for every layer (by default)
+        'layerId' => 'noty-layer',
+        'customTitleDelimiter' => '|',
+        'overrideSystemConfirm' => true,
+        'showTitle' => true,
+
+        // for custom layer
+        // 'registerAnimateCss' => true,
+        // 'registerButtonsCss' => true
+    ],
+
+    // clientOptions
+    'options' => [
+        'dismissQueue' => true,
+        // 'layout' => 'topRight',
+        'location' => 'br',
+        'size' => 'medium',
+        'layout' => 'topLeft',
+        'timeout' => 3000,
+        'theme' => 'relax',
+
+        // and more for this library...
+    ],
+]);
+
+
+
+
 echo Dialog::widget([
     'libName' => 'krajeeDialog1', // optional if not set will default to `krajeeDialog`
     'options' => ['draggable' => true, 'closable' => true], // custom options
@@ -88,14 +123,14 @@ $(function () {
     socket.on('med_express', function(msg){
         // krajeeDialog1.alert(msg);
         Push.create("รายการสั่งยาด่วน", {
-    body: "HN : 112233",
-    icon: '/img/profile.png',
-    timeout: 8000,
-    onClick: function () {
-        window.focus();
-        this.close();
-    }
-});
+        body: "HN : 112233",
+        icon: '/img/profile.png',
+        timeout: 8000,
+        onClick: function () {
+            window.focus();
+            this.close();
+        }
+    });
     });
   });
 

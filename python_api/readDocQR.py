@@ -78,8 +78,9 @@ if(root_dir.iterdir()):
         if os.path.splitext(file)[1] == '.TIF':
             if file.split('-_')[0]:
                 ReadQR(item)
-        # elif os.path.splitext(file)[1] == '.png':
-
+        elif os.path.splitext(file)[1] == '.tif':
+            if file.split('-_')[0]:
+                ReadQR(item)
         #     if file.split('-_')[0]:
         #         ReadQR(item)
 

@@ -22,6 +22,11 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
+        Yii::$app->session->setFlash('error',   'noty error');
+        Yii::$app->session->setFlash('info',    'noty info');
+        Yii::$app->session->setFlash('success', 'noty success');
+        Yii::$app->session->setFlash('warning', 'noty warning');
+        
         return $this->render('index');
     }
 

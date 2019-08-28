@@ -78,6 +78,7 @@ class SiteController extends Controller
         $date2 = \Yii::$app->request->post('date2');
         $today = date('Y-m-d');
 
+
         return $this->render('index', [
             'date1' => empty($date1) ? $today : $date1,
             'date2' => empty($date2) ? $today : $date2,

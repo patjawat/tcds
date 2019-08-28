@@ -16,10 +16,13 @@ use app\modules\opdvisit\models\OpdVisit;
 
 use JsonRpc as Rpc;
 
+
 $this->title = 'ทะเบียนผู้รับบริการ';
 $this->params['pt_title'] = '<i class="fa fa-wheelchair" aria-hidden="true"></i> กรุณาเลือกผู้เข้ารับบริการ';
 ?>
 <h3><i class="fas fa-user-edit"></i> <?= Html::encode($this->title) ?></h3>
+
+
 <div class="card mb-4 py-3 border-left-primary shadow h-100 py-2">
     <div class="card-body">
 <div id="showVisit"></div>

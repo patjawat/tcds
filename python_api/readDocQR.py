@@ -68,7 +68,7 @@ def ReadQR(item):
                 else:
                     print('skip => '+fileName)
                     print(item)
-    os.remove(item)
+    
 
 
 if(root_dir.iterdir()):
@@ -81,6 +81,8 @@ if(root_dir.iterdir()):
         elif os.path.splitext(file)[1] == '.tif':
             if file.split('-_')[0]:
                 ReadQR(item)
+        
+        os.remove(item)
         #     if file.split('-_')[0]:
         #         ReadQR(item)
 

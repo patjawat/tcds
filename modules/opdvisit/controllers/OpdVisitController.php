@@ -148,6 +148,7 @@ class OpdVisitController extends Controller {
         PatientHelper::setCurrentHn($hn);
         return $this->redirect(['/chiefcomplaint']);
     }
+
     /**
      * ขั้นตอนเมื่อค้นหาผู้ป่วยด้วย HN.
      */
@@ -266,22 +267,24 @@ class OpdVisitController extends Controller {
         //       // PatientHelper::setCurrentVn($check_vn->vn);
     }
 
+    /**
+     * การแก้ไข VISIT *orr
+     * @param type $pcc_vn
+     * @param type $hn
+     * @param type $vn
+     * @return type
+     */
     public function actionRevisit($pcc_vn, $hn, $vn) {
-        $check_hn = HisPatient::findOne(['hn' => $hn]);
-        if ($check_hn) {
-            $fname = $check_hn->fname;
-            $lname = $check_hn->lname;
-            $birthday_date = $check_hn->birthday_date;
-            $sex = $check_hn->sex;
-            $sex = $check_hn->sex;
-            $prefix = $check_hn->prefix;
+        $patient_ = HisPatient::findOne(['hn' => $hn]);
+        if ($patient_) {
+            $fname = $patient_->fname;
+            $lname = $patient_->lname;
+            $birthday_date = $patient_->birthday_date;
+            $sex = $patient_->sex;
+            $prefix = $patient_->prefix;
         } else {
-            $url = PatientHelper::getUrl() . 'PatientRpcS';
-            $Client = new JsonRpc\Client($url);
-            $success = false;
-            $success = $Client->call('getByHn', [$hn]);
-
-            $data = $Client->result[0];
+            $patient_ = HISHelper::getPatientByHn($hn);
+            $data = $patient_[0];
             $fname = $data->fname;
             $lname = $data->lname;
             $birthday_date = $data->birthday_date;
@@ -299,9 +302,6 @@ class OpdVisitController extends Controller {
         PatientHelper::setCurrentLname($lname);
         PatientHelper::setCurrentAge($birthday_date, $hn);
         PatientHelper::DrugAllergy();
-
-        // PatientHelper::setCurrentHn($data->hn);
-        // PatientHelper::setCurrentPatient($data->hn, $pcc_vn,$data->fname,$data->lname,$data->cid,null);
         if (Yii::$app->user->can('doctor')) {
             return $this->redirect(['/doctorworkbench']);
         } else {

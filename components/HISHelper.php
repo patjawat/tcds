@@ -38,7 +38,7 @@ class HISHelper extends Component {
     }
 
     /**
-     * ข้อมูลส่วนตัวตามรหัสผู้รับบริการ
+     * ข้อมูลส่วนตัวตามรหัสผู้รับบริการ&update his_patient
      * @param string $hn
      * @return void
      */
@@ -53,9 +53,10 @@ class HISHelper extends Component {
      */
     public static function getPatientProfile(string $hn) {
         $patient_ = self::getPatientByHn($hn);
+        $birthday = self::getDateByYYYYMMDD($patient_[0]->birthday_date);
         $profile = empty($patient_) ? "! ไม่พบข้อมูล HN. " . $hn . " กรุณาติดต่อเวชระเบียน" :
                 "HN. " . $patient_[0]->hn . " " . $patient_[0]->prefix . $patient_[0]->fname . " " . $patient_[0]->lname . " "
-                . self::getSex($patient_[0]->sex) . " อายุ " . $patient_[0]->birthday_date;
+                . self::getSex($patient_[0]->sex) . " อายุ " . self::getAgeByYYYYMMDD($birthday);
         return $profile;
     }
 
@@ -68,8 +69,13 @@ class HISHelper extends Component {
         return "เพศ" . ($sex === "M" ? "ชาย" : ($sex === "F" ? "หญิง" : "---"));
     }
 
-    public static function getDateByInt() {
-        return;
+    /**
+     * แปลงตัวเลข ปีเดือนวัน เป็นข้อมูลวันที่
+     * @param int $yyyymmdd
+     * @return \DateTime
+     */
+    public static function getDateByYYYYMMDD(int $yyyymmdd) {
+        return \DateTime::createFromFormat('Ymd', $yyyymmdd);
     }
 
     /**
@@ -77,8 +83,9 @@ class HISHelper extends Component {
      * @param \DateTime $birthday
      * @return type
      */
-    public static function getAge(\DateTime $birthday) {
-        return $birthday->format("Y-m-d");
+    public static function getAgeByYYYYMMDD(\DateTime $birthday) {
+        $interval = date_diff($birthday, new \DateTime("now"));
+        return $interval->format('%yปี %mเดือน %dวัน');
     }
 
     /**
@@ -142,7 +149,7 @@ class HISHelper extends Component {
         $row_ = [];
         $lab_result_ = HISHelper::getLabResultByHn($hn);
         $lab_code_hide_ = ["HIVAB", "HIVABS", "HIVAG", "HIL", "HIQ", "DRH", "CD4", "CD48"];
-        foreach ($lab_result_ as $key => $val_) {
+        foreach ($lab_result_ as $val_) {
             $remark = NUll;
             if ($val_['lis_code'] == "10020" || $val_['lis_code'] == "10080") {
                 $remark = "(" .

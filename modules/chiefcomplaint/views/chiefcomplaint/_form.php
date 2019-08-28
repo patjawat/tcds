@@ -1,6 +1,7 @@
 <?php
 
 use app\components\PatientHelper;
+use app\components\SystemHelper;
 use kartik\widgets\Select2;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
@@ -102,7 +103,6 @@ $this->registerCss("
 ");
 ?>
 
-
 <style>
     .navbar-default .navbar-nav>li.dropdown:hover>a,
     .navbar-default .navbar-nav>li.dropdown:hover>a:hover,
@@ -155,15 +155,6 @@ $this->registerCss("
     }
 </style>
 <h3><i class="fas fa-edit"></i> การซักประวัติ</h3>
-<?php
-// $data = Json::decode($model->nursing_assessment);
-// echo $model->nursing_assessment[''];
-// $data = $model->nursing_assessment;
-// echo $data['type_of_patient'];
-// var_dump($data);
-?>
-
-
 
 <?php $form = ActiveForm::begin([
     'id' => 'form-chiefcomplaint',
@@ -189,18 +180,17 @@ $this->registerCss("
         <!-- srart panel Default -->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fas fa-clipboard-check"></i> Patient Data Panel</h3>
-            <!-- <button class="">add</button> -->
-            <h3 class="panel-title text-right">
-    <div class="">
-        <a class="btn btn-warning btn-xs" data-toggle="collapse" data-parent="#DataRow" href="#CollapseData" aria-expanded="true" aria-controls="CollapseData">
-            <span class="glyphicon glyphicon-collapse-down"></span>
-        </a>
-        Data               
+                <!-- <h3 class="panel-title"><i class="fas fa-clipboard-check"></i> Patient Data Panel</h3>
+                <h3 class="panel-title text-right">
+                    <div class="">
+                        <a class="btn btn-warning btn-xs" data-toggle="collapse" data-parent="#DataRow" href="#CollapseData" aria-expanded="true" aria-controls="CollapseData">
+                            <span class="glyphicon glyphicon-collapse-down"></span>
+                        </a>
+                        Data
 
-        <button class="btn btn-danger btn-xs disabled" id="DownloadBtn" type="button" title="Download all data"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>&nbspDownload</button>
-    </div>                
-</h3>
+                        <button class="btn btn-danger btn-xs disabled" id="DownloadBtn" type="button" title="Download all data"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>&nbspDownload</button>
+                    </div>
+                </h3> -->
             </div>
             <div class="panel-body">
                 <!-- Start Row -->
@@ -1018,37 +1008,32 @@ $this->registerCss("
 
 
 
-    <?php
-    $requester = $model->requester;
-    $js = <<< JS
+<?php
+$requester = $model->requester;
+$socketServer = SystemHelper::getSocketApi();
+$js = <<< JS
 
-
-
-
-$(function(){
-
-    // $("#form-chiefcomplaint").submit(function(event) {
-    //     $("#form-chiefcomplaint").on('beforeSubmit', function(e) {
-    //     e.preventDefault(); // stopping submitting
-    //         var form = $(this);
-    //         if (form.find('.has-error').length) {
-    //     //   return false;
-    //       console.log(form.find('.has-error').length)
-    //         }else{
-    //             if($('#chiefcomplaint-requester').val() == ''){
-    //                 confirmRequester();
-    //             }else{
-    //                 alert('success');
-    //             }
-    //     console.log(form.find('.has-error').length)
-    //     return false;
-    //  }
-    //  return false;
-    // });
-
+var socket = io('$socketServer');
 loadFormControl();
-// getRequesterName();
 scoreChildControl();
+$('#chiefcomplaint-med_express').click(function(e, parameters) {
+    
+    
+    var nonUI = false;
+    try {
+        nonUI = parameters.nonUI;
+    } catch (e) {}
+        var checked = nonUI ? !this.checked : this.checked;
+        // alert('Checked = ' + checked);
+        var value = e.target.value;
+        if(checked == true){
+            socket.emit('med_express','Express');
+//    console.log('checked'+value);
+}else{
+    // console.log('Unchecked'+value);
+}
+    
+});
 
 $('#pain_score_child').keyup(function(){
     scoreChildControl();
@@ -1105,28 +1090,6 @@ $('#chiefcomplaint-ht').keyup(function(){
     console.log($(this).val());
 });
 
-// $('#saveChiefcomplaint').click(function(){
-//     //confirmRequester()
-//     saveChiefcomplaint();
-//    var form =  $('#form-chiefcomplaint');
-
-// //    if (form.find('.has-error').length) {
-// //     $.alert({
-// //                     theme:'modern',
-// //                     title: 'แจ้งเตือน!',
-// //                     content: 'ข้อมูลไม่สมบรูณ์',
-// //                     backgroundDismiss: false,
-// //                     backgroundDismissAnimation: 'glow',
-// //                     animation: 'zoom',
-// //                     closeAnimation: 'scale'
-// //                     // animationSpeed: 900,
-// //                 });
-// //         }else{
-// //             confirmRequester();
-
-// //         }
-
-// });
 
 $('#btnsave-tmpcc1').click(function() {
 var tmpcc1 = $('#tmp_cc1').val(); //DATA NEW TMP CC 1
@@ -1210,11 +1173,6 @@ $('.print').click(function(e){
 
 });
 
-
-
-
-
-});
 
 function scoreChildControl(){
     var value = $('#pain_score_child').val()

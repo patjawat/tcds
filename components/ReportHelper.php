@@ -6,7 +6,7 @@ use yii\base\Component;
 
 
 class ReportHelper extends Component {
-    public static function Url(){
+    public static function getBarcodeApi(){
         return 'http://localhost:8100/';
     }
 

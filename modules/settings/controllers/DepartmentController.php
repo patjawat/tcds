@@ -16,9 +16,7 @@ use yii\helpers\Html;
  */
 class DepartmentController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
+
     public function behaviors()
     {
         return [
@@ -91,6 +89,7 @@ class DepartmentController extends Controller
     {
         $request = Yii::$app->request;
         $model = new CDepartment();  
+
 
         if($request->isAjax){
             /*

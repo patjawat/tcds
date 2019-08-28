@@ -25,7 +25,8 @@ class DefaultController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $data = [
                 'his_api' => $model->data['his_api'],
-                'barcode_api' => $model->data['barcode_api']
+                'barcode_api' => $model->data['barcode_api'],
+                'socket_api' => $model->data['socket_api']
             ];
             $model->data = Json::encode($data);
             if($model->save()){

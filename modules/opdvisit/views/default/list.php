@@ -83,18 +83,21 @@ $this->title = 'รายการผู้รับบริการ';
                   'pluginEvents' => [
                     "apply.daterangepicker" => "function() { apply_filter('service_start_date') }",
                   ],
-                ])
-              ],
-            [
-                'attribute' => 'service_start_time',
-                'header' => 'เวลา',
-                'width' => '7%',
-                'contentOptions' => ['style' => 'max-width: 100px;'],
-                'format' => 'raw',
-                'value' => function ($model) {
-                    return $model->service_start_time;
+                ]),
+                'value' => function($model){
+                    return $model->service_start_date.' '.$model->service_start_time;
                 }
-            ],
+              ],
+            // [
+            //     'attribute' => 'service_start_time',
+            //     'header' => 'เวลา',
+            //     'width' => '7%',
+            //     'contentOptions' => ['style' => 'max-width: 100px;'],
+            //     'format' => 'raw',
+            //     'value' => function ($model) {
+            //         return $model->service_start_time;
+            //     }
+            // ],
             // 'service_start_date:text:เข้ารับบริการ',
             // 'service_start_time:text:เวลา',
             [
@@ -129,7 +132,7 @@ $this->title = 'รายการผู้รับบริการ';
 
             ],
             [
-                'attribute' => 'vn',
+                'attribute' => 'pcc_vn',
                 'header' => 'VN',
                 'width' => '9%',
                 'contentOptions' => ['style' => 'max-width: 100px;'],

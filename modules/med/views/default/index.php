@@ -1,6 +1,9 @@
 <?php
 
+use lavrentiev\widgets\toastr\NotificationFlash;
+use lavrentiev\widgets\toastr\Notification;
 use app\components\PatientHelper;
+use app\components\SystemHelper;
 use yii\helpers\Html;
 use kartik\dialog\Dialog;
 
@@ -13,7 +16,7 @@ $tab = Yii::$app->request->get('active') ?  Yii::$app->request->get('active') : 
 echo Dialog::widget([
     'libName' => 'krajeeDialog1', // optional if not set will default to `krajeeDialog`
     'options' => ['draggable' => true, 'closable' => true], // custom options
- ]);
+]);
 
 ?>
 
@@ -60,9 +63,11 @@ echo Dialog::widget([
 </div>
 <!-- End Tabs Contents -->
 
+
+
 <?php
 
-
+$socketServer = SystemHelper::getSocketApi();
 $loadImg = Html::img('@web/img/loading.gif', ['style' => 'margin-left: 600px;margin-top: 50px;padding-bottom: 18px;']);
 $js  = <<< JS
 
@@ -71,34 +76,29 @@ loadMedArrange() // จัดยา
 loadMedCheck() // ตรวจสอบยา
 loadMedSuccess() // จ่ายยา
 loadMedReport() // รายงาน
+// Notification();
 
 
-$('#btn-1').on('click', function() {
-    krajeeDialog1.alert('An alert');
-    // or show a confirm
-    krajeeDialog1.confirm('Are you sure', function(out){
-        if(out) {
-            alert('Yes'); // or do something on confirmation
-        }
-    });
-});
 
 
 
 $(function () {
-    var socket = io('http://127.0.0.1:3000');
-    $('form').submit(function(e){
-      e.preventDefault(); // prevents page reloading
-      socket.emit('chat message', $('#m').val());
-      $('#m').val('');
-      return false;
-    });
-    socket.on('chat message', function(msg){
-      $('#messages').append($('<li>').text(msg));
-        // console.log(msg);
-        krajeeDialog1.alert(msg);
+    var socket = io('$socketServer');
+
+    socket.on('med_express', function(msg){
+        // krajeeDialog1.alert(msg);
+        Push.create("รายการสั่งยาด่วน", {
+    body: "HN : 112233",
+    icon: '/img/profile.png',
+    timeout: 8000,
+    onClick: function () {
+        window.focus();
+        this.close();
+    }
+});
     });
   });
+
 
 function loadMedOrder(){
     var div =  $('#medOrder');

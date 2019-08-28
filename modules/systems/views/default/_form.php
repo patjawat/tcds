@@ -30,6 +30,7 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'data[his_api]')->textInput()->label(' HIS API') ?>
     <?= $form->field($model, 'data[barcode_api]')->textInput()->label('Barcode API') ?>
+    <?= $form->field($model, 'data[socket_api]')->textInput()->label('Socket.io API') ?>
 
 
     <div class="form-group">

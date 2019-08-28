@@ -44,7 +44,9 @@ class DevAsset extends AssetBundle {
         'js/medRoom.js',
         'jquery-confirm/jquery-confirm.min.js',
         'js/aos.js',
-        'js/requester.js'
+        'js/requester.js',
+        'js/socket.io.js',
+        'js/push.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

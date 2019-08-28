@@ -7,9 +7,18 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-      io.emit('chat message', msg);
+  // แจ้งเตือนสั่งยาด่วน
+    socket.on('med_express', function(msg){
+      io.emit('med_express', msg);
     });
+
+
+    socket.on('create_guestbook', function() {
+      io.emit('replace_guestbook')
+      io.emit('replace_unread_counter')
+  })
+
+  
   });
 
 http.listen(3000, function(){

@@ -1,41 +1,15 @@
 <?php
 
-//use app\components\FormatYear;
 use app\components\HISHelper;
-//use app\components\PatientHelper;
 
-//use app\components\PatientHelper;
-//$limit = $searchModel->limit ? $searchModel->limit : 4;
-$lab_request_ = [];
-$result_ = [];
-$checkin_col_ = [];
-//$hn = "365656";
-//$hn = PatientHelper::getCurrentHn();
+$col_ = [];
+$row_ = [];
 if (!is_null($hn)) {
-    //$this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
     $this->params['pt_title'] = HISHelper::getPatientProfile($hn);
-    $lab_request_ = HISHelper::getLabByHn($hn); //ปรับปรุงข้อมูลการส่งตรวจแลปของ HIS
-    foreach ($lab_request_ as $key => $val_) {
-        if (trim($val_->request_lab_id) !== "GLUS") {
-            $checkin_date = date("Y-m-d", strtotime($val_->checkin_date));
-            $checkin_time = date("H:i", strtotime(sprintf("%06s", $val_->checkin_time)));
-            $checkin_col_[$val_->checkin_date . $val_->file_no] = ['file_no' => $val_->file_no,
-                'checkin_date' => $checkin_date, 'checkin_time' => $checkin_time,
-                'checkin_datetime' => $checkin_date . " " . $checkin_time];
-        }
-    }
-    if (!is_null($checkin_col_)) {
-        krsort($checkin_col_);
-        $lab_result_ = HISHelper::getLabResultByHn($hn);
-        foreach ($lab_result_ as $key => $val_) {
-            $remark = NUll;
-            if ($val_['lis_code'] == "10020" || $val_['lis_code'] == "10080") {
-                $remark = "(" .
-                        HISHelper::getLabEatRemark(new DateTime($val_['checkin_date'] . " " . $val_['checkin_time']), new DateTime($val_['eat_date'] . " " . $val_['eat_time'])) .
-                        ")";
-            }
-            $result_[$val_['lis_code'] . $val_['reference_number']] = $val_['result'] . " " . $remark;
-        }
+    $col_ = HISHelper::getLabCheckinCols($hn);
+    if (!is_null($col_)) {
+        krsort($col_);
+        $row_ = HISHelper::getLabResultRows($hn);
     }
 }
 ?>
@@ -118,25 +92,25 @@ if (!is_null($hn)) {
                     <th class="fixed-side">Unit</th>
                     <?php
                     $num = 1;
-                    foreach ($checkin_col_ as $key => $val_):
+                    foreach ($col_ as $key => $val_):
                         ?>
                         <th><?= $val_['checkin_datetime'] ?></th>
-                    <?php endforeach; ?>
+<?php endforeach; ?>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($dataProvider->getModels() as $key => $model): ?>
+<?php foreach ($dataProvider->getModels() as $key => $model): ?>
                     <tr>
                         <td class="fixed-side"><?php echo $model['lis_code']; ?></td>
                         <td class="fixed-side"><?php echo $model['test']; ?></td>
                         <td class="fixed-side"><?php echo $model['normal_range']; ?></td>
                         <td class="fixed-side"><?php echo $model['unit']; ?></td>
-                        <?php foreach ($checkin_col_ as $key => $val_): ?>
+    <?php foreach ($col_ as $key => $val_): ?>
                             <td align="center">
                                 <code> 
                                     <?php
                                     $key = $model['lis_code'] . $val_['file_no'];
-                                    echo array_key_exists($key, $result_) ? $result_[$key] : "";
+                                    echo array_key_exists($key, $row_) ? $row_[$key] : "";
                                     ?>
                                 </code>
                             </td>

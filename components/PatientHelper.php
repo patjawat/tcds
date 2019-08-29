@@ -32,7 +32,7 @@ class PatientHelper extends Component {
      */
     public static function getPatientTitleByHn($hn) {
         if (empty($hn)) {
-            $title = '<i class="fa fa-wheelchair" aria-hidden="true"></i> กรุณาเลือกผู้เข้ารับบริการ';
+            $title = '<i class="fa fa-wheelchair" aria-hidden="true"></i> กรุณาเลือกผู้เข้ารับบริการ*orr';
         } else {
             $title = "HN " . self::getCurrentHn() . " " . self::getCurrentPrefix() . self::getCurrentFname() . " " . self::getCurrentLname() . " เพศ " . self::getCurrentSex() . " อายุ " .
                     self::getCurrentAgeY() . '-' . self::getCurrentAgeM() . '-' . self::getCurrentAgeD() . ' <i class="fas fa-user-md"></i> ' . self::getCurrentDoctorPrefix() . self::getCurrentDoctorName();

@@ -31,6 +31,7 @@ $modules['dm'] = ['class' => 'app\modules\dm\Dm']; // ระบบเบาห�
 $modules['dmindicator'] = ['class' => 'app\modules\dmindicators\Dmindicators']; //Oh
 $modules['pharmacist'] = ['class' => 'app\modules\pharmacist\Pharmacist']; //Oh
 $modules['noty'] = ['class' => 'lo\modules\noty\Module',]; // notyfication สำหรับการแจ้งเตือน
+$modules['hispatient'] = ['class' => 'app\modules\hispatient\Hispatient',]; // His Patient
 
 
 $modules['datecontrol'] = [

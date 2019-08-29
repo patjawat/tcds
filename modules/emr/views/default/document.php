@@ -10,7 +10,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 
 $this->title = 'Documents';
-$hn = PatientHelper::getCurrentHn();
+$hn = Yii::$app->request->get('hn');
 // $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 $this->registerCssFile('@web/viewer/viewer.min.css');
 $this->registerJsFile('@web/viewer/viewer.min.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -42,32 +42,9 @@ $checkUpdate = Document::find()->where(['hn' => $hn, 'updated_at' => DateTimeHel
         color: rgba(100, 100, 100, 0.9);
     }
 
-    .container_loadding .progress-bar {
-        width: 0%;
-        height: 5px;
-        background: linear-gradient(to right, rgb(76, 217, 105), rgb(90, 200, 250), rgb(0, 132, 255), rgb(52, 170, 220), rgb(88, 86, 217), rgb(255, 45, 83));
-        margin-top: 10px;
-        background-size: 350px 5px;
-        border-radius: 10px;
-        animation: loading 6s ease-in-out forwards;
-    }
 
-    .container_loadding .shadow {
-        width: 100%;
-        height: 40px;
-        background: linear-gradient(to bottom, rgba(100, 100, 100, 0.17), rgba(100, 100, 100, 0.1), transparent);
-        transform: skew(45deg) translate(15px, 5px);
-    }
-
-    @keyframes loading {
-        to {
-            width: 100%;
-        }
-    }
 </style>
-
-<!-- <button id="api">Click</button> -->
-
+<?php if($hn):?>
 <ul class="nav nav-tabs" style="width:100%;height: 44px;">
     <li class="active"><a data-toggle="tab" href="#home-document"><i class="fas fa-barcode"></i> Document BarCode</a>
     </li>
@@ -85,10 +62,7 @@ $checkUpdate = Document::find()->where(['hn' => $hn, 'updated_at' => DateTimeHel
             <div class="panel-body shadow">
 
                 <div class="container_loadding">
-                    <h3>Loading, please wait.</h3>
-                    <div class="progress-bar">
-                        <div class="shadow"></div>
-                    </div>
+                    <h3>Loading, please wait. <?=Html::img('@web/img/loadding30.gif', ['width' => '80px','text-center']);?></h3>
                 </div>
                 <div id="view-document"></div>
             </div>
@@ -119,16 +93,18 @@ $checkUpdate = Document::find()->where(['hn' => $hn, 'updated_at' => DateTimeHel
 
 </div>
 </div>
+<?php else:?>
+<h1 class="text-center">กรุณาระบุ HN </h1>
+<?php endif;?>
 
-
-<div id="hn" hidden><?= $hn; ?></div>
+<!-- <div id="hn" hidden><?php // $hn; ?></div> -->
 <?php
 $img = Html::img('@web/img/loadding30.gif', ['width' => '80px']);
 $get_url_insert = Url::base(true) . '/index.php?r=api/add-barcode';
 
 $js = <<< JS
 var document_him = localStorage.getItem("document_him");
-var hn  = $('#hn').text()
+// var hn  = $('#hn').text()
 // var url_convert_him = 'http://127.0.0.1:5000/barcode-him'
 var url_convert_him = '$barcode_api';
 var url_insert = '$get_url_insert';
@@ -143,12 +119,13 @@ if(checkUpdate < 1){
     $('.container_loadding').hide();
     loadEmrDocument()
 }
+// loadEmrDocument();
 
-$('#api').click(function (e) { 
-    e.preventDefault();
-    convertFile($hn,url_convert_him,url_insert);
-    // console.log(url_insert)
-});
+// $('#api').click(function (e) { 
+//     e.preventDefault();
+//     convertFile($hn,url_convert_him,url_insert);
+//     // console.log(url_insert)
+// });
 
 
 $('#python-load').click(function (e) { 
@@ -156,7 +133,7 @@ $('#python-load').click(function (e) {
     $.ajax({
     type: "get",
     url: "index.php?r=emr/default/test",
-    data: {hn : $hn},
+    data: {hn : '$hn'},
     dataType: "json",
     success: function (response) {
         $('#show-py').html(response)
@@ -190,11 +167,13 @@ function loadEmrDocument(){
     $.ajax({
         type: "get",
         beforeSend:function(){
-            $('#view-document').html('<img src="img/loading.gif" style="margin-left: 400px;margin-top: 50px;padding-bottom: 18px;" />');
+            // $('#view-document').html('<img src="img/loading.gif" style="margin-left: 400px;margin-top: 50px;padding-bottom: 18px;" />');
+            $('.container_loadding').show();
         },
         url: "index.php?r=document/default/index",
         dataType: "json",
         success: function (response) {
+            $('.container_loadding').hide();
             $('#view-document').html(response);
         }
     });

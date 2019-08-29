@@ -7,6 +7,7 @@ use yii\rest\ActiveController;
 use yii\web\Response;
 use app\modules\document\models\Documentqr;
 use app\modules\document\models\Document;
+use app\modules\hispatient\models\HisPatient;
 use JsonRpc as Rpc;
 use app\components\HISHelper;
 
@@ -97,14 +98,36 @@ class ApiController extends ActiveController
     }
 
     public function actionPatient(){
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $hn = \Yii::$app->request->post('hn');
-        $reg_ = HISHelper::getPatientByHn($hn); //ข้อมูลทะเบียนประวัติ
-        if (!$reg_) {
-            $content = '! ไม่มีข้อมูล HN. ' . $hn . ' กรุณาติดต่อเวชระเบียน';
-            return ['error' => true, 'content' => $content];
+        $model = HisPatient::findOne(['hn' => $hn]);
+        
+        if(Yii::$app->request->isAjax){
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        if($model){
+            return $this->redirect(['/emr', 'hn' => $hn]);
+        }else{
+            Yii::$app->session->setFlash('warning', 'ไม่พบ HN : '.$hn);
+            // return $this->redirect(['/emr']);
+            return[
+                'title'=> 'ttt',
+                'content' => 'Error',
+                'error' => true
+            ];
         }
-        $patient = $reg_[0];
+    }else{
+        if($model){
+            return $this->redirect(['/emr', 'hn' => $hn]);
+        }else{
+            Yii::$app->session->setFlash('warning', 'ไม่พบ HN : '.$hn);
+            return $this->redirect(['/emr']);
+        }
+    }
+        // $reg_ = HISHelper::getPatientByHn($hn); //ข้อมูลทะเบียนประวัติ
+        // if (!$reg_) {
+        //     $content = '! ไม่มีข้อมูล HN. ' . $hn . ' กรุณาติดต่อเวชระเบียน';
+        //     return ['error' => true, 'content' => $content];
+        // }
+        // $patient = $reg_[0];
         // $div = \Yii::$app->request->post('dep');
         // $visit_ = HISHelper::getVisitByHnDiv($hn, $div); //ข้อมูลรับบริการของผู้ป่วยตามหน่วยงาน
         // if (!$visit_) {
@@ -117,6 +140,5 @@ class ApiController extends ActiveController
         //     $title = '<i class="fas fa-user"></i> ' . $patient->prefix . $patient->fname . ' ' . $patient->lname;
         //     return ['error' => true, 'title' => $title, 'content' => $content];
         // }
-     
     }
 }

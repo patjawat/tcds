@@ -8,10 +8,13 @@ use yii\bootstrap\Modal;
 use cenotia\components\modal\RemoteModal;
 use app\components\UserHelper;
 use app\components\PatientHelper;
+use app\modules\hispatient\models\HisPatient;
 
 DevAsset::register($this);
 \yii\bootstrap\BootstrapAsset::register($this);
-$hn = PatientHelper::getCurrentHn();
+// $hn = PatientHelper::getCurrentHn();
+$hn = Yii::$app->request->get('hn');
+$patient = HisPatient::findOne(['hn' => $hn]);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -366,7 +369,7 @@ $hn = PatientHelper::getCurrentHn();
                                             // 'action' => Url::to(['/patient/search/api']),
                                             'action' => Url::to(['/api/patient']),
                                             'options' => ['class' => 'form-inline'],
-                                            'id' => 'form-search'
+                                            'id' => 'form-emr-search'
                                 ]);
                                 ?>
                             <div class="form-group">
@@ -392,7 +395,8 @@ $hn = PatientHelper::getCurrentHn();
                     <li>
                         <div style="color: white;margin-left: 17px;margin-top:0px;">
                             <h4>
-                                <?= empty($this->params['pt_title']) ? '' : $this->params['pt_title'] ?>
+                                
+                                <?= empty($patient) ? '' : $patient->patienttitle($hn); ?>
                                 <?php if (!empty($hn)): ?>
                                 <?php // Html::a('  <i class="fas fa-power-off"></i>', ['/site/index'], ['style' => 'color:white', 'title' => 'ยกเลิกให้บริการ','class' => 'btn btn-sm btn-danger']) ?>
                                 <?php endif; ?>
@@ -483,7 +487,7 @@ $('#show-department').click(function(){
 
 
 // ค้นหาผู้มารับบริการ ########################
-$("#form-search").submit(function(event) {
+$("#form-emr-search").submit(function(event) {
     event.preventDefault(); // stopping submitting
     var data = $(this).serializeArray();
     var url = $(this).attr('action');
@@ -511,8 +515,9 @@ $("#form-search").submit(function(event) {
     })
     .fail(function() {
         console.log("error");
+        return false;
     });
-
+    return false;
 });
 
 JS;

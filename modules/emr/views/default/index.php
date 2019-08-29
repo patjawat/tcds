@@ -6,12 +6,42 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use lo\widgets\modal\ModalAjax;
 use kartik\tabs\TabsX;
+use lo\modules\noty\Wrapper;
+
 
 $hn = PatientHelper::getCurrentHn() ? PatientHelper::getCurrentHn()  : "";
 $hnEmr = PatientHelper::getCurrentHnEmr();
-// PatientHelper::DrugAlert();
 
-// $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
+
+echo Wrapper::widget([
+    // 'layerClass' => 'lo\modules\noty\layers\Noty',
+    'layerClass' => 'lo\modules\noty\layers\Growl',
+    'layerOptions'=>[
+        // for every layer (by default)
+        'layerId' => 'noty-layer',
+        'customTitleDelimiter' => '|',
+        'overrideSystemConfirm' => true,
+        'showTitle' => true,
+
+        // for custom layer
+        // 'registerAnimateCss' => true,
+        // 'registerButtonsCss' => true
+    ],
+
+    // clientOptions
+    'options' => [
+        'dismissQueue' => true,
+        // 'layout' => 'topRight',
+        'location' => 'br',
+        'size' => 'medium',
+        'layout' => 'topLeft',
+        'timeout' => 7000,
+        'theme' => 'relax',
+
+        // and more for this library...
+    ],
+]);
+
 ?>
 <style>
 .navbar-default .navbar-nav>li.dropdown:hover>a,
@@ -82,3 +112,4 @@ echo $this->render('./document',[
     'initialPreviewConfig'=> $initialPreviewConfig,
     ])  
 ?>
+

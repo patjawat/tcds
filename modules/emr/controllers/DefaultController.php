@@ -21,9 +21,9 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $this->layout = '@app/themes/dev/views/layouts/emr';
-
-        $hn = PatientHelper::getCurrentHn();
-        $doc_qr = Documentqr::findOne(['hn' => $hn]);
+        $hn = Yii::$app->request->get('hn');
+        // $hn = PatientHelper::getCurrentHn();
+        // $doc_qr = Documentqr::findOne(['hn' => $hn]);
         list($initialPreview,$initialPreviewConfig) = $this->getInitialPreview($hn);
         return $this->render('index',[
             'initialPreview'=> $initialPreview,

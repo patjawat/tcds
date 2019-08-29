@@ -114,7 +114,7 @@ loadEmrDocumentQR();
 // ตรวจสอบการ แปลง file
 // ถ้าวันนี้ยังไม่มีการแปลงไฟล์ให้ cpnvert
 if(checkUpdate < 1){ 
-    convertFile($hn,url_convert_him,url_insert);
+    convertFile('$hn',url_convert_him,url_insert);
 }else{ 
     $('.container_loadding').hide();
     loadEmrDocument()

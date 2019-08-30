@@ -6,7 +6,7 @@ use app\components\PatientHelper;
 use app\modules\document\models\Document;
 use app\modules\document\models\DocumentType;
 $this->title = 'Documents';
-$hn = PatientHelper::getCurrentHn();
+// $hn = PatientHelper::getCurrentHn();
 $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 ?>
 

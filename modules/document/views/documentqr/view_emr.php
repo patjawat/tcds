@@ -5,7 +5,7 @@ use app\modules\document\models\DocumentQrType;
 use yii\helpers\Html;
 
 $this->title = 'Documents';
-$hn = PatientHelper::getCurrentHn();
+// $hn = PatientHelper::getCurrentHn();
 $this->params['pt_title'] = PatientHelper::getPatientTitleByHn($hn);
 ?>
 

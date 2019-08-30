@@ -1,36 +1,36 @@
-function LoadDocumentRQForm(){
-    $.ajax({
-    type: "get",
-    url: "index.php?r=document%2Fdocumentqr/view-emr",
-    dataType: "json",
-    success: function (response) {
-        $('.view-doc').html(response);
-    }
-});
+// function LoadDocumentRQForm(){
+//     $.ajax({
+//     type: "get",
+//     url: "index.php?r=document%2Fdocumentqr/view-emr",
+//     dataType: "json",
+//     success: function (response) {
+//         $('.view-doc').html(response);
+//     }
+// });
 
-}
+// }
 
 
-function loadEmrDocument(){
-    $.ajax({
-        type: "get",
-        url: "index.php?r=document/default/index",
-        dataType: "json",
-        success: function (response) {
-            $('#view-document').html(response);
-        }
-    });
-}
-function loadEmrDocumentQR(){
-    $.ajax({
-        type: "get",
-        url: "index.php?r=document/documentqr/view-emr",
-        dataType: "json",
-        success: function (response) {
-            $('#view-document-qr').html(response);
-        }
-    });
-}
+// function loadEmrDocument(){
+//     $.ajax({
+//         type: "get",
+//         url: "index.php?r=document/default/index",
+//         dataType: "json",
+//         success: function (response) {
+//             $('#view-document').html(response);
+//         }
+//     });
+// }
+// function loadEmrDocumentQR(){
+//     $.ajax({
+//         type: "get",
+//         url: "index.php?r=document/documentqr/view-emr",
+//         dataType: "json",
+//         success: function (response) {
+//             $('#view-document-qr').html(response);
+//         }
+//     });
+// }
 
 function convertFile(hn,url,url_insert){
     $.ajax({

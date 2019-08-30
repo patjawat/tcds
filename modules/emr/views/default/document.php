@@ -118,7 +118,7 @@ if(checkUpdate < 1){
     convertFile('$hn',url_convert_him,url_insert);
 }else{ 
     $('.container_loadding').hide();
-    loadEmrDocument()
+    loadEmrDocument('$hn')
 }
 // loadEmrDocument();
 
@@ -126,7 +126,7 @@ $('#api').click(function (e) {
     e.preventDefault();
     // convertFile($hn,url_convert_him,url_insert);
     // console.log(url_insert)
-    loadEmrDocument()
+    loadEmrDocument('$hn')
 });
 
 
@@ -165,7 +165,7 @@ $('#test').click(function (e) {
 });
 
 
-function loadEmrDocument(){
+function loadEmrDocument(hn){
     $.ajax({
         type: "get",
         beforeSend:function(){
@@ -173,7 +173,7 @@ function loadEmrDocument(){
             $('.container_loadding').show();
         },
         url: "index.php?r=document/default/index",
-        data: {hn : '$hn'},
+        data: {hn : hn},
         dataType: "json",
         success: function (response) {
             $('.container_loadding').hide();

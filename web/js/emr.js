@@ -32,6 +32,34 @@
 //     });
 // }
 
+function loadEmrDocument(hn){
+    $.ajax({
+        type: "get",
+        beforeSend:function(){
+            // $('#view-document').html('<img src="img/loading.gif" style="margin-left: 400px;margin-top: 50px;padding-bottom: 18px;" />');
+            $('.container_loadding').show();
+        },
+        url: "index.php?r=document/default/index",
+        data: {hn : hn},
+        dataType: "json",
+        success: function (response) {
+            $('.container_loadding').hide();
+            $('#view-document').html(response);
+        }
+    });
+}
+function loadEmrDocumentQR(hn){
+    $.ajax({
+        type: "get",
+        url: "index.php?r=document/documentqr/view-emr",
+        data: {hn : hn},
+        dataType: "json",
+        success: function (response) {
+            $('#view-document-qr').html(response);
+        }
+    });
+}
+
 function convertFile(hn,url,url_insert){
     $.ajax({
         type: "post",
@@ -48,6 +76,8 @@ function convertFile(hn,url,url_insert){
                loadEmrDocument(hn);
                $('.container_loadding').hide();
                $('#view-document').show();
+            //    console.log(hn+'xxx');
+            // alert(hn);
             }
         
         }

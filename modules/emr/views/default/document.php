@@ -44,7 +44,7 @@ $checkUpdate = Document::find()->where(['hn' => $hn, 'updated_at' => DateTimeHel
 
 
 </style>
-
+<button id="api">Click debug</button>
 <?php if($hn):?>
 <ul class="nav nav-tabs" style="width:100%;height: 44px;">
     <li class="active"><a data-toggle="tab" href="#home-document"><i class="fas fa-barcode"></i> Document BarCode</a>

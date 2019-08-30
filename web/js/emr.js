@@ -45,7 +45,7 @@ function convertFile(hn,url,url_insert){
             if(response.prediction !==""){
                 $("#loader").hide();
                 localStorage.setItem("document_him",hn)
-               loadEmrDocument();
+               loadEmrDocument(hn);
                $('.container_loadding').hide();
                $('#view-document').show();
             }

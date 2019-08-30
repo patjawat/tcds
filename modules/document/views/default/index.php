@@ -123,6 +123,7 @@ endforeach;
             $img = 'reg/'.$model->hn.'/'.$model->sub_dir.'/'.$model->filename.'.jpg';
              echo Html::img($img,['width' => '100%','class'=>"img-responsive filter $model->sub_dir"]);
             ?>
+            <?=$model->id?>
             <?php endforeach;?>
         </div>
 

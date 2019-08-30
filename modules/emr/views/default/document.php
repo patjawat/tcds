@@ -44,6 +44,7 @@ $checkUpdate = Document::find()->where(['hn' => $hn, 'updated_at' => DateTimeHel
 
 
 </style>
+
 <?php if($hn):?>
 <ul class="nav nav-tabs" style="width:100%;height: 44px;">
     <li class="active"><a data-toggle="tab" href="#home-document"><i class="fas fa-barcode"></i> Document BarCode</a>
@@ -121,11 +122,12 @@ if(checkUpdate < 1){
 }
 // loadEmrDocument();
 
-// $('#api').click(function (e) { 
-//     e.preventDefault();
-//     convertFile($hn,url_convert_him,url_insert);
-//     // console.log(url_insert)
-// });
+$('#api').click(function (e) { 
+    e.preventDefault();
+    // convertFile($hn,url_convert_him,url_insert);
+    // console.log(url_insert)
+    loadEmrDocument()
+});
 
 
 $('#python-load').click(function (e) { 
@@ -171,6 +173,7 @@ function loadEmrDocument(){
             $('.container_loadding').show();
         },
         url: "index.php?r=document/default/index",
+        data: {hn : '$hn'},
         dataType: "json",
         success: function (response) {
             $('.container_loadding').hide();
@@ -182,6 +185,7 @@ function loadEmrDocumentQR(){
     $.ajax({
         type: "get",
         url: "index.php?r=document/documentqr/view-emr",
+        data: {hn : '$hn'},
         dataType: "json",
         success: function (response) {
             $('#view-document-qr').html(response);

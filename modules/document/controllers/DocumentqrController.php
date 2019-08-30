@@ -93,7 +93,8 @@ class DocumentqrController extends Controller
         //     ]);
         // }
 
-        $hn = PatientHelper::getCurrentHn() ? PatientHelper::getCurrentHn() : PatientHelper::getCurrentHnEmr();
+        // $hn = PatientHelper::getCurrentHn() ? PatientHelper::getCurrentHn() : PatientHelper::getCurrentHnEmr();
+        $hn = Yii::$app->request->get('hn');
         $searchModel = new DocumentqrSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->where(['hn' => $hn]);
